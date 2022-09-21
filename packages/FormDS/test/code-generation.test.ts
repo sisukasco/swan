@@ -8,6 +8,6 @@ test("GENCODE101: generate element container code", ()=>{
     const gc = generateCode(container, {framework:"bootstrap"})
     const code = gc.getHTMLCode(false)
     //console.log("generated code ", code)
-    expect(code).toBe('<div class="container"><div class="page"><div class="row my-3"><div class="col-12"><div class="sim-textblock">The contents of the text block</div></div></div><div class="row my-3"><div class="col-12"><div class="sim-textblock">The contents of the text block</div></div></div></div></div>')
+    expect(code).toBe('<div class="container"><div class="row mb-3"><div class="col-12"><div class="sim-textblock">The contents of the text block</div></div></div><div class="row mb-3"><div class="col-12"><div class="sim-textblock">The contents of the text block</div></div></div></div>')
     
 })

@@ -370,7 +370,7 @@ export class DElementContainer implements Codeable
         const container = node.section('layout.container')
         for(let pg of this.pages)
         {
-            pg.code(container)
+            pg.code(container, this.pages.length)
         }
     }
 }

@@ -27,7 +27,7 @@ class BootstrapCoder implements CodingAssistant
         }
         else if(section == 'layout.row')
         {
-            return this.nodec('div',{class:['row','my-3']}, attributes);
+            return this.nodec('div',{class:['row','mb-3']}, attributes);
         }
         else if(section == 'layout.col')
         {
@@ -36,11 +36,11 @@ class BootstrapCoder implements CodingAssistant
             {
                 if(attributes.width <= 33)
                 {   
-                    colx ='col-4'
+                    colx ='col-md-4'
                 }
                 else if(attributes.width <= 66)
                 {
-                    colx ='col-8'
+                    colx ='col-md-8'
                 }
                 else
                 {
@@ -74,7 +74,8 @@ class BootstrapCoder implements CodingAssistant
 
         else if(section == 'form.input.container')
         {
-            return this.nodec('div',{class:['form-group']}, attributes);
+            //return this.nodec('div',{}, attributes);
+            return this.nodec('',{}, attributes);
         }
         else if(section == 'form.input.label')
         {
@@ -85,7 +86,7 @@ class BootstrapCoder implements CodingAssistant
             }
             else
             {
-                return this.nodec('label',{}, attributes);
+                return this.nodec('label',{class:["form-label"]}, attributes);
             }
             
         }
@@ -133,10 +134,13 @@ class BootstrapCoder implements CodingAssistant
             }
             delete attribs['alignment']
             return this.nodec('div',attrs,attribs);
-        }
+        }/*
+        Error area is not added for the time being. Later may be there can be an option to enable */
         else if(section == 'form.input.error')
         {
-            return this.nodec('div',{class:['text-danger']},attributes);
+            //return this.nodec('div',{class:['text-danger']},attributes);
+
+            return this.nodec('',{},attributes);
         }
         else if(section == 'button.button')
         {
@@ -170,13 +174,13 @@ class BootstrapCoder implements CodingAssistant
         
         return null;
     }
-    modify(section:string,node:NodeItem)
+    /*modify(section:string,node:NodeItem)
     {
         if(section == 'tag' && 
             node.tag_name =='input')
         {
             node.attribute('class', 'form-control');
         }
-    }
+    }*/
     
 }

@@ -17,6 +17,9 @@ class TextboxSettings
     public default_value:string='';
 }
 
+type InputAttributes ={
+    [k:string]:string
+}
 class DTextbox extends DFormElement
 {
     @Type(()=>TextboxSettings)
@@ -40,10 +43,16 @@ class DTextbox extends DFormElement
         const container = coder.section('form.input.container');
 
         container.section('form.input.label', {'for':this.name}).html(this.label);
-        container.section('form.input.input',{type:'text', 
-        placeholder:this.settings.placeholder,
-        name:this.name,
-        id:this.name});
+        const attrs:InputAttributes = {
+            type:'text', 
+            name:this.name,
+            id:this.name
+        }
+
+        if(this.settings.placeholder){
+            attrs['placeholder'] = this.settings.placeholder
+        }
+        container.section('form.input.input',attrs);
         container.section('form.input.error',{name:this.name});
 
     }

@@ -46,5 +46,5 @@ test("ASSIST2: test BootstrapCoder", ()=>
     const html = nodegen.code();
     console.log("Generated html", html);
     
-    expect(html).toEqual(`<div><div><div class="container"><div class="row my-3"><form action="#" method="post"><div class="col"><label>Name is</label></div><div class="col"><input type="text" name="name" class="form-control"/></div></form></div></div></div></div>`)
+    expect(html).toEqual(`<div><div><div class="container"><div class="row mb-3"><form action="#" method="post"><div class="col"><label>Name is</label></div><div class="col"><input type="text" name="name"/></div></form></div></div></div></div>`);
 })

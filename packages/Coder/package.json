@@ -2,9 +2,10 @@
   "name": "@sisukas/coder",
   "version": "1.0.8",
   "license": "LGPL-2.1-or-later",
-  "main": "src/index.ts",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "files": [
-    "src"
+    "dist"
   ],
   "engines": {
     "node": ">=10"

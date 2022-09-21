@@ -24,9 +24,13 @@ export default class DPage
 
     }
     
-    code(node:NodeItem)
+    code(node:NodeItem, nPages:Number)
     {
-        const page = node.section('layout.page')
+        let page = node;
+        if(nPages > 1){
+            page = node.section('layout.page')
+        }
+        
         for(let row of this.rows)
         {
             let rcode = page.section("layout.row")
