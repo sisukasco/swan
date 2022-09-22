@@ -6,7 +6,7 @@ import "reflect-metadata";
 import {Type} from "@sisukas/base-runtime";
 import {NodeItem} from "@sisukas/coder-interface";
 import { ExcludeDefault } from '@sisukas/base-runtime';
-
+import {InputAttributes } from "./attribs";
 
 class NumberSettings
 {
@@ -53,10 +53,16 @@ class DNumber extends DFormElement
         const container = coder.section('form.input.container');
 
         container.section('form.input.label', {'for':this.name}).html(this.label);
-        container.section('form.input.input',{type:'number', 
-        placeholder:this.settings.placeholder,
-        name:this.name,
-        id:this.name});
+        const attrs:InputAttributes = {
+            type:'number', 
+            name:this.name,
+            id:this.name
+        }
+        if(this.settings.placeholder){
+            attrs['placeholder'] = this.settings.placeholder
+        }
+
+        container.section('form.input.input',attrs);
         container.section('form.input.error',{name:this.name});
     }
 }

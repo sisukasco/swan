@@ -5,6 +5,7 @@ import "reflect-metadata";
 import {Type} from "@sisukas/base-runtime";
 import {NodeItem} from "@sisukas/coder-interface";
 import { ExcludeDefault } from '@sisukas/base-runtime';
+import {InputAttributes } from "./attribs";
 
 class DEmailSettings
 {
@@ -33,10 +34,19 @@ class DEmail extends DFormElement
         const container = coder.section('form.input.container');
 
         container.section('form.input.label', {'for':this.name}).html(this.label);
-        container.section('form.input.input',{type:'email', 
-        placeholder:this.settings.placeholder, novalidate:"novalidate",
-        name:this.name,
-        id:this.name});
+
+        const attrs:InputAttributes = {
+            type:'email', 
+            name:this.name,
+            id:this.name
+        }
+        if(this.settings.placeholder){
+            attrs['placeholder'] = this.settings.placeholder
+        }
+
+
+        container.section('form.input.input',attrs);
+        
         container.section('form.input.error',{name:this.name});
     }
 }

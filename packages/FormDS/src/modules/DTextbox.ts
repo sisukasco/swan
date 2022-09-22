@@ -6,6 +6,7 @@ import {TextboxValidations} from "../containers";
 import {NodeItem} from "@sisukas/coder-interface";
 import { ExcludeDefault } from '@sisukas/base-runtime';
 import { Type } from "@sisukas/base-runtime";
+import {InputAttributes } from "./attribs";
 
 
 class TextboxSettings
@@ -17,9 +18,7 @@ class TextboxSettings
     public default_value:string='';
 }
 
-type InputAttributes ={
-    [k:string]:string
-}
+
 class DTextbox extends DFormElement
 {
     @Type(()=>TextboxSettings)
