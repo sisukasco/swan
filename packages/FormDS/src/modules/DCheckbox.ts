@@ -31,7 +31,7 @@ class DCheckbox extends DFormElement
 
     public code(node:NodeItem)
     {
-        const container = node.section('form.input.container', {class:['form-check']});
+        const container = node.section('form.input.container', {type: this.type, width: this.width});
 
         container.section('form.input.input', {type:"checkbox", name:this.name, id:this.name});
 

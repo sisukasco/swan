@@ -106,8 +106,8 @@ export default class VisualElement
 	
 	code(node:NodeItem)
 	{
-		const coder = node.section('layout.col', {width:this.elmnt.width});
-		this.elmnt.code(coder);
+		//const coder = node.section('layout.col', {width:this.elmnt.width});
+		this.elmnt.code(node);
 	}
 
 }

@@ -31,7 +31,7 @@ class DEmail extends DFormElement
 
     public code(coder:NodeItem)
     {
-        const container = coder.section('form.input.container');
+        const container = coder.section('form.input.container', { width: this.width});
 
         container.section('form.input.label', {'for':this.name}).html(this.label);
 
@@ -43,10 +43,19 @@ class DEmail extends DFormElement
         if(this.settings.placeholder){
             attrs['placeholder'] = this.settings.placeholder
         }
-
+        
+        if(this.validations.required.enabled){
+            attrs['required'] = 'required'
+        }
+        if(this.validations.maxlength.size != null){
+            attrs['maxlength'] = String(this.validations.maxlength.size)
+        }
+        if(this.validations.minlength.size != null){
+            attrs['minlength'] = String(this.validations.minlength.size)
+        }
 
         container.section('form.input.input',attrs);
-        
+
         container.section('form.input.error',{name:this.name});
     }
 }

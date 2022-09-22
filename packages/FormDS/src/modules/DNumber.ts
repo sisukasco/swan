@@ -48,18 +48,32 @@ class DNumber extends DFormElement
         return Number(this.settings.default_value);
     }
 
+
     public code(coder:NodeItem)
     {
-        const container = coder.section('form.input.container');
+        const container = coder.section('form.input.container', { width: this.width});
 
         container.section('form.input.label', {'for':this.name}).html(this.label);
         const attrs:InputAttributes = {
             type:'number', 
             name:this.name,
-            id:this.name
+            id:this.name,
         }
         if(this.settings.placeholder){
             attrs['placeholder'] = this.settings.placeholder
+        }
+        if(this.default_value){
+            attrs['value'] = this.default_value
+        }
+
+        if(this.validations.required.enabled){
+            attrs['required'] = 'required'
+        }
+        if(this.validations.min.num != null){
+            attrs['min'] = String(this.validations.min.num)
+        }
+        if(this.validations.max.num != null){
+            attrs['max'] = String(this.validations.max.num)
         }
 
         container.section('form.input.input',attrs);

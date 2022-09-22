@@ -31,6 +31,28 @@ class BootstrapCoder implements CodingAssistant
         }
         else if(section == 'layout.col')
         {
+            //*layout.col is not required. Can be removed.
+            return this.nodec('',{}, attributes);
+        }
+        else if(section == 'layout.page.top_section')
+        {
+            return this.nodec('div',{class:['sfm-page-top']}, attributes);
+        }
+        else if(section == 'layout.page.container')
+        {
+            return this.nodec('div',{class:['sfm-pages']}, attributes);
+        }
+        else if(section == 'layout.page')
+        {
+            return this.nodec('div',{class:['sfm-page']}, attributes);
+        }
+        else if(section == 'layout.page.bottom_section')
+        {
+            return this.nodec('div',{class:['sfm-page-bottom']}, attributes);
+        }
+
+        else if(section == 'form.input.container')
+        {
             let colx=''
             if(attributes.width)
             {
@@ -52,30 +74,16 @@ class BootstrapCoder implements CodingAssistant
             {
                 colx = 'col';
             }
-            
-            return this.nodec('div',{class:[colx]}, attributes);
-        }
-        else if(section == 'layout.page.top_section')
-        {
-            return this.nodec('div',{class:['sfm-page-top']}, attributes);
-        }
-        else if(section == 'layout.page.container')
-        {
-            return this.nodec('div',{class:['sfm-pages']}, attributes);
-        }
-        else if(section == 'layout.page')
-        {
-            return this.nodec('div',{class:['sfm-page']}, attributes);
-        }
-        else if(section == 'layout.page.bottom_section')
-        {
-            return this.nodec('div',{class:['sfm-page-bottom']}, attributes);
-        }
-
-        else if(section == 'form.input.container')
-        {
+            const classes=[]
+            classes.push(colx);
+            if(attributes.type && attributes.type == 'Checkbox')
+            {
+                classes.push('pt-5');
+                delete attributes.type
+            }
             //return this.nodec('div',{}, attributes);
-            return this.nodec('',{}, attributes);
+            //return this.nodec('',{}, attributes);
+            return this.nodec('div',{class:classes}, attributes);
         }
         else if(section == 'form.input.label')
         {
