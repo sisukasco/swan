@@ -6,6 +6,7 @@ import {Type} from "@sisukas/base-runtime";
 import { NodeItem } from "@sisukas/coder-interface";
 import { ExcludeEmpty } from '@sisukas/base-runtime';
 import DItem from "./DItem";
+import {InputAttributes } from "./attribs";
 class DropDownSettings
 {
     @Type(()=>DItem)
@@ -51,12 +52,18 @@ class DDropDown extends DFormElement
     
     public code(node:NodeItem)
     {
-        const container = node.section('form.input.container');
+        const container = node.section('form.input.container', {type: this.type, width: this.width});
         container.section('form.input.label', {'for':this.name}).html(this.label);
-        
-        const sel = container.section('form.input.select',{
-                        name:this.name,
-                        id:this.name});
+
+        const attrs:InputAttributes = {
+            name:this.name,
+            id:this.name            
+        }
+
+        if(this.validations.required.enabled){
+            attrs["required"]="required"
+        }
+        const sel = container.section('form.input.select',attrs);
 
         for(let i=0;i<this.items.length;i++)
         {

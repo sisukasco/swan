@@ -112,7 +112,7 @@ class BootstrapCoder implements CodingAssistant
         }
         else if(section == 'form.input.select')
         {
-            return this.nodec('select',{class:['form-control']}, attributes);
+            return this.nodec('select',{class:['form-select']}, attributes);
         }
         else if(section == 'form.input.textarea')
         {
