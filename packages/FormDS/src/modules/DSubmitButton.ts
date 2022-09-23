@@ -19,7 +19,7 @@ class DSubmitButton extends DElement
     }
     code(node:NodeItem)
     {
-        node.section('button.container',{alignment:this.settings.alignment})
+        node.section('form.input.container',{alignment:this.settings.alignment, type: this.type, width: this.width})
             .section('button.button', {
                 alignment:this.settings.alignment, 
                 size:this.settings.size,
@@ -36,7 +36,8 @@ class DSubmitButton extends DElement
      return(
         {
             'background-color': this.settings.bgColor,
-            'border-color': this.settings.bgColor 
+            'border-color': this.settings.bgColor ,
+            'color': 'white'
         }); 
     }
 } 
