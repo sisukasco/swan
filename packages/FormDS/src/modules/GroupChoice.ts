@@ -18,8 +18,9 @@ export default class GroupChoice
     }
     code(node:NodeItem)
     {
-        let container = node.section('form.group.container');
-        container.section('form.group.label').html(this.elmnt.label);
+        node.section('form.group.label').html(this.elmnt.label);
+        let container = node.section('form.group.container', {arrangement: this.elmnt.settings.arrangement});
+        
         for(let i=0;i<this.elmnt.settings.items.length;i++)
         {
             this.item_code(this.elmnt.settings.items[i],i, container);
@@ -35,7 +36,7 @@ export default class GroupChoice
         let value = item.value?item.value:item.name;
 
         let item_container = 
-        container.section('form.group.item.container',{class:[this.group_item_class()]});
+        container.section('form.group.item.container',{ arrangement: this.elmnt.settings.arrangement });
 
         item_container
             .section('form.input.input', {type:this.type, name:this.elmnt.name,value, id});
@@ -43,10 +44,6 @@ export default class GroupChoice
         item_container.section('form.input.label', {type:"checkbox", "for":id} ).html(item.name);
     }
 
-    private group_item_class()
-    {
-        return(this.elmnt.settings.arrangement == 'horizontal' ? 'form-check-inline':'sim-check-vertical');
-    }
 
     public style()
     {

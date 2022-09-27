@@ -109,13 +109,31 @@ export
         }
         else if (section == 'form.group.container') {
             //.startTag({class:['form-group']}, attributes)
-            return this.nodec('div', {}, attributes);
+            let attrs:Attributes = {}
+
+            if(attributes.arrangement)
+            {
+                if(attributes.arrangement == 'horizontal'){
+                    attrs.class = ["d-flex"]
+                }
+                delete attributes.arrangement
+            }
+            return this.nodec('div', attrs, attributes);
         }
         else if (section == 'form.group.label') {
-            return this.nodec('label', { class: ['form-check-label', 'sim-group-label'] }, attributes);
+
+            return this.nodec('label', { class: ['form-check-label']  }, attributes);
         }
         else if (section == 'form.group.item.container') {
-            return this.nodec('div', { class: ["form-check", "sim-group-item"] }, attributes);
+            let classes = ["form-check"]
+            if(attributes.arrangement)
+            {
+                if(attributes.arrangement == 'horizontal'){
+                    classes.push("form-check-inline","me-3")
+                }
+                delete attributes.arrangement
+            }            
+            return this.nodec('div', { class: classes  }, attributes);
         }
         else if (section == 'button.container') {
             return this.nodec('div', { }, attributes);
