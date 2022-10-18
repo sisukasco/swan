@@ -51,6 +51,29 @@ export
          
             return this.nodec('div', { class: ['fs-6','fw-light'] }, {});
         }
+        else if (section == 'element.container') {
+            let colx = ''
+            if (attributes.width) {
+                if (attributes.width <= 33) {
+                    colx = 'col-md-4'
+                }
+                else if (attributes.width <= 66) {
+                    colx = 'col-md-8'
+                }
+                else {
+                    colx = 'col-12'
+                }
+                delete attributes.width
+            }
+            else {
+                colx = 'col';
+            }
+
+            const classes = []
+            classes.push(colx);
+
+            return this.nodec('div', { class: classes }, attributes);
+        }
         else if (section == 'form.input.container') {
             let colx = ''
             if (attributes.width) {

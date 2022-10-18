@@ -21,9 +21,12 @@ class DHeading extends DElement
 
     public code(coder:NodeItem)
     {
-        coder.section("heading", {type: this.settings.type}).html(this.settings.content)
+
+        const container = coder.section('element.container', {width: this.width});
+
+        container.section("heading", {type: this.settings.type}).html(this.settings.content)
         if(this.settings.hint){
-            coder.section("heading.hint").html(this.settings.hint);
+            container.section("heading.hint").html(this.settings.hint);
         }
     }
 }
