@@ -38,6 +38,19 @@ export
         else if (section == 'layout.page.bottom_section') {
             return this.nodec('div', { class: ['sfm-page-bottom'] }, attributes);
         }
+        else if (section == 'heading') {
+            let type = "h1"
+            if(typeof(attributes["type"]) == "string"){
+                type = attributes["type"]
+            }
+            delete attributes["type"]
+
+            return this.nodec(type,{},attributes);
+        }
+        else if (section == 'heading.hint') {
+         
+            return this.nodec('div', { class: ['fs-6','fw-light'] }, {});
+        }
         else if (section == 'form.input.container') {
             let colx = ''
             if (attributes.width) {
@@ -109,16 +122,35 @@ export
         }
         else if (section == 'form.group.container') {
             //.startTag({class:['form-group']}, attributes)
-            let attrs:Attributes = {}
+            let classes=[]
+
+           /* let colx = ''
+            if (attributes.width) {
+                if (attributes.width <= 33) {
+                    colx = 'col-md-4'
+                }
+                else if (attributes.width <= 66) {
+                    colx = 'col-md-8'
+                }
+                else {
+                    colx = 'col-12'
+                }
+                delete attributes.width
+            }
+            else {
+                colx = 'col';
+            }
+            classes.push(colx);    */        
 
             if(attributes.arrangement)
             {
                 if(attributes.arrangement == 'horizontal'){
-                    attrs.class = ["d-flex"]
+                    classes.push("d-flex", "flex-wrap")
+                    
                 }
                 delete attributes.arrangement
             }
-            return this.nodec('div', attrs, attributes);
+            return this.nodec('div', {class: classes}, attributes);
         }
         else if (section == 'form.group.label') {
 

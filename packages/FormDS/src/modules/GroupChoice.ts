@@ -18,14 +18,17 @@ export default class GroupChoice
     }
     code(node:NodeItem)
     {
-        node.section('form.group.label').html(this.elmnt.label);
-        let container = node.section('form.group.container', {arrangement: this.elmnt.settings.arrangement});
-        
+        const container = node.section('form.input.container', { width: this.elmnt.width});
+        container.section('form.group.label').html(this.elmnt.label);
+
+        let gcontainer = container.section('form.group.container', 
+        { arrangement: this.elmnt.settings.arrangement});
+
         for(let i=0;i<this.elmnt.settings.items.length;i++)
         {
-            this.item_code(this.elmnt.settings.items[i],i, container);
+            this.item_code(this.elmnt.settings.items[i],i, gcontainer);
         }
-        container.section('form.input.error',{name:this.elmnt.name});
+        gcontainer.section('form.input.error',{name:this.elmnt.name});
 
         node.style(this.style());
     }

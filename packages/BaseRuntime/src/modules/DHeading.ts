@@ -21,21 +21,10 @@ class DHeading extends DElement
 
     public code(coder:NodeItem)
     {
-        coder.startTag(this.settings.type, {class:['w-100']})
-        .html(this.settings.content)
-        .startTag('div',{class:['heading-hint', 'w-100']})
-        .html(this.settings.hint);
-        
-        coder.style(
-            `
-            .heading-hint
-            {
-            color:#888;
-            font-size: 0.9rem;
-            }
-         `
-        )
-        
+        coder.section("heading", {type: this.settings.type}).html(this.settings.content)
+        if(this.settings.hint){
+            coder.section("heading.hint").html(this.settings.hint);
+        }
     }
 }
 
