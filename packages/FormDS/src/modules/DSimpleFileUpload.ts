@@ -16,6 +16,7 @@ class FileUploadSettings
 
 export default class DSimpleFileUpload extends DFormElement
 {
+    @Type(()=>FileUploadSettings)
     public settings = new FileUploadSettings();
 
     constructor()

@@ -1,17 +1,28 @@
-'use strict';
-import {DElement} from '@sisukas/base-runtime';
+import DFormElement from "./DFormElement";
 import { NodeItem } from '@sisukas/coder-interface';
+import "reflect-metadata"; 
+import { ExcludeDefault, Type } from '@sisukas/base-runtime';
+
+class SubmitButtonSettings
+{
+    public label = 'Submit'
+
+    @ExcludeDefault('left')
+    public alignment = 'left'
+
+    @ExcludeDefault('md')
+    public size = 'md'
+
+    @ExcludeDefault('#007bff')
+    public bgColor = '#007bff'
+}
 
 export default
-class DSubmitButton extends DElement
+class DSubmitButton  extends DFormElement
 {
-    public settings =
-    {
-        label:'Submit',
-        alignment:'left',
-        size:'md',
-        bgColor:'#007bff'
-    };
+
+    @Type(()=>SubmitButtonSettings)
+    public settings = new SubmitButtonSettings();
 
     constructor()
     {
