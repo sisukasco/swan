@@ -1,6 +1,6 @@
 {
   "name": "@sisukas/form-ds",
-  "version": "1.0.15",
+  "version": "1.0.17",
   "license": "LGPL-2.1-or-later",
   "main": "src/index.ts",
   "files": [
@@ -54,8 +54,8 @@
     "typescript": "^4.3.4"
   },
   "dependencies": {
-    "@sisukas/base-runtime": "^1.0.19",
-    "@sisukas/coder": "^1.0.6",
+    "@sisukas/base-runtime": "1.0.21",
+    "@sisukas/coder": "1.0.9",
     "reflect-metadata": "^0.1.13"
   }
 }
