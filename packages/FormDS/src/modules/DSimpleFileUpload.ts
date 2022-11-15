@@ -4,6 +4,7 @@ import {SimpleFileUploadValidations} from "../containers";
 import "reflect-metadata"; 
 import {Type} from "@sisukas/base-runtime";
 import { ExcludeDefault } from '@sisukas/base-runtime';
+import {InputAttributes } from "./attribs";
 
 class FileUploadSettings
 {
@@ -30,20 +31,23 @@ export default class DSimpleFileUpload extends DFormElement
 
     public code(coder:NodeItem)
     {
-        const container = coder.section('form.input.container');
-        container.section('form.input.label', 
-        {'for':this.name}).html(this.label);
+        const container = coder.section('form.input.container', { width: this.width});
 
-        container.startTag("simple-file-upload",
-        {
-            name:this.name
-        }).text(this.settings.button_label);
+        container.section('form.input.label', {'for':this.name}).html(this.label);
         
+        const attrs:InputAttributes = {
+            type:'file', 
+            name:this.name,
+            id:this.name,
+        }
+
+        if(this.validations.required.enabled){
+            attrs['required'] = 'required'
+        }
+       
+        container.section('form.input.input',attrs);
+
         container.section('form.input.error',{name:this.name});
-        
-        coder.createCodeBlock('simple-file-upload',
-        `this["@sisukas/aves"].registerSimpleFileUploadComponent(Vue);`);
 
-        coder.addDependency('aves','http://cdn.dollarforms.io/scripts/aves/1.0.0','script');
     }
 }

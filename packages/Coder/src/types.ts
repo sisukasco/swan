@@ -51,10 +51,13 @@ export interface CodingAssistant
     modify?(section:string,node:NodeItem):void;
 }
 
+export type CSSFramework="bootstrap" | "tailwind" |"none"
+
+
 export interface ICodegenOptions
 {
     assistants ?:CodingAssistant[]
-    framework ?:"bootstrap"|"none"
+    framework ?:CSSFramework
 }
 
 
