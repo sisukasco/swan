@@ -22,7 +22,7 @@ class DHeading extends DElement
     public code(coder:NodeItem)
     {
 
-        const container = coder.section('element.container', {width: this.width});
+        const container = coder.section('heading.container', {width: this.width, alignment: this.settings.alignment});
 
         container.section("heading", {type: this.settings.type}).html(this.settings.content)
         if(this.settings.hint){

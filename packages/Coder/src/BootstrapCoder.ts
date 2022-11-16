@@ -38,6 +38,21 @@ export
         else if (section == 'layout.page.bottom_section') {
             return this.nodec('div', { class: ['sfm-page-bottom'] }, attributes);
         }
+        else if (section == 'heading.container') {
+            const classes=[]
+            if (attributes.alignment) {
+                if (attributes.alignment == "center") {
+                    classes.push("text-center")
+                }
+                else if (attributes.alignment == "right") {
+                    classes.push("text-end")
+                }
+                delete attributes.alignment
+            }
+            classes.push(this.containerWidth(attributes));
+
+            return this.nodec('div',{class: classes},attributes);
+        }
         else if (section == 'heading') {
             let type = "h1"
             if(typeof(attributes["type"]) == "string"){
@@ -52,47 +67,16 @@ export
             return this.nodec('div', { class: ['fs-6','fw-light'] }, {});
         }
         else if (section == 'element.container') {
-            let colx = ''
-            if (attributes.width) {
-                if (attributes.width <= 33) {
-                    colx = 'col-md-4'
-                }
-                else if (attributes.width <= 66) {
-                    colx = 'col-md-8'
-                }
-                else {
-                    colx = 'col-12'
-                }
-                delete attributes.width
-            }
-            else {
-                colx = 'col';
-            }
-
             const classes = []
-            classes.push(colx);
+            classes.push(this.containerWidth(attributes));
 
             return this.nodec('div', { class: classes }, attributes);
         }
         else if (section == 'form.input.container') {
-            let colx = ''
-            if (attributes.width) {
-                if (attributes.width <= 33) {
-                    colx = 'col-md-4'
-                }
-                else if (attributes.width <= 66) {
-                    colx = 'col-md-8'
-                }
-                else {
-                    colx = 'col-12'
-                }
-                delete attributes.width
-            }
-            else {
-                colx = 'col';
-            }
+
             const classes = []
-            classes.push(colx);
+            classes.push(this.containerWidth(attributes));
+
             if (attributes.type && attributes.type == 'Checkbox') {
                 classes.push('pt-5');
                 delete attributes.type
@@ -147,24 +131,6 @@ export
             //.startTag({class:['form-group']}, attributes)
             let classes=[]
 
-           /* let colx = ''
-            if (attributes.width) {
-                if (attributes.width <= 33) {
-                    colx = 'col-md-4'
-                }
-                else if (attributes.width <= 66) {
-                    colx = 'col-md-8'
-                }
-                else {
-                    colx = 'col-12'
-                }
-                delete attributes.width
-            }
-            else {
-                colx = 'col';
-            }
-            classes.push(colx);    */        
-
             if(attributes.arrangement)
             {
                 if(attributes.arrangement == 'horizontal'){
@@ -212,13 +178,25 @@ export
 
         return null;
     }
-    /*modify(section:string,node:NodeItem)
-    {
-        if(section == 'tag' && 
-            node.tag_name =='input')
-        {
-            node.attribute('class', 'form-control');
+
+    containerWidth(attributes:Attributes){
+        let colx = ''
+        if (attributes.width) {
+            if (attributes.width <= 33) {
+                colx = 'col-md-4'
+            }
+            else if (attributes.width <= 66) {
+                colx = 'col-md-8'
+            }
+            else {
+                colx = 'col-12'
+            }
+            delete attributes.width
         }
-    }*/
+        else {
+            colx = 'col';
+        }
+        return colx;
+    }    
 
 }

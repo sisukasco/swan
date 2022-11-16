@@ -38,61 +38,62 @@ export
         else if (section == 'layout.page.bottom_section') {
             return this.nodec('div', { class: ['sfm-page-bottom'] }, attributes);
         }
+        else if (section == 'heading.container') {
+            const classes=[]
+            if (attributes.alignment) {
+                if (attributes.alignment == "center") {
+                    classes.push("text-center")
+                }
+                else if (attributes.alignment == "right") {
+                    classes.push("text-right")
+                }
+                delete attributes.alignment
+            }
+            classes.push(this.containerWidth(attributes));
+
+            return this.nodec('div',{class: classes},attributes);
+        }
         else if (section == 'heading') {
             let type = "h1"
+            const classes=[]
             if(typeof(attributes["type"]) == "string"){
                 type = attributes["type"]
+                console.log("heading type ", type)
+                switch(type){
+                    case 'h1':
+                        classes.push("text-3xl")
+                        break;
+                    case 'h2':
+                        classes.push("text-2xl")
+                        break;
+                    case 'h3':
+                        classes.push("text-xl")
+                        break;
+                    case 'h4':
+                        classes.push("text-lg")
+                        break;                       
+                }
             }
             delete attributes["type"]
+            
 
-            return this.nodec(type,{},attributes);
+            return this.nodec(type,{class: classes},attributes);
         }
         else if (section == 'heading.hint') {
          
             return this.nodec('div', { class: ['text-xs','text-gray-500'] }, {});
         }
         else if (section == 'element.container') {
-            let colx = ''
-            if (attributes.width) {
-                if (attributes.width <= 33) {
-                    colx = 'w-1/3'
-                }
-                else if (attributes.width <= 66) {
-                    colx = 'w-2/3'
-                }
-                else {
-                    colx = 'w-full'
-                }
-                delete attributes.width
-            }
-            else {
-                colx = 'w-auto';
-            }
 
             const classes = []
-            classes.push(colx);
+            classes.push(this.containerWidth(attributes));
 
             return this.nodec('div', { class: classes }, attributes);
         }
         else if (section == 'form.input.container') {
-            let colx = ''
-            if (attributes.width) {
-                if (attributes.width <= 33) {
-                    colx = 'w-1/3'
-                }
-                else if (attributes.width <= 66) {
-                    colx = 'w-2/3'
-                }
-                else {
-                    colx = 'w-full'
-                }
-                delete attributes.width
-            }
-            else {
-                colx = 'w-auto';
-            }
             const classes = []
-            classes.push(colx);
+            classes.push(this.containerWidth(attributes));
+
             if (attributes.type && attributes.type == 'Checkbox') {
                 classes.push('pt-5');
                 delete attributes.type
@@ -200,6 +201,26 @@ export
 
 
         return null;
+    }
+
+    containerWidth(attributes:Attributes){
+        let colx = ''
+        if (attributes.width) {
+            if (attributes.width <= 33) {
+                colx = 'w-1/3'
+            }
+            else if (attributes.width <= 66) {
+                colx = 'w-2/3'
+            }
+            else {
+                colx = 'w-full'
+            }
+            delete attributes.width
+        }
+        else {
+            colx = 'w-auto';
+        }
+        return colx;
     }
 
 }
