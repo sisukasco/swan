@@ -77,13 +77,19 @@ export
             const classes = []
             classes.push(this.containerWidth(attributes));
 
-            if (attributes.type && attributes.type == 'Checkbox') {
-                classes.push('pt-5');
+            if (attributes.type) {
+                if(attributes.type == 'Checkbox')
+                {
+                    classes.push('pt-5');
+                } else if(attributes.type == 'SubmitButton')
+                {
+                    classes.push('d-flex')
+                } 
+
                 delete attributes.type
             }
 
-            if (attributes.type && attributes.type == 'SubmitButton') {
-                classes.push('d-flex')
+            if (attributes.alignment) {
 
                 if (attributes['alignment'] == 'left') {
                     classes.push('justify-content-start');

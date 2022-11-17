@@ -94,13 +94,19 @@ export
             const classes = []
             classes.push(this.containerWidth(attributes));
 
-            if (attributes.type && attributes.type == 'Checkbox') {
-                classes.push('pt-5');
+            if (attributes.type) {
+                if(attributes.type == 'Checkbox')
+                {
+                    classes.push('flex', 'items-center');
+                } else if(attributes.type == 'SubmitButton')
+                {
+                    classes.push('flex')
+                } 
+
                 delete attributes.type
             }
 
-            if (attributes.type && attributes.type == 'SubmitButton') {
-                classes.push('flex')
+            if (attributes.alignment) {
 
                 if (attributes['alignment'] == 'left') {
                     classes.push('justify-start');
@@ -120,10 +126,22 @@ export
             return this.nodec('div', { class: classes }, attributes);
         }
         else if (section == 'form.input.label') {
-            return this.nodec('label', { class: ["block"] }, attributes);
+            let classes = ["block"]
 
+            if (attributes['type']) {
+                if (attributes['type'] == 'checkbox'){
+                    classes = ['pl-1']
+                }
+                delete attributes['type'];
+            }
+
+            return this.nodec('label', { class: classes }, attributes);
         }
         else if (section == 'form.input.input') {
+            if (attributes['type'] == 'checkbox' || attributes['type'] == 'radio') {
+
+                return this.nodec('input', {  }, attributes);
+            }
             return this.nodec('input', { class:["w-full"] }, attributes);
 
         }
@@ -160,6 +178,8 @@ export
                 if(attributes.arrangement == 'horizontal'){
                     classes.push("flex", "flex-wrap")
                     
+                }else{
+                    classes.push("space-y-1")
                 }
                 delete attributes.arrangement
             }
@@ -170,11 +190,11 @@ export
             return this.nodec('label', {  }, attributes);
         }
         else if (section == 'form.group.item.container') {
-            let classes = ["form-check"]
+            let classes:string[] = ["flex" ,"items-center"]
             if(attributes.arrangement)
             {
                 if(attributes.arrangement == 'horizontal'){
-                    classes.push("form-check-inline","me-3")
+                    classes.push("mr-3")
                 }
                 delete attributes.arrangement
             }            
@@ -191,7 +211,7 @@ export
         }
         else if (section == 'button.button') {
             let attribs = { ...attributes }
-            let classes = ['btn', 'btn-lg', 'px-4'];
+            let classes = ['px-6', 'py-2', 'rounded', 'shadow'];
 
             if (attribs['alignment']) {
                 delete attribs['alignment'];
