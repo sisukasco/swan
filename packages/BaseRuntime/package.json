@@ -1,6 +1,6 @@
 {
   "name": "@sisukas/base-runtime",
-  "version": "1.0.21",
+  "version": "1.0.22",
   "license": "LGPL-2.1-or-later",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
