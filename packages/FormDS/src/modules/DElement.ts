@@ -80,7 +80,6 @@ export default class DElement
 	}
 	smaller()
 	{
-		console.log("smaller ...", this.width)
 		if(this.width == 100)
 		{
 			this.width=75;
@@ -100,7 +99,7 @@ export default class DElement
 		{
 			this.width = 50;
 		}
-		else if(this.width == 55)
+		else if(this.width == 50)
 		{
 			this.width = 75;
 		}

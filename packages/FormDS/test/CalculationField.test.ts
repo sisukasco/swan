@@ -1,5 +1,5 @@
 import DCalculationField from "../src/modules/DCalculationField";
-import {serialize, deserialize} from "@sisukas/base-runtime";
+import {serialize, deserialize} from "class-transformer";
 
 test('setup',()=>{
     let calcfield = new DCalculationField();

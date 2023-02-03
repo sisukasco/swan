@@ -188,11 +188,14 @@ export
     containerWidth(attributes:Attributes){
         let colx = ''
         if (attributes.width) {
-            if (attributes.width <= 33) {
-                colx = 'col-md-4'
+            if (attributes.width <= 25) {
+                colx = 'col-md-3'
             }
-            else if (attributes.width <= 66) {
-                colx = 'col-md-8'
+            else if (attributes.width <= 50) {
+                colx = 'col-md-6'
+            }
+            else if (attributes.width <= 75) {
+                colx = 'col-md-9'
             }
             else {
                 colx = 'col-12'

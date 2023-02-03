@@ -1,5 +1,5 @@
 import FormValidation from "./FormValidation";
-import { ExcludeDefault } from '@sisukas/base-runtime';
+import { ExcludeDefault } from "../lib/TxUtils";
 
 export default
 class ContentType extends FormValidation

@@ -1,5 +1,5 @@
 import DNumber from "../src/modules/DNumber";
-import {serialize, deserialize} from "@sisukas/base-runtime";
+import {serialize, deserialize} from "class-transformer";
 import {Comparison} from "../src/validations";
 
 describe("DNumber",()=>

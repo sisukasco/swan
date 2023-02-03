@@ -1,5 +1,5 @@
 import DCheckbox from "../src/modules/DCheckbox";
-import {serialize, deserialize} from "@sisukas/base-runtime";
+import {serialize, deserialize} from "class-transformer";
 
 
 describe("DCheckbox", ()=>

@@ -1,4 +1,4 @@
-import { ExcludeDefault } from '@sisukas/base-runtime';
+import { ExcludeDefault } from "../lib/TxUtils";
 
 export default class DItem
 {

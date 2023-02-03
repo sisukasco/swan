@@ -1,7 +1,7 @@
 'use strict';
 import DFormElement from "./DFormElement";
 import {NodeItem} from "@sisukas/coder-interface";
-import { ExcludeDefault } from '@sisukas/base-runtime';
+import { ExcludeDefault } from "../lib/TxUtils";
 
 class HiddenFieldSettings
 {

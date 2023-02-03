@@ -1,7 +1,7 @@
 'use strict';
 
 import element_classes, { DFormElement } from '../modules/index';
-import {plainToClass} from "@sisukas/base-runtime";
+import {plainToClass} from "class-transformer";
 
 export default class FormRuntimeFactory
 {
@@ -50,7 +50,6 @@ export default class FormRuntimeFactory
         {
             return new element_classes[classname];
         }
-        //console.log(" returning null ", element_classes);
         return null;
     }
     

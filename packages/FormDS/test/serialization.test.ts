@@ -1,5 +1,5 @@
-import {serialize} from "@sisukas/base-runtime";
-import {factory, DElementContainer} from '@sisukas/base-runtime';
+import {serialize} from "class-transformer";
+import {factory, DElementContainer} from "../src/lib";
 import DTextbox from "../src/modules/DTextbox";
 import FormRuntimeFactory from "../src/lib/FormRuntimeFactory";
 factory.addFactory(new FormRuntimeFactory());

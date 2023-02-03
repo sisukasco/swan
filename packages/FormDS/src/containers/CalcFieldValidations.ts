@@ -1,7 +1,7 @@
 import {Min, Max} from "../validations";
 import InputValidations from "../validations/InputValidations";
 import "reflect-metadata"; 
-import {Type} from "@sisukas/base-runtime";
+import {Type} from "class-transformer";
 
 
 export default class CalcFieldValidations extends InputValidations

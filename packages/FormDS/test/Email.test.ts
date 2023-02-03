@@ -1,5 +1,5 @@
 import DEmail from "../src/modules/DEmail";
-import {serialize, deserialize} from "@sisukas/base-runtime";
+import {serialize, deserialize} from "class-transformer";
 
 describe('DEmail',()=>
 {

@@ -2,7 +2,7 @@
 import DFormElement from "./DFormElement";
 import {DateValidations} from "../containers"
 import "reflect-metadata"; 
-import {Type} from "@sisukas/base-runtime";
+import {Type} from "class-transformer";
 import {NodeItem} from "@sisukas/coder-interface";
 
 

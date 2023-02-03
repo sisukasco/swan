@@ -1,5 +1,5 @@
 import DCheckboxGroup from "../src/modules/DCheckboxGroup";
-import { serialize,deserialize } from "@sisukas/base-runtime";
+import { serialize,deserialize } from "class-transformer";
 
 describe("DCheckboxGroup", ()=>
 {

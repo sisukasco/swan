@@ -1,5 +1,5 @@
 import DRadioButton from "../src/modules/DRadioButton";
-import {serialize, deserialize} from "@sisukas/base-runtime";
+import {serialize, deserialize} from "class-transformer";
 
 describe("DRadioButton", ()=>
 {

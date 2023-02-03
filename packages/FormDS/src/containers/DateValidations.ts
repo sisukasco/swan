@@ -4,7 +4,7 @@ import { Required,
     ContentType,
     MinDate, MaxDate } from "../validations";
 import "reflect-metadata"; 
-import {Type} from "@sisukas/base-runtime";
+import {Type} from "class-transformer";
 import { OnlyIfEnabled } from "../containers/ValidationSerializer";
 
 export default class DateValidations extends InputValidations

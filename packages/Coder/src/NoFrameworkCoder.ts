@@ -104,24 +104,6 @@ export
             //.startTag({class:['form-group']}, attributes)
             let classes=[]
 
-           /* let colx = ''
-            if (attributes.width) {
-                if (attributes.width <= 33) {
-                    colx = 'col-md-4'
-                }
-                else if (attributes.width <= 66) {
-                    colx = 'col-md-8'
-                }
-                else {
-                    colx = 'col-12'
-                }
-                delete attributes.width
-            }
-            else {
-                colx = 'col';
-            }
-            classes.push(colx);    */        
-
             if(attributes.arrangement)
             {
                 if(attributes.arrangement == 'horizontal'){

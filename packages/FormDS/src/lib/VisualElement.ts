@@ -81,9 +81,7 @@ export default class VisualElement
 	
 	smaller()
 	{
-		console.log("visual element smaller ...")
 		this.elmnt.smaller();
-		console.log("visual element smaller after ", this.elmnt.width)
 	}
 	larger()
 	{

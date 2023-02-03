@@ -1,5 +1,5 @@
 import DTextbox from "../src/modules/DTextbox";
-import {serialize, deserialize} from "@sisukas/base-runtime";
+import {serialize, deserialize} from "class-transformer";
 
 describe("DTextbox",()=>
 {

@@ -1,7 +1,8 @@
 import DFormElement from "./DFormElement";
 import { NodeItem } from '@sisukas/coder-interface';
 import "reflect-metadata"; 
-import { ExcludeDefault, Type } from '@sisukas/base-runtime';
+import { Type } from 'class-transformer';
+import { ExcludeDefault } from "../lib/TxUtils"
 
 class SubmitButtonSettings
 {

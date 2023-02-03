@@ -1,5 +1,5 @@
 import DMultiline from "../src/modules/DMultiline";
-import {serialize, deserialize} from "@sisukas/base-runtime";
+import {serialize, deserialize} from "class-transformer";
 
 describe("DMultiline",()=>
 {

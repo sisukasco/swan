@@ -2,7 +2,7 @@
 import { Required,Min, Max, InputValidations } from "../validations";
 import Comparisons from "../validations/Comparisons";
 import "reflect-metadata"; 
-import {Type} from "@sisukas/base-runtime";
+import {Type} from "class-transformer";
 import { OnlyIfEnabled } from "../containers/ValidationSerializer";
 
 export default class NumberValidations extends InputValidations

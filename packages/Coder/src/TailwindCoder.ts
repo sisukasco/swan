@@ -155,23 +155,6 @@ export
             //.startTag({class:['form-group']}, attributes)
             let classes=[]
 
-           /* let colx = ''
-            if (attributes.width) {
-                if (attributes.width <= 33) {
-                    colx = 'col-md-4'
-                }
-                else if (attributes.width <= 66) {
-                    colx = 'col-md-8'
-                }
-                else {
-                    colx = 'col-12'
-                }
-                delete attributes.width
-            }
-            else {
-                colx = 'col';
-            }
-            classes.push(colx);    */        
 
             if(attributes.arrangement)
             {
@@ -226,11 +209,14 @@ export
     containerWidth(attributes:Attributes){
         let colx = ''
         if (attributes.width) {
-            if (attributes.width <= 33) {
-                colx = 'w-1/3'
+            if (attributes.width <= 25) {
+                colx = 'w-1/4'
             }
-            else if (attributes.width <= 66) {
-                colx = 'w-2/3'
+            else if (attributes.width <= 50) {
+                colx = 'w-1/2'
+            }
+            else if (attributes.width <= 75) {
+                colx = 'w-3/4'
             }
             else {
                 colx = 'w-full'

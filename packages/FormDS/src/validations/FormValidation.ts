@@ -1,5 +1,5 @@
 import "reflect-metadata";
-import { ExcludeDefault } from "@sisukas/base-runtime";
+import { ExcludeDefault } from "../lib/TxUtils";
 import {escapeQuotes} from "../utils";
 
 export  default abstract class FormValidation

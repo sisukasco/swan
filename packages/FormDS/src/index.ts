@@ -1,9 +1,5 @@
-import FormRuntimeFactory from './lib/FormRuntimeFactory';
 export * from "./modules"
-export
-{
-    FormRuntimeFactory
-}
+export * from "./lib"
 
 export {Type, 
     Exclude, 
@@ -14,5 +10,5 @@ export {Type,
     serialize, 
     Transform, 
     TransformationType,
-    deserialize} from "@sisukas/base-runtime"
+    deserialize} from "class-transformer";
 

@@ -1,7 +1,7 @@
 import DFormElement from "./DFormElement";
 import {CalcFieldValidations} from "../containers";
 import "reflect-metadata"; 
-import {Type} from "@sisukas/base-runtime";
+import {Type} from "class-transformer";
 import {NodeItem} from "@sisukas/coder-interface";
 
 export default class DCalculationField extends DFormElement

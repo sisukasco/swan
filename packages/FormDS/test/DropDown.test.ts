@@ -1,5 +1,5 @@
 import DDropDown from "../src/modules/DDropDown";
-import { serialize,deserialize } from "@sisukas/base-runtime";
+import { serialize,deserialize } from "class-transformer";
 import faker from "faker";
 import DItem from '../src/modules/DItem';
 

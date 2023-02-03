@@ -1,5 +1,7 @@
 'use strict';
-import {DElement, ExcludeDefault} from '@sisukas/base-runtime';
+import DElement from "./DElement";
+
+import {ExcludeDefault} from "../lib/TxUtils"
 import {FormValidation, InputValidations} from "../validations";
 
 abstract class DFormElement extends DElement
