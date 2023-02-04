@@ -24,8 +24,8 @@ test("ML100: parsing MultilineParser field",()=>
 test("ML101: parsing MultilineParser validations",()=>
 {
     const direct_name = faker.random.word();
-    const maxlen = faker.random.number();
-    const minlen = faker.random.number();
+    const maxlen = faker.datatype.number();
+    const minlen = faker.datatype.number();
     
     document.body.innerHTML =`
     <form id="myform">

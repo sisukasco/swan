@@ -81,7 +81,7 @@ test("VDN102: parsing required validation required=required",()=>
 test("VDN103: parsing maxlength validation",()=>
 {
     const direct_name = faker.random.word();
-    const maxlen = 1+ faker.random.number(500);
+    const maxlen = 1+ faker.datatype.number(500);
     document.body.innerHTML =`
     <form id="myform">
     <input type="text" maxlength="${maxlen}" 
@@ -102,7 +102,7 @@ test("VDN103: parsing maxlength validation",()=>
 test("VDN104: parsing minlength validation",()=>
 {
     const direct_name = faker.random.word()
-    const minlen = 1+ faker.random.number(500);
+    const minlen = 1+ faker.datatype.number(500);
     document.body.innerHTML =`
     <form id="myform">
     <input type="text" minlength="${minlen}" name="${direct_name}" id="direct_name"/>
