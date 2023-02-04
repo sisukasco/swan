@@ -4,6 +4,7 @@ import {DateValidations} from "../containers"
 import "reflect-metadata"; 
 import {Type} from "class-transformer";
 import {NodeItem} from "@sisukas/coder-interface";
+import {InputAttributes } from "./attribs";
 
 
 class DDate extends DFormElement
@@ -24,14 +25,30 @@ class DDate extends DFormElement
 
     public code(coder:NodeItem)
     {
-        const container = coder.section('form.input.container');
+        const container = coder.section('form.input.container', { width: this.width});
 
         container.section('form.input.label', {'for':this.name}).html(this.label);
-        container.section('form.input.input',{type:'date', 
-        novalidate:"novalidate",
-        name:this.name,
-        id:this.name});
+
+        const attrs:InputAttributes = {
+            type:'date', 
+            name:this.name,
+            id:this.name
+        }
+        
+        if(this.validations.required.enabled){
+            attrs['required'] = 'required'
+        }
+        if(this.validations.max_date.is_enabled()){
+            attrs['max'] = String(this.validations.max_date)
+        }
+        if(this.validations.min_date.is_enabled()){
+            attrs['min'] = String(this.validations.min_date)
+        }
+
+        container.section('form.input.input',attrs);
+
         container.section('form.input.error',{name:this.name});
+
     }
 }
  
