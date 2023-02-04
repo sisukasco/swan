@@ -18,9 +18,6 @@ import DDate from "./DDate";
 import DRange from "./DRange";
 import DDateTime from './DDateTime';
 import DColor from './DColor';
-import DHeading from "./DHeading";
-import DTextBlock from "./DTextBlock";
-import DImage from "./DImage";
 
 export {
     DFormElement,
@@ -43,9 +40,6 @@ export {
     DRange,
     DDateTime,
     DColor,
-    DHeading,
-    DTextBlock,
-    DImage
 }
 
 type modulemap = 
@@ -73,9 +67,6 @@ let modules:modulemap =
     DRange,
     DDateTime,
     DColor,
-    DHeading,
-    DTextBlock,
-    DImage
 }
 
 export default modules;

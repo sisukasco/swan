@@ -1,7 +1,7 @@
 import factory from './Factory';
 import VisualElement from "./VisualElement";
 import DPage from "./DPage";
-import DElement from '../modules/DElement';
+import DElement from '../elements/DElement';
 import "reflect-metadata";
 import {Exclude, Type} from "class-transformer";
 import { Codeable, NodeItem } from "@sisukas/coder-interface";
@@ -208,7 +208,7 @@ export class DElementContainer implements Codeable
         let elmnt_clone = plainToClassObject(elmnt_clone_plain);
         if(!elmnt_clone)
         {
-            return null;
+            throw new Error("Cloned element is null!")
         }
         this.baptise(elmnt_clone);
         let new_v_element = new VisualElement(elmnt_clone);

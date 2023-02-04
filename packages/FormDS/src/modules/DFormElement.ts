@@ -1,5 +1,5 @@
 'use strict';
-import DElement from "./DElement";
+import DElement from "../elements/DElement";
 
 import {ExcludeDefault} from "../lib/TxUtils"
 import {FormValidation, InputValidations} from "../validations";

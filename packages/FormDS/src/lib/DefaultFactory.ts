@@ -1,5 +1,5 @@
 'use strict';
-import element_classes from '../modules';
+import element_classes from '../elements';
 import {plainToClass} from "class-transformer";
 export default class DefaultFactory
 {

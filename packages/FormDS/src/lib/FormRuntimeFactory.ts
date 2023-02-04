@@ -23,7 +23,7 @@ export default class FormRuntimeFactory
         let classname ='D'+elmnt.type;
         if(!element_classes[classname])
         {
-            return null;
+            throw new Error("Didn't find element "+classname)
         }
         if(elmnt.validations === null )
         {

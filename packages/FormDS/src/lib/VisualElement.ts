@@ -1,4 +1,4 @@
-import DElement from "../modules/DElement";
+import DElement from "../elements/DElement";
 import { NodeItem} from "@sisukas/coder-interface";
 import "reflect-metadata";
 import {Exclude} from "class-transformer";

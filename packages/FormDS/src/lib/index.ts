@@ -1,5 +1,5 @@
 import factory from './Factory';
-import DElement from "../modules/DElement";
+import DElement from "../elements/DElement";
 import VisualElement from "./VisualElement";
 import {DElementContainer, PageInfo} from "./DElementContainer";
 
