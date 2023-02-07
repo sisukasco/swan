@@ -33,6 +33,10 @@ export default class DPage
         
         for(let row of this.rows)
         {
+            if(row.length <= 0){
+                //empty row sometimes added at the enc of the page
+                continue;
+            }
             let rcode = page.section("layout.row")
             for(let velmnt of row)
             {
