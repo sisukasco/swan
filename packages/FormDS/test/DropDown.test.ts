@@ -42,17 +42,15 @@ describe("DDropdown",()=>
         let dropdown = new DDropDown();
         dropdown.settings.items_text=""
         
-        console.log("dropdown items", dropdown.items);
         expect(dropdown.items).toStrictEqual([]);
     
     });
 
-    test("DropDown get items trimming", ()=>
+    test("dd0012: DropDown get items trimming", ()=>
     {
         let dropdown = new DDropDown();
         dropdown.settings.items_text=" Select \n my item 1    \n my item 2"
         
-        console.log("dropdown items", dropdown.items);
         expect(dropdown.items.length).toEqual(3);
         expect(dropdown.items[0].value).toEqual('Select');
         expect(dropdown.items[1].value).toEqual('my item 1');
@@ -61,16 +59,21 @@ describe("DDropdown",()=>
         expect(dropdown.items[1].name).toEqual('my item 1');        
     });
 
-    test("DropDown set items ", ()=>
+    test("dd001: DropDown set items ", ()=>
     {
         let dropdown = new DDropDown();
+        let words:string[] = []
         for(let i=0; i< 5; i++)
         {
             const v = faker.random.word()
+            words.push(v)
             dropdown.settings.items.push(new DItem(v,v));
         }
-        console.log("dropdown items\n", dropdown.settings.items_text);
-        
+        const text = dropdown.settings.items_text
+
+        const items = text.split(/\r?\n/)
+        expect(items[0]).toBe(words[0])
+        expect(items[1]).toBe(words[1])
     })
 
 });

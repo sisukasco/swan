@@ -5,7 +5,7 @@ import "reflect-metadata";
 import {Type} from "class-transformer";
 import { NodeItem } from "@sisukas/coder-interface";
 import { ExcludeEmpty } from "../lib/TxUtils";
-import DItem from "./DItem";
+import DItem,{getTextFromItems, getItemsJSON, itemsFromText} from "./DItem";
 import {InputAttributes } from "./attribs";
 class DropDownSettings
 {
@@ -14,15 +14,16 @@ class DropDownSettings
     
     public set items_text(str_items:string)
     {
-        this.items = str_items.split(/\r?\n/)
-                .map( (itm:string)=>(itm.trim()))
-                .filter(itm=>itm && itm.length>0)
-                .map((itm:string)=>(new DItem(itm, itm)));
+        this.items = itemsFromText(str_items);
         
     }
     public get items_text()
     {
-        return this.items.map((itm)=>(itm.value)).join("\n")
+        return getTextFromItems(this.items)
+    }
+
+    public get items_json(){
+        return getItemsJSON(this.items)
     }
 }
 export default
