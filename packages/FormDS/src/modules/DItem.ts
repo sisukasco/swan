@@ -11,6 +11,9 @@ export default class DItem
     
     @ExcludeDefault("")
     public value:string="";
+
+    @ExcludeDefault("")
+    public rvalue:string="";
     
     constructor(name:string, value:string)
     {
@@ -20,6 +23,9 @@ export default class DItem
 
     public isComplex(){
         if(this.name != this.value){
+            return true;
+        }
+        if(this.rvalue){
             return true;
         }
         return false;
@@ -35,6 +41,7 @@ class DItemContainerTmp{
 export function itemsFromText(text:string):DItem[]{
     text = text.trim();
     if(text.charAt(0) == "["){
+        
         const ser =`{"items":`+text+`}`;
         const tmpContainer = deserialize(DItemContainerTmp, ser)
 
@@ -56,15 +63,29 @@ function isComplexItems(items:DItem[]):Boolean{
     return false;
 }
 
+
+const replacer = (key:string, value:any) => {
+    if (key === "rvalue" && value === "") {
+      return undefined;
+    }
+    return value;
+  };
+
+function toJSONItems(items:DItem[]){
+    return JSON.stringify(items,replacer, 2)
+}
 export function getTextFromItems(items:DItem[]):string{
 
     if(isComplexItems(items)){
-        return JSON.stringify(items, null, 2)
+        //return JSON.stringify(items, null, 2)
+        return toJSONItems(items)
     }
 
     return items.map((itm)=>(itm.value)).join("\n")
 }
 
 export function getItemsJSON(items:DItem[]):string{
-    return JSON.stringify(items, null, 2)
+    //return JSON.stringify(items, null, 2)
+
+    return toJSONItems(items)
 }

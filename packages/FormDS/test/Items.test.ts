@@ -1,4 +1,4 @@
-import {itemsFromText, getTextFromItems, getItemsJSON} from '../src/modules/DItem';
+import DItem, {itemsFromText, getTextFromItems, getItemsJSON} from '../src/modules/DItem';
 
 test("items001: Set Items from plain text", ()=>
 {
@@ -162,4 +162,90 @@ test("items005: Set Items from plain text", ()=>
     expect(retObjs.length).toBe(4)
     expect(retObjs[0].name).toBe("Item 1") 
     expect(retObjs[0].value).toBe("Item 1")
+
+    expect(retObjs[0].rvalue).toBeUndefined()
 })
+
+test("items006: when items not complex", ()=>
+{
+    const items:DItem[] = [];
+    items.push(new DItem("item1","item1"));
+    items.push(new DItem("item2","item2"))
+    items.push(new DItem("item3","item3"))
+    items.push(new DItem("item4","item4"))
+
+    const txtItems = getTextFromItems(items)
+
+    const itms = txtItems.split(/\r?\n/)
+    .map( (itm:string)=>(itm.trim()))
+
+    expect(itms[0]).toBe("item1")
+    expect(itms[1]).toBe("item2")
+    expect(itms[2]).toBe("item3")
+    expect(itms[3]).toBe("item4")
+
+})
+
+test("items007: when items get complex with rvalue", ()=>
+{
+    const items:DItem[] = [];
+    items.push(new DItem("item1","item1"));
+    items.push(new DItem("item2","item2"))
+    items.push(new DItem("item3","item3"))
+    items.push(new DItem("item4","item4"))
+
+    items[1].rvalue="1"
+
+    const txtItems = getTextFromItems(items)
+
+    console.log("txtItems ", txtItems)
+
+    const jsonItems = JSON.parse(txtItems)
+
+    expect(jsonItems[0].name).toBe("item1")
+    expect(jsonItems[0].value).toBe("item1")
+    expect(jsonItems[0].rvalue).toBeUndefined()
+
+    expect(jsonItems[1].name).toBe("item2")
+    expect(jsonItems[1].value).toBe("item2")
+    expect(jsonItems[1].rvalue).toBe("1")  
+    
+    expect(jsonItems[2].name).toBe("item3")
+    expect(jsonItems[2].value).toBe("item3")
+    expect(jsonItems[2].rvalue).toBeUndefined()
+
+})
+
+test("rvalue: JSON with rvalue", ()=>
+{
+    const text = `
+    [
+        {"name":"Item 1", "value":"Item  1", "rvalue":"1" },
+        {"name":"Item 2", "value":"Item 2", "rvalue":"2"},
+
+        {"name":"Item 3", "value":"Item 3", "rvalue":"3"},
+
+        {"name":"Item 4", "value":"Item 4"}
+    ]
+    `
+
+    const items = itemsFromText(text)
+    
+    expect(items[0].rvalue).toBe("1")
+    expect(items[1].rvalue).toBe("2")
+    expect(items[2].rvalue).toBe("3")
+    expect(items[3].rvalue).toBe("")
+    
+    const textRes = getTextFromItems(items)
+    const resObj =JSON.parse(textRes)
+    expect(resObj.length).toBe(4)
+    expect(resObj[0].name).toBe("Item 1") 
+    expect(resObj[0].value).toBe("Item  1")
+    expect(resObj[0].rvalue).toBe("1") 
+
+    expect(resObj[1].name).toBe("Item 2") 
+    expect(resObj[1].value).toBe("Item 2")
+    expect(resObj[1].rvalue).toBe("2")     
+        
+})
+
