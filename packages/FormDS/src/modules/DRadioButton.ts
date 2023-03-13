@@ -22,7 +22,13 @@ class RadioButtonSettings
 
     public set items_text(str_items:string)
     {
-        this.items = itemsFromText(str_items);
+        let items;
+        try{
+            items = itemsFromText(str_items);
+        }catch(e){
+            return;
+        }
+        this.items = items
         
     }
     public get items_text()

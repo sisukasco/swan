@@ -1,5 +1,7 @@
 import DRadioButton from "../src/modules/DRadioButton";
-import {serialize, deserialize} from "class-transformer";
+import {serialize, deserialize } from "class-transformer";
+
+import { DElementContainer} from "../src/lib";
 
 describe("DRadioButton", ()=>
 {
@@ -117,6 +119,58 @@ describe("DRadioButton", ()=>
         expect(radio_group.settings.items[1].value).toBe("green")
     })
 
+
+    test("radser001: serialize DRadioButton element", ()=>{
+      let elements_container = new DElementContainer();
+      let vRadioButton = elements_container.add("RadioButton")
+      let radioButtonElmnt = <DRadioButton><unknown>vRadioButton.elmnt
+      
+      radioButtonElmnt.name = 'Colors';
+
+      radioButtonElmnt.settings.items_text = `
+        [
+            {
+              "name": "Red",
+              "value": "red"
+            },
+            {
+              "name": "Green",
+              "value": "green"
+            },
+            {
+              "name": "Blue",
+              "value": "blue"
+            },
+            {
+              "name": "White",
+              "value": "white"
+            },
+            {
+              "name": "Yellow",
+              "value": "yellow"
+            }
+        ]        
+        `
+  
+      const vRadioElmntClone = elements_container.clone(vRadioButton)
+
+      const serRadioElement = serialize(vRadioElmntClone.elmnt)
+  
+      const objRadioElmnt = JSON.parse(serRadioElement)
+
+      expect(objRadioElmnt.settings.items[0]).not.toBe(undefined)
+      
+      /** 
+       ** The correct serialization will skip the default 
+       ** value and will produce items list without rvalue 
+      */
+      expect(objRadioElmnt.settings.items[0].rvalue).toBe(undefined)
+
+      expect(objRadioElmnt.settings.items[1].rvalue).toBe(undefined)
+
+      expect(objRadioElmnt.settings.items[2].rvalue).toBe(undefined)
+
+  })    
 
 
     

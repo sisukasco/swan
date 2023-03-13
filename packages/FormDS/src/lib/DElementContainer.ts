@@ -5,25 +5,14 @@ import DElement from '../elements/DElement';
 import "reflect-metadata";
 import {Exclude, Type} from "class-transformer";
 import { Codeable, NodeItem } from "@sisukas/coder-interface";
+import {classToClass} from "class-transformer";
+
 export interface PageInfo
 {
     title:string;
     condition:string;
     readonly id:string;
     sort_position:number;    
-}
-interface BaseElement
-{
-    type:string,
-    id:number,
-    row:number,
-    col:number,
-    page?:string
-}
-
-function plainToClassObject(p_elmnt:BaseElement):DElement | null
-{
-    return factory.makeFromPlainObject(p_elmnt)
 }
 
 export class DElementContainer implements Codeable
@@ -202,14 +191,13 @@ export class DElementContainer implements Codeable
     public clone(v_elmnt:VisualElement)
     {
         let r = this.find_row(v_elmnt);
-        
-        let elmnt_clone_plain = JSON.parse(JSON.stringify(v_elmnt.elmnt));
 
-        let elmnt_clone = plainToClassObject(elmnt_clone_plain);
+        let elmnt_clone = classToClass(v_elmnt.elmnt)
         if(!elmnt_clone)
         {
             throw new Error("Cloned element is null!")
         }
+
         this.baptise(elmnt_clone);
         let new_v_element = new VisualElement(elmnt_clone);
 
