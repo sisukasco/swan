@@ -3,17 +3,24 @@ import {CalcFieldValidations} from "../containers";
 import "reflect-metadata"; 
 import {Type} from "class-transformer";
 import {NodeItem} from "@sisukas/coder-interface";
+import { ExcludeDefault } from "../lib/TxUtils";
+import {InputAttributes } from "./attribs";
+
+class CalculationFieldSettings
+{
+    public formula:string=''
+
+    @ExcludeDefault('')
+    public format:string=''
+
+    @ExcludeDefault('')
+    public currency_code:string=''
+}
 
 export default class DCalculationField extends DFormElement
 {
-    public settings= {
-        placeholder:'0.00',
-        formula:'',
-        format_currency:false,
-        hidden:false,
-        align:'right',
-        text_size:'md'
-    };
+    @Type(() => CalculationFieldSettings)
+    public settings= new CalculationFieldSettings();
 
     @Type(()=>CalcFieldValidations)
     public readonly validations:CalcFieldValidations = new CalcFieldValidations;
@@ -26,27 +33,37 @@ export default class DCalculationField extends DFormElement
 
     public code(coder:NodeItem)
     {
-        const container = coder.section('form.input.container');
-        container.section('form.input.label', 
-        {'for':this.name}).html(this.label);
+        const container = coder.section('form.input.container', { width: this.width});
 
-        container.startTag("calculated-field",
-        {
-            formula:this.settings.formula,
-            
-            placeholder: this.settings.placeholder,
-            ":variables":"form_data",
-            size: this.settings.text_size,
-            align: this.settings.align,
-            ":hidden":this.settings.hidden,
-            name:this.name
-        });
+        container.section('form.input.label', {'for':this.name}).html(this.label);
+
         
-        coder.createCodeBlock('calc-field',
-        `var CalculatedField = this["@sisukas/aves"].CalculatedField;
-         Vue.component("calculated-field",CalculatedField); `);
 
-        coder.addDependency('aves','http://cdn.dollarforms.io/scripts/aves/1.0.0','script');
+        let format = ""
+        if(this.settings.format == "currency"){
+            if(this.settings.currency_code && this.settings.currency_code.length == 3){
+                format = "currency|"+this.settings.currency_code.toLocaleLowerCase()
+            }else{
+                format = "currency|usd"
+            }
+        }else if(this.settings.format == "number"){
+            format = "number"
+        }
+        const attrs:InputAttributes = {
+            type:'text', 
+            name:this.name,
+            id:this.name,
+            readonly:"readonly",
+            "r-calc": this.settings.formula
+        }
+
+        if(format){
+            attrs["r-format"] = format
+        }
+        
+        container.section('form.input.input',attrs);
+
+        coder.addDependency('nitti','https://unpkg.com/@sisukas/nitti@1.0.9/dist/nitti.js','script');
     }
 }
  

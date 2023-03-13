@@ -14,8 +14,10 @@ export default class GeneratedCode implements IGeneratedCode
         const nodegen = indent ? 
                 new SpacedNodeGen(this.rootNode):
                 new BaseNodeGen(this.rootNode);
-                
-        return nodegen.code()
+        let code = nodegen.code()
+        code += "\n\n";
+        code +=  this.supp_code.getDependencyCode();
+        return code;
     }
     
     public getSuppCode(){
