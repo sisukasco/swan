@@ -58,7 +58,6 @@ export
             const classes=[]
             if(typeof(attributes["type"]) == "string"){
                 type = attributes["type"]
-                console.log("heading type ", type)
                 switch(type){
                     case 'h1':
                         classes.push("text-3xl")

@@ -18,7 +18,6 @@ class BaseNodeGen
             return(this.start_tag()+
             this.attributes()+ '/>');
         } 
-        //console.log("single_tags ", single_tags);
         if(!this.node.tag_name)
         {
             return this.inner_html();
