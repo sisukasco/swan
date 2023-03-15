@@ -107,7 +107,7 @@ export class DElementContainer implements Codeable
     {
         this.split_overflowing_rows()
         this.remove_empty_rows();
-        this.rows.push([]);
+        //this.rows.push([]);
         this.update_element_position();
     }
     
@@ -122,6 +122,7 @@ export class DElementContainer implements Codeable
             for (let e = 0; e < this.rows[r].length; e++) 
             {
                 width += this.rows[r][e].width;
+                console.log("split_overflowing_rows row %d e %d width ",r, e,width )
 
                 if (width > 100) 
                 {
@@ -136,6 +137,7 @@ export class DElementContainer implements Codeable
             }
 
         }
+        console.log("split_overflowing_rows rows ", this.rows.length)
     }
     private remove_empty_rows()
     {
@@ -188,6 +190,7 @@ export class DElementContainer implements Codeable
         this.normalize_elements();
     }
 
+    
     public clone(v_elmnt:VisualElement)
     {
         let r = this.find_row(v_elmnt);
