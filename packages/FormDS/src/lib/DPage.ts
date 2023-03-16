@@ -14,9 +14,12 @@ export default class DPage
     
     @ExcludeDefault("")
     public condition:string="";
-    
+
+    @Type(()=>VisualElement)
+    private rows:undefined|VisualElement[][]=undefined;
+
     @Type(()=>DRow)
-    public rows:DRow[]=[];
+    private rowsx:DRow[]=[];
     
     @ExcludeDefault(0)
     public sort_position:number=0;
@@ -27,50 +30,50 @@ export default class DPage
     }
 
     push(velmnt:VisualElement){
-        this.rows.push(new DRow(velmnt))
+        this.rowsx.push(new DRow(velmnt))
     }
 
     public numRows(){
-        return this.rows.length
+        return this.rowsx.length
     }
 
     public getRows():DRow[]{
-        return this.rows;
+        return this.rowsx;
     }
 
     public getRow(idx:number):DRow{
-        return this.rows[idx]
+        return this.rowsx[idx]
     }
 
     pushToRow(row:number, velmnts:VisualElement[]){
-        if(row > this.rows.length){
+        if(row > this.rowsx.length){
             throw new Error("can't extend beyond one row")
         }
-        if(row == this.rows.length){
-            this.rows.push(new DRow())
+        if(row == this.rowsx.length){
+            this.rowsx.push(new DRow())
         }
-        this.rows[row].push(velmnts)
+        this.rowsx[row].push(velmnts)
     }
 
     public elementAt(row:number, col:number){
-        return this.rows[row].getElementAt(col)
+        return this.rowsx[row].getElementAt(col)
     }
    
     public getRowLength(row:number):number{
-        return this.rows[row].length()
+        return this.rowsx[row].length()
     }
 
     public printPicture(){
-        for(let r=0;r<this.rows.length; r++){
-            console.log("row %d num elements %d",r, this.rows[r].length())
+        for(let r=0;r<this.rowsx.length; r++){
+            console.log("row %d num elements %d",r, this.rowsx[r].length())
         }
     }    
 
     public find_row(v_elmnt:VisualElement)
     {
-        for(let r=0;r<this.rows.length;r++)
+        for(let r=0;r<this.rowsx.length;r++)
         {
-            if(this.rows[r].findElement(v_elmnt)){
+            if(this.rowsx[r].findElement(v_elmnt)){
                 return r;
             }
         }
@@ -78,13 +81,13 @@ export default class DPage
     }
 
     public removeElementAt(row:number,idx:number){
-        this.rows[row].removeElementAt(idx)
+        this.rowsx[row].removeElementAt(idx)
     }
 
     public removeElement(v_elmnt:VisualElement){
-        for(let r=0;r<this.rows.length;r++)
+        for(let r=0;r<this.rowsx.length;r++)
         {
-            if(this.rows[r].removeElement(v_elmnt)){
+            if(this.rowsx[r].removeElement(v_elmnt)){
                 return r;
             }
         }
@@ -94,9 +97,9 @@ export default class DPage
     public getElements():DElement[]{
         let all=[]
 
-        for(let r=0;r<this.rows.length;r++)
+        for(let r=0;r<this.rowsx.length;r++)
         {
-            all.push(...this.rows[r].getElements())
+            all.push(...this.rowsx[r].getElements())
         }
         return all
     }
@@ -105,10 +108,10 @@ export default class DPage
 
     private split_overflowing_rows()
     {
-        //Split overflowing rows
+        //Split overflowing rowsx
         for (let r = 0; r < this.numRows(); r++) 
         {
-            const new_items = this.rows[r].getOverflowingItems()
+            const new_items = this.rowsx[r].getOverflowingItems()
 
             if (new_items.length > 0) 
             {
@@ -116,16 +119,16 @@ export default class DPage
             }
 
         }
-        console.log("split_overflowing_rows rows ", this.numRows())
+        console.log("split_overflowing_rows rowsx ", this.numRows())
     }
 
     private update_element_position()
     {
         for(let r=0;r<this.numRows();r++)
         {
-            for(let col=0; col < this.rows[r].length();col++)
+            for(let col=0; col < this.rowsx[r].length();col++)
             {
-                this.rows[r].elements[col].elmnt.position(r, col);
+                this.rowsx[r].elements[col].elmnt.position(r, col);
             }
         }
     }
@@ -133,16 +136,16 @@ export default class DPage
     private remove_empty_rows()
     {
         let remove_rows = [];
-        for (let r = 0; r < this.rows.length; r++) 
+        for (let r = 0; r < this.rowsx.length; r++) 
         {
-            if (this.rows[r].length() <= 0) 
+            if (this.rowsx[r].length() <= 0) 
             {
                 remove_rows.push(r);
             }
         }
         for (let rr = remove_rows.length - 1; rr >= 0; rr--) 
         {
-            this.rows.splice(remove_rows[rr], 1);
+            this.rowsx.splice(remove_rows[rr], 1);
         }
     }
 
@@ -153,6 +156,20 @@ export default class DPage
         this.update_element_position();
     }
     
+    public afterLoad(){
+        /**
+         ** Older version where the elements were in two-dimensional array.
+         ** We upgrade to the new version.
+         */
+        if(this.rows && this.rows.length > 0){
+            for(let r=0;r<this.rows.length;r++){
+                const row = new DRow()
+                row.push(this.rows[r])
+                this.rowsx.push(row)
+            }
+            this.rows = undefined;
+        }
+    }
     code(node:NodeItem, nPages:Number)
     {
         let page = node;
@@ -160,7 +177,7 @@ export default class DPage
             page = node.section('layout.page')
         }
         
-        for(let row of this.rows)
+        for(let row of this.rowsx)
         {
             row.code(page)
         }

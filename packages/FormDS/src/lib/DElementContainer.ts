@@ -196,6 +196,9 @@ export class DElementContainer implements Codeable
     //Note this is for calling after the class-json based deserialization
     public afterDeserialization()
     {
+        for(let p=0;p<this.pages.length;p++){
+            this.pages[p].afterLoad()
+        }
         this.current_page = this.pages[0];
         this.normalize_elements();
     }

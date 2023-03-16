@@ -1,3 +1,5 @@
+import { deserialize } from 'class-transformer';
+import { serialize } from 'class-transformer';
 import {factory, DElementContainer} from "../src/lib";
 
 test("CONTAINER001: add elements", ()=>{
@@ -163,4 +165,90 @@ test("CONTAINER007: clone element eventually causing row overflow ", ()=>{
 
     expect(container.numRows()).toBe(6)
     
+})
+
+test("CONTAINER008: serialization and deserialization ", ()=>{
+    let container = new DElementContainer();
+
+    for(let i=0;i<5;i++){
+        const newElemt = factory.makeObject("Textbox");
+        container.addElements([newElemt]);
+    }
+
+    container.elementAt(1,0).smaller()
+    container.elementAt(1,0).smaller(); // width = 50%
+
+    container.clone(container.elementAt(1,0));
+    container.clone(container.elementAt(1,0))
+    
+    const strContainer = serialize(container)
+
+    const obj = JSON.parse(strContainer)
+    //const strFormatted = JSON.stringify(obj, null, 2)
+    //console.log("serailized\n", strFormatted)
+
+    expect(obj.pages.length).toBe(1)
+    expect(obj.pages[0].rowsx.length).toBe(6)
+})
+
+test("CONTAINER009: serialization and deserialization ", ()=>{
+
+    const strContainer=`
+    {
+        "pages":[
+            {
+                "id": "1zl4mi4lfawmiyo",
+                "rows":[
+                    [
+                        {
+                            "elmnt": {
+                              "type": "Textbox",
+                              "name": "Textbox",
+                              "label": "Your Question Here:",
+                              "validations": {},
+                              "settings": {}
+                            }
+                        }
+                    ],
+                    [
+                        {
+                            "elmnt": {
+                              "type": "Textbox",
+                              "name": "Textbox_1",
+                              "width": 50,
+                              "label": "Your Question Here:",
+                              "validations": {},
+                              "settings": {}
+                            }
+                          },
+                          {
+                            "elmnt": {
+                              "type": "Textbox",
+                              "name": "Textbox_5",
+                              "width": 50,
+                              "label": "Your Question Here:",
+                              "validations": {},
+                              "settings": {}
+                            }
+                          }
+                    ]
+                ]                
+            }
+        ]
+    }
+    
+    `
+
+    let  container = deserialize(DElementContainer,strContainer)
+    container.afterDeserialization();
+
+    expect(container.numRows()).toBe(2)
+    expect(container.getRowLength(1)).toBe(2)
+
+    const strContainer2 = serialize(container)
+    const obj = JSON.parse(strContainer2)
+    //const strFormatted = JSON.stringify(obj, null, 2)
+    //console.log("serailized\n", strFormatted)    
+
+    expect(obj.pages[0].rows).toBeUndefined()
 })
