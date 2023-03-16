@@ -6,6 +6,7 @@ import "reflect-metadata";
 import {Exclude, Type} from "class-transformer";
 import { Codeable, NodeItem } from "@sisukas/coder-interface";
 import {classToClass} from "class-transformer";
+import DRow from "./DRow"
 
 export interface PageInfo
 {
@@ -28,6 +29,14 @@ export class DElementContainer implements Codeable
     {   
 
     }
+    public getRows():DRow[]{
+        return this.current_page.getRows()
+    }
+    public getRow(idx:number):DRow{
+        return this.current_page.getRow(idx)
+    }
+
+
     private make_new(type:string, row:number)
     {
         let new_elemt = factory.makeObject(type);

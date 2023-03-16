@@ -34,7 +34,14 @@ export default class DPage
         return this.rows.length
     }
 
-    
+    public getRows():DRow[]{
+        return this.rows;
+    }
+
+    public getRow(idx:number):DRow{
+        return this.rows[idx]
+    }
+
     pushToRow(row:number, velmnts:VisualElement[]){
         if(row > this.rows.length){
             throw new Error("can't extend beyond one row")
