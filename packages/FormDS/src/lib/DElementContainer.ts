@@ -64,14 +64,17 @@ export class DElementContainer implements Codeable
         {
             this.baptise(elmnt);
             let new_v_elmnt = new VisualElement(elmnt); 
-            this.rows.push([new_v_elmnt])            
+
+            //this.rows.push([new_v_elmnt])            
+            this.current_page.push(new_v_elmnt)
         }
     }
     
     public add(type:string) 
     {
         let new_v_elmnt =  this.make_new(type, this.rows.length);
-        this.rows.push([new_v_elmnt ]);
+        //this.rows.push([new_v_elmnt ]);
+        this.current_page.push(new_v_elmnt)
         return new_v_elmnt;
     }
     public insert(current_elmnt:VisualElement|null,type:string,packed:Boolean=false)
@@ -86,14 +89,16 @@ export class DElementContainer implements Codeable
             if(packed)
             {
                 let new_v_elmnt =  this.make_new(type, current_row);
-                this.rows[current_row].push(new_v_elmnt);
+                //this.rows[current_row].push(new_v_elmnt);
+                this.current_page.pushToRow(current_row,[new_v_elmnt] )
                 //need to normalize after completing the edits
                 return new_v_elmnt;
             }
             else
             {
                 let new_v_elmnt =  this.make_new(type, current_row+1);
-                this.rows.splice(current_row+1, 0, [new_v_elmnt]);
+                //this.rows.splice(current_row+1, 0, [new_v_elmnt]);
+                this.current_page.pushToRow(current_row+1, [new_v_elmnt])
                 return new_v_elmnt;
             }
             
@@ -116,35 +121,50 @@ export class DElementContainer implements Codeable
         //Split overflowing rows
         for (let r = 0; r < this.rows.length; r++) 
         {
-            let width = 0;
+            /*let width = 0;
             let new_items = [];
 
-            for (let e = 0; e < this.rows[r].length; e++) 
+            for (let e = 0; e < this.rows[r].elements.length; e++) 
             {
-                width += this.rows[r][e].width;
+                width += this.rows[r].elements[e].width;
                 console.log("split_overflowing_rows row %d e %d width ",r, e,width )
 
                 if (width > 100) 
                 {
-                    new_items.push(this.rows[r][e]);
-                    this.rows[r].splice(e, 1);
+                    new_items.push(this.rows[r].elements[e]);
+                    this.rows[r].elements.splice(e, 1);
                 }
             }
+            
+            */
+
+            const new_items = this.rows[r].getOverflowingItems()
 
             if (new_items.length > 0) 
             {
-                this.rows.splice(r + 1, 0, new_items);
+                //this.rows.splice(r + 1, 0, new_items);
+                this.current_page.pushToRow(r+1, new_items)
+                
             }
 
         }
         console.log("split_overflowing_rows rows ", this.rows.length)
     }
+    public printPicture(){
+        console.log("Element Container ")
+        for(let r=0;r<this.current_page.rows.length; r++){
+            console.log("row %d num elements %d",r, this.current_page.rows[r].length())
+            //for(let e=0; e<this.current_page.rows[r].length(); e++){
+            //    
+            //}
+        }
+    }
     private remove_empty_rows()
     {
-        let remove_rows = [];
+       /* let remove_rows = [];
         for (let r = 0; r < this.rows.length; r++) 
         {
-            if (this.rows[r].length <= 0) 
+            if (this.rows[r].length() <= 0) 
             {
                 remove_rows.push(r);
             }
@@ -152,36 +172,44 @@ export class DElementContainer implements Codeable
         for (let rr = remove_rows.length - 1; rr >= 0; rr--) 
         {
             this.rows.splice(remove_rows[rr], 1);
-        }
+        }*/
+
+        this.current_page.remove_empty_rows();
     }
 
     public find_row(v_elmnt:VisualElement)
     {
-        for(let r=0;r<this.rows.length;r++)
+        /*for(let r=0;r<this.rows.length;r++)
         {
-            for(let e=0; e < this.rows[r].length;e++)
+            for(let e=0; e < this.rows[r].elements.length;e++)
             {
-                if(this.rows[r][e].id === v_elmnt.id)
+                if(this.rows[r].elements[e].id === v_elmnt.id)
                 {
                     return r;
                 }
             }
         }
-        return -1;
+        return -1;*/
+
+       return  this.current_page.find_row(v_elmnt)
     }
     private remove_from_rows(v_elmnt:VisualElement)
     {
+        /*
         for(let r=0;r<this.rows.length;r++)
         {
-            for(let e=0; e < this.rows[r].length;e++)
+            for(let e=0; e < this.rows[r].elements.length;e++)
             {
-                if(this.rows[r][e].id === v_elmnt.id)
+                if(this.rows[r].elements[e].id === v_elmnt.id)
                 {
-                    this.rows[r].splice(e,1);
+                    this.rows[r].elements.splice(e,1);
                     return;
                 }
             }
         }
+        */
+
+        this.current_page.removeElement(v_elmnt)
     }
 
     public remove(v_elmnt:VisualElement)
@@ -222,13 +250,7 @@ export class DElementContainer implements Codeable
         let all=[]
         for(let p=0; p< this.pages.length; p++)
         {
-            for(let r=0;r<this.pages[p].rows.length;r++)
-            {
-                for(let e=0; e < this.pages[p].rows[r].length;e++)
-                {
-                    all.push(this.pages[p].rows[r][e].elmnt);
-                }
-            }
+            all.push(...this.pages[p].getElements())
         }
         
         return all;
@@ -238,11 +260,15 @@ export class DElementContainer implements Codeable
     {
         for(let r=0;r<this.rows.length;r++)
         {
-            for(let col=0; col < this.rows[r].length;col++)
+            for(let col=0; col < this.rows[r].length();col++)
             {
-                this.rows[r][col].elmnt.position(r, col);
+                this.rows[r].elements[col].elmnt.position(r, col);
             }
         }
+    }
+
+    public elementAt(row:number, col:number){
+        return this.rows[row].getElementAt(col)
     }
     
     //Note this is for calling after the class-json based deserialization
