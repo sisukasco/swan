@@ -62,8 +62,8 @@ export default class DRow
         return false;
     }
 
-    push(v_elmnt:VisualElement){
-        return this.elements.push(v_elmnt)
+    push(velmnts:VisualElement[]){
+        return this.elements.push(...velmnts)
     }
 
     public getElements():DElement[]{
