@@ -32,7 +32,10 @@ class DPhone extends DFormElement
     {
         const container = coder.section('form.input.container');
 
-        container.section('form.input.label', {'for':this.name}).html(this.label);
+        if(this.hasLabel()){
+            container.section('form.input.label', {'for':this.name}).html(this.label);
+        }
+        
         container.section('form.input.input',{type:'tel', 
         placeholder:this.settings.placeholder, 
         name:this.name,

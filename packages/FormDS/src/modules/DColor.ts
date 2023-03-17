@@ -23,7 +23,9 @@ class DColor extends DFormElement
     {
         const container = coder.section('form.input.container');
 
-        container.section('form.input.label', {'for':this.name}).html(this.label);
+        if(this.hasLabel()){
+            container.section('form.input.label', {'for':this.name}).html(this.label);
+        }
         container.section('form.input.input',{type:'color', 
         name:this.name,
         id:this.name});

@@ -25,6 +25,9 @@ abstract class DFormElement extends DElement
 		return '';
 	}
 
+    public hasLabel(){
+        return(this.label && this.label.trim().length > 0)
+    }
 
     public get validations_array():FormValidation[]
     {

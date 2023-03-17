@@ -26,7 +26,9 @@ class DDateTime extends DFormElement
     {
         const container = coder.section('form.input.container');
 
-        container.section('form.input.label', {'for':this.name}).html(this.label);
+        if(this.hasLabel()){
+            container.section('form.input.label', {'for':this.name}).html(this.label);
+        }
         container.section('form.input.input',{type:'datetime-local', 
         name:this.name,
         id:this.name});

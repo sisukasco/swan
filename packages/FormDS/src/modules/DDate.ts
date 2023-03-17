@@ -27,8 +27,9 @@ class DDate extends DFormElement
     {
         const container = coder.section('form.input.container', { width: this.width});
 
-        container.section('form.input.label', {'for':this.name}).html(this.label);
-
+        if(this.hasLabel()){
+            container.section('form.input.label', {'for':this.name}).html(this.label);
+        }
         const attrs:InputAttributes = {
             type:'date', 
             name:this.name,

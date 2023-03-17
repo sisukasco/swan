@@ -41,7 +41,9 @@ export default class DMultiline extends DFormElement
     {
         const container = node.section('form.input.container', {type: this.type, width: this.width});
 
-        container.section('form.input.label', {'for':this.name}).html(this.label);
+        if(this.hasLabel()){
+            container.section('form.input.label', {'for':this.name}).html(this.label);
+        }
 
         const attrs:InputAttributes = {
             name:this.name,
