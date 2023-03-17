@@ -34,6 +34,10 @@ export default class VisualElement
     {
         return this.elmnt.id;
     }
+
+	setWidth(w:number){
+		this.elmnt.width = w
+	}
     class_obj()
 	{
 		let ret ={

@@ -119,7 +119,6 @@ export default class DPage
             }
 
         }
-        console.log("split_overflowing_rows rowsx ", this.numRows())
     }
 
     private update_element_position()

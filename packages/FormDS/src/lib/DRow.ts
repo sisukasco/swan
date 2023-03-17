@@ -4,6 +4,7 @@ import "reflect-metadata";
 import {Type} from "class-transformer";
 import { ExcludeDefault } from "./TxUtils"
 import DElement from '../elements/DElement';
+import {InputAttributes } from "../modules/attribs"
 
 export default class DRow
 {
@@ -20,19 +21,17 @@ export default class DRow
     }
     getOverflowingItems():VisualElement[]{
         let width = 0;
-        let new_items:VisualElement[] = [];
 
         for (let e = 0; e < this.elements.length; e++) 
         {
             width += this.elements[e].width;
             if (width > 100) 
             {
-                new_items.push(this.elements[e]);
-                this.elements.splice(e, 1);
+                return this.elements.splice(e, this.elements.length - e);
             }
         }
 
-        return new_items
+        return []
     }
     length(){
         return this.elements.length
@@ -89,7 +88,18 @@ export default class DRow
             //empty row sometimes added at the enc of the page
             return;
         }
-        let rcode = page.section("layout.row")
+        const attrs:InputAttributes ={}
+
+        let condition = this.condition.trim()
+        condition = condition.replace(/\r?\n|\r/g, ' ').replace(/\s+/g, ' ');
+
+        if(condition.length > 0){
+            attrs["r-show"] = condition;
+
+            node.addDependency('nitti','https://unpkg.com/@sisukas/nitti@1.0.9/dist/nitti.js','script');
+        }
+
+        let rcode = page.section("layout.row", attrs)
         for(let velmnt of this.elements)
         {
             velmnt.code(rcode)
