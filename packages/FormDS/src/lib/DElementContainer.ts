@@ -6,6 +6,7 @@ import "reflect-metadata";
 import {Exclude, Type} from "class-transformer";
 import { Codeable, NodeItem } from "@sisukas/coder-interface";
 import {classToClass} from "class-transformer";
+import DRow from "./DRow"
 
 export interface PageInfo
 {
@@ -22,15 +23,20 @@ export class DElementContainer implements Codeable
     
     @Exclude()
     private current_page:DPage=this.pages[0];
-    //public rows:VisualElement[][]=[];
-    public get rows()
-    {
-        return this.current_page.rows;
-    }
+
+    
     constructor() 
     {   
 
     }
+    public getRows():DRow[]{
+        return this.current_page.getRows()
+    }
+    public getRow(idx:number):DRow{
+        return this.current_page.getRow(idx)
+    }
+
+
     private make_new(type:string, row:number)
     {
         let new_elemt = factory.makeObject(type);
@@ -64,14 +70,16 @@ export class DElementContainer implements Codeable
         {
             this.baptise(elmnt);
             let new_v_elmnt = new VisualElement(elmnt); 
-            this.rows.push([new_v_elmnt])            
+
+            this.current_page.push(new_v_elmnt)
         }
     }
     
     public add(type:string) 
     {
-        let new_v_elmnt =  this.make_new(type, this.rows.length);
-        this.rows.push([new_v_elmnt ]);
+        let new_v_elmnt =  this.make_new(type, this.numRows());
+        
+        this.current_page.push(new_v_elmnt)
         return new_v_elmnt;
     }
     public insert(current_elmnt:VisualElement|null,type:string,packed:Boolean=false)
@@ -86,14 +94,14 @@ export class DElementContainer implements Codeable
             if(packed)
             {
                 let new_v_elmnt =  this.make_new(type, current_row);
-                this.rows[current_row].push(new_v_elmnt);
+                this.current_page.pushToRow(current_row,[new_v_elmnt] )
                 //need to normalize after completing the edits
                 return new_v_elmnt;
             }
             else
             {
                 let new_v_elmnt =  this.make_new(type, current_row+1);
-                this.rows.splice(current_row+1, 0, [new_v_elmnt]);
+                this.current_page.pushToRow(current_row+1, [new_v_elmnt])
                 return new_v_elmnt;
             }
             
@@ -105,92 +113,47 @@ export class DElementContainer implements Codeable
     }
     public normalize_elements() 
     {
-        this.split_overflowing_rows()
-        this.remove_empty_rows();
-        //this.rows.push([]);
-        this.update_element_position();
+        this.current_page.normalize_elements()
     }
     
-    private split_overflowing_rows()
-    {
-        //Split overflowing rows
-        for (let r = 0; r < this.rows.length; r++) 
-        {
-            let width = 0;
-            let new_items = [];
-
-            for (let e = 0; e < this.rows[r].length; e++) 
-            {
-                width += this.rows[r][e].width;
-                console.log("split_overflowing_rows row %d e %d width ",r, e,width )
-
-                if (width > 100) 
-                {
-                    new_items.push(this.rows[r][e]);
-                    this.rows[r].splice(e, 1);
-                }
-            }
-
-            if (new_items.length > 0) 
-            {
-                this.rows.splice(r + 1, 0, new_items);
-            }
-
-        }
-        console.log("split_overflowing_rows rows ", this.rows.length)
-    }
-    private remove_empty_rows()
-    {
-        let remove_rows = [];
-        for (let r = 0; r < this.rows.length; r++) 
-        {
-            if (this.rows[r].length <= 0) 
-            {
-                remove_rows.push(r);
-            }
-        }
-        for (let rr = remove_rows.length - 1; rr >= 0; rr--) 
-        {
-            this.rows.splice(remove_rows[rr], 1);
-        }
+    public numRows(){
+        return this.current_page.numRows()
     }
 
+    public printPicture(){
+        console.log("Element Container ")
+        this.current_page.printPicture()
+    }
+
+    public getRowLength(row:number):number{
+        return this.current_page.getRowLength(row)
+    }
+
+    public removeElementAt(row:number,idx:number){
+        this.current_page.removeElementAt(row, idx)
+    }
+
+    public elementAt(row:number, col:number){
+        return this.current_page.elementAt(row,col)
+    }
+
+    public pushToRow(row:number, velmnts:VisualElement[]){
+        this.current_page.pushToRow(row, velmnts)
+    }    
+    
     public find_row(v_elmnt:VisualElement)
     {
-        for(let r=0;r<this.rows.length;r++)
-        {
-            for(let e=0; e < this.rows[r].length;e++)
-            {
-                if(this.rows[r][e].id === v_elmnt.id)
-                {
-                    return r;
-                }
-            }
-        }
-        return -1;
+       return  this.current_page.find_row(v_elmnt)
     }
-    private remove_from_rows(v_elmnt:VisualElement)
-    {
-        for(let r=0;r<this.rows.length;r++)
-        {
-            for(let e=0; e < this.rows[r].length;e++)
-            {
-                if(this.rows[r][e].id === v_elmnt.id)
-                {
-                    this.rows[r].splice(e,1);
-                    return;
-                }
-            }
-        }
-    }
+
 
     public remove(v_elmnt:VisualElement)
     {
-        this.remove_from_rows(v_elmnt);
+        this.current_page.removeElement(v_elmnt)
         this.normalize_elements();
     }
 
-    
+
     public clone(v_elmnt:VisualElement)
     {
         let r = this.find_row(v_elmnt);
@@ -204,7 +167,7 @@ export class DElementContainer implements Codeable
         this.baptise(elmnt_clone);
         let new_v_element = new VisualElement(elmnt_clone);
 
-        this.rows[r].push(new_v_element);
+        this.current_page.pushToRow(r, [new_v_element])
 
         this.normalize_elements();
 
@@ -222,32 +185,20 @@ export class DElementContainer implements Codeable
         let all=[]
         for(let p=0; p< this.pages.length; p++)
         {
-            for(let r=0;r<this.pages[p].rows.length;r++)
-            {
-                for(let e=0; e < this.pages[p].rows[r].length;e++)
-                {
-                    all.push(this.pages[p].rows[r][e].elmnt);
-                }
-            }
+            all.push(...this.pages[p].getElements())
         }
         
         return all;
     }
 
-    private update_element_position()
-    {
-        for(let r=0;r<this.rows.length;r++)
-        {
-            for(let col=0; col < this.rows[r].length;col++)
-            {
-                this.rows[r][col].elmnt.position(r, col);
-            }
-        }
-    }
+
     
     //Note this is for calling after the class-json based deserialization
     public afterDeserialization()
     {
+        for(let p=0;p<this.pages.length;p++){
+            this.pages[p].afterLoad()
+        }
         this.current_page = this.pages[0];
         this.normalize_elements();
     }
