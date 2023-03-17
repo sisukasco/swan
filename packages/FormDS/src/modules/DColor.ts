@@ -25,7 +25,6 @@ class DColor extends DFormElement
 
         container.section('form.input.label', {'for':this.name}).html(this.label);
         container.section('form.input.input',{type:'color', 
-        novalidate:"novalidate",
         name:this.name,
         id:this.name});
         container.section('form.input.error',{name:this.name});

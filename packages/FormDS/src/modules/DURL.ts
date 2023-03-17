@@ -34,7 +34,7 @@ class DURL extends DFormElement
 
         container.section('form.input.label', {'for':this.name}).html(this.label);
         container.section('form.input.input',{type:'url', 
-        placeholder:this.settings.placeholder, novalidate:"novalidate",
+        placeholder:this.settings.placeholder, 
         name:this.name,
         id:this.name});
         container.section('form.input.error',{name:this.name});
