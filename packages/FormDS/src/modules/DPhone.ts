@@ -5,6 +5,7 @@ import "reflect-metadata";
 import {Type} from "class-transformer";
 import {NodeItem} from "@sisukas/coder-interface";
 import { ExcludeDefault } from "../lib/TxUtils";
+import {InputAttributes } from "./attribs";
 
 class DPhoneSettings
 {
@@ -36,10 +37,30 @@ class DPhone extends DFormElement
             container.section('form.input.label', {'for':this.name}).html(this.label);
         }
         
-        container.section('form.input.input',{type:'tel', 
-        placeholder:this.settings.placeholder, 
-        name:this.name,
-        id:this.name});
+        const attrs:InputAttributes ={
+            type:'tel', 
+            name:this.name,
+            id:this.name
+        }
+
+        if(this.settings.placeholder){
+            attrs['placeholder'] = this.settings.placeholder
+        }
+
+        if(this.validations.required.enabled){
+            attrs['required'] = 'required'
+        }
+        if(this.validations.maxlength.size != null){
+            attrs['maxlength'] = String(this.validations.maxlength.size)
+        }
+        if(this.validations.minlength.size != null){
+            attrs['minlength'] = String(this.validations.minlength.size)
+        }
+
+        container.section('form.input.input',attrs);
+
+        
+
         container.section('form.input.error',{name:this.name});
     }
 }
