@@ -11,13 +11,14 @@ import DSubmitButton from "./DSubmitButton";
 import DCalculationField from "./DCalculationField";
 import DHiddenField from "./DHiddenField";
 import DSimpleFileUpload from "./DSimpleFileUpload";
-import DItem from "./DItem";
+import DItem,{itemsFromText,getItemsJSON} from "./DItem";
 import DPhone from "./DPhone";
 import DURL from "./DURL";
 import DDate from "./DDate";
 import DRange from "./DRange";
 import DDateTime from './DDateTime';
 import DColor from './DColor';
+import {IGroupItemSettings} from "./IGroupItemSettings"
 
 export {
     DFormElement,
@@ -34,6 +35,9 @@ export {
     DSimpleFileUpload,
     DHiddenField,
     DItem,
+    itemsFromText,
+    getItemsJSON,
+    IGroupItemSettings,
     DPhone,
     DURL,
     DDate,

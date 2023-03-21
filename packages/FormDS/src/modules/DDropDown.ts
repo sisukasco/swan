@@ -7,7 +7,9 @@ import { NodeItem } from "@sisukas/coder-interface";
 import { ExcludeEmpty } from "../lib/TxUtils";
 import DItem,{getTextFromItems, getItemsJSON, itemsFromText} from "./DItem";
 import {InputAttributes } from "./attribs";
-class DropDownSettings
+import {IGroupItemSettings} from "./IGroupItemSettings"
+
+class DropDownSettings implements IGroupItemSettings
 {
     @Type(()=>DItem)
     public items:DItem[]=[];

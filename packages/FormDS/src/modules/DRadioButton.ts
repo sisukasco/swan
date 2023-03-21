@@ -8,8 +8,9 @@ import GroupChoice from "./GroupChoice";
 import { NodeItem } from "@sisukas/coder-interface";
 import DItem,{getTextFromItems, getItemsJSON, itemsFromText} from "./DItem";
 import { ExcludeDefault } from "../lib/TxUtils";
+import {IGroupItemSettings} from "./IGroupItemSettings"
 
-class RadioButtonSettings
+class RadioButtonSettings implements IGroupItemSettings
 {
     @Type(()=>DItem)
     public items:DItem[]=[];

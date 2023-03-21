@@ -7,8 +7,9 @@ import GroupChoice from "./GroupChoice";
 import { NodeItem } from "@sisukas/coder-interface";
 import DItem,{getTextFromItems, getItemsJSON, itemsFromText} from "./DItem";
 import { ExcludeDefault } from "../lib/TxUtils";
+import {IGroupItemSettings} from "./IGroupItemSettings";
 
-class CheckboxGroupSettings
+class CheckboxGroupSettings implements IGroupItemSettings
 {
     @ExcludeDefault('vertical')
     public arrangement:string = "vertical"
