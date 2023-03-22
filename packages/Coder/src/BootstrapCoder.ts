@@ -66,6 +66,25 @@ export
          
             return this.nodec('div', { class: ['fs-6','fw-light'] }, {});
         }
+        else if (section == 'label.container') {
+            const classes=["d-flex","align-items-center"]
+            if (attributes.alignment) {
+                if (attributes.alignment == "center") {
+                    classes.push("justify-content-center")
+                }
+                else if (attributes.alignment == "right") {
+                    classes.push("justify-content-end")
+                }
+                delete attributes.alignment
+            }
+            classes.push(this.containerWidth(attributes));
+
+            return this.nodec('div',{class: classes},attributes);
+        }
+        else if (section == 'label') {
+
+            return this.nodec('label',{},attributes);
+        }
         else if (section == 'element.container') {
             const classes = []
             classes.push(this.containerWidth(attributes));

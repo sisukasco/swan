@@ -82,6 +82,24 @@ export
          
             return this.nodec('div', { class: ['text-xs','text-gray-500'] }, {});
         }
+        else if (section == 'label.container') {
+            const classes=["flex", "items-center"]
+            if (attributes.alignment) {
+                if (attributes.alignment == "center") {
+                    classes.push("justify-center")
+                }
+                else if (attributes.alignment == "right") {
+                    classes.push("justify-end")
+                }
+                delete attributes.alignment
+            }
+            classes.push(this.containerWidth(attributes));
+
+            return this.nodec('div',{class: classes},attributes);
+        }    
+        else if (section == 'label') {
+            return this.nodec('label',{},attributes);
+        }    
         else if (section == 'element.container') {
 
             const classes = []

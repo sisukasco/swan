@@ -1,11 +1,17 @@
-import DHeading from "../elements/DHeading";
-import DTextBlock from "../elements/DTextBlock";
-import DImage from "../elements/DImage";
+import DHeading from "./DHeading";
+import DTextBlock from "./DTextBlock";
+import DImage from "./DImage";
+import DLabel from "./DLabel";
+import DBlank from "./DBlank";
+import DElement from "./DElement";
 
 export {
     DHeading,
     DTextBlock,
-    DImage    
+    DImage,
+    DLabel,
+    DBlank ,
+    DElement   
 }
 
 type modulemap = 
@@ -13,12 +19,13 @@ type modulemap =
     [name:string]:any
 }
 
-
 let modules:modulemap = 
 {
     DHeading,
     DTextBlock,
-    DImage    
+    DImage,
+    DLabel,
+    DBlank
 }
 
 export default modules;
