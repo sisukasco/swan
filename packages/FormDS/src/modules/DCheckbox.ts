@@ -33,12 +33,13 @@ class DCheckbox extends DFormElement
     {
         const container = node.section('form.input.container', {type: this.type, width: this.width});
 
-        container.section('form.input.input', {type:"checkbox", name:this.name, id:this.name});
+        const inside = container.startTag("div")
+        inside.section('form.input.input', {type:"checkbox", name:this.name, id:this.name});
 
-        container.section('form.input.label', 
+        inside.section('form.input.label', 
         {type:"checkbox","for":this.name} )
         .html(this.label);
-        container.section('form.input.error',{name:this.name});
+        inside.section('form.input.error',{name:this.name});
         
     }
     public getConverterCode()

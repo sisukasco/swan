@@ -99,7 +99,7 @@ export
             if (attributes.type) {
                 if(attributes.type == 'Checkbox')
                 {
-                    classes.push('pt-5');
+                    classes.push("d-flex","align-items-center");
                 } else if(attributes.type == 'SubmitButton')
                 {
                     classes.push('d-flex')
