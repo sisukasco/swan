@@ -25,6 +25,7 @@ export default class DRow
         for (let e = 0; e < this.elements.length; e++) 
         {
             width += this.elements[e].width;
+            console.log("width now ", width)
             if (width > 100) 
             {
                 return this.elements.splice(e, this.elements.length - e);

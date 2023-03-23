@@ -15,6 +15,11 @@ export default class DPage
     @ExcludeDefault("")
     public condition:string="";
 
+    /**
+     ** Initial versions had two dimensional array of VisualElement to represent the 
+     ** rows and columns of elements. It was later moved to DRow The old variable is retained so that 
+     ** Old version files can be automatically migrated to new version
+     */
     @Type(()=>VisualElement)
     private rows:undefined|VisualElement[][]=undefined;
 
@@ -23,6 +28,11 @@ export default class DPage
     
     @ExcludeDefault(0)
     public sort_position:number=0;
+
+    @ExcludeDefault(0)
+    private col_count=2;
+
+
 
     constructor(public readonly id:string=uniqid())
     {
@@ -104,6 +114,29 @@ export default class DPage
         return all
     }
 
+    private get decrWidth(){
+        let decr_width = 0;
+        if(this.col_count == 4){
+            decr_width = 25
+        }else if(this.col_count == 3){
+            decr_width = 33
+        }else if(this.col_count == 2){
+            decr_width = 50
+        }
+        return decr_width
+    }
+
+    public makeElementSmaller(row:number, col:number){
+        this.elementAt(row,col).elmnt.smaller(this.decrWidth)
+    }
+
+    public makeElementLarger(row:number, col:number){
+        this.elementAt(row,col).elmnt.smaller(this.decrWidth)
+    }
+
+    public setColCount(c:number){
+        this.col_count = c
+    }
     
 
     private split_overflowing_rows()

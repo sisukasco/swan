@@ -115,6 +115,18 @@ export class DElementContainer implements Codeable
     {
         this.current_page.normalize_elements()
     }
+
+    public makeElementSmaller(row:number, col:number){
+        this.current_page.makeElementSmaller(row, col)
+    }
+
+    public makeElementLarger(row:number, col:number){
+        this.current_page.makeElementLarger(row, col)
+    }
+
+    public setColCount(c:number){
+        this.current_page.setColCount(c);
+    }
     
     public numRows(){
         return this.current_page.numRows()

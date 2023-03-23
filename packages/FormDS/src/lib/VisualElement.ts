@@ -83,14 +83,6 @@ export default class VisualElement
 		});
 	}
 	
-	smaller()
-	{
-		this.elmnt.smaller();
-	}
-	larger()
-	{
-		this.elmnt.larger();
-	}
 	
 	code(node:NodeItem)
 	{

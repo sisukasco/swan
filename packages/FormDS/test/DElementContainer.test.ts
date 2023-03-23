@@ -18,13 +18,15 @@ test("CONTAINER001: add elements", ()=>{
 test("CONTAINER002: clone one element", ()=>{
 
     let container = new DElementContainer();
-    
+    container.setColCount(4)
+
     const newElemt = factory.makeObject("Textbox");
     container.addElements([newElemt]);
 
-    container.elementAt(0,0).smaller()
-    container.elementAt(0,0).smaller()
-    container.elementAt(0,0).smaller()
+
+    container.makeElementSmaller(0,0)
+    container.makeElementSmaller(0,0)
+    container.makeElementSmaller(0,0)
 
     
     container.clone(container.elementAt(0,0))
@@ -38,13 +40,14 @@ test("CONTAINER002: clone one element", ()=>{
 test("CONTAINER003: clone one element row overflow", ()=>{
 
     let container = new DElementContainer();
+    container.setColCount(4)
     
     const newElemt = factory.makeObject("Textbox");
     container.addElements([newElemt]);
 
-    container.elementAt(0,0).smaller()
-    container.elementAt(0,0).smaller()
-    container.elementAt(0,0).smaller()
+    container.makeElementSmaller(0,0)
+    container.makeElementSmaller(0,0)
+    container.makeElementSmaller(0,0)
 
     
     container.clone(container.elementAt(0,0))
@@ -92,6 +95,7 @@ test("CONTAINER004: remove elements ", ()=>{
 test("CONTAINER005: remove element from row with multiple elements ", ()=>{
 
     let container = new DElementContainer();
+    container.setColCount(4)
 
     for(let i=0;i<5;i++){
         const newElemt = factory.makeObject("Textbox");
@@ -100,8 +104,9 @@ test("CONTAINER005: remove element from row with multiple elements ", ()=>{
 
     expect(container.numRows()).toBe(5)
 
-    container.elementAt(1,0).smaller()
-    container.elementAt(1,0).smaller()
+    
+    container.makeElementSmaller(1,0)
+    container.makeElementSmaller(1,0)
 
     expect(container.clone(container.elementAt(1,0)))
 
@@ -115,6 +120,8 @@ test("CONTAINER006: drag last element upwards ", ()=>{
 
     let container = new DElementContainer();
 
+    container.setColCount(4)
+
     for(let i=0;i<5;i++){
         const newElemt = factory.makeObject("Textbox");
         container.addElements([newElemt]);
@@ -122,11 +129,11 @@ test("CONTAINER006: drag last element upwards ", ()=>{
 
     expect(container.numRows()).toBe(5)
 
-    container.elementAt(1,0).smaller()
-    container.elementAt(1,0).smaller()
+    container.makeElementSmaller(1,0)
+    container.makeElementSmaller(1,0)
+    container.makeElementSmaller(4,0)
+    container.makeElementSmaller(4,0)
 
-    container.elementAt(4,0).smaller()
-    container.elementAt(4,0).smaller()
 
     
     container.printPicture();
@@ -149,6 +156,8 @@ test("CONTAINER007: clone element eventually causing row overflow ", ()=>{
 
     let container = new DElementContainer();
 
+    container.setColCount(4)
+
     for(let i=0;i<5;i++){
         const newElemt = factory.makeObject("Textbox");
         container.addElements([newElemt]);
@@ -156,8 +165,8 @@ test("CONTAINER007: clone element eventually causing row overflow ", ()=>{
 
     expect(container.numRows()).toBe(5)
 
-    container.elementAt(1,0).smaller()
-    container.elementAt(1,0).smaller(); // width = 50%
+    container.makeElementSmaller(1,0)
+    container.makeElementSmaller(1,0) // width = 50%
 
     container.clone(container.elementAt(1,0));
     container.clone(container.elementAt(1,0))
@@ -169,14 +178,16 @@ test("CONTAINER007: clone element eventually causing row overflow ", ()=>{
 
 test("CONTAINER008: serialization and deserialization ", ()=>{
     let container = new DElementContainer();
+    container.setColCount(4);
 
     for(let i=0;i<5;i++){
         const newElemt = factory.makeObject("Textbox");
         container.addElements([newElemt]);
     }
+    
+    container.makeElementSmaller(1,0)
+    container.makeElementSmaller(1,0) // width = 50%
 
-    container.elementAt(1,0).smaller()
-    container.elementAt(1,0).smaller(); // width = 50%
 
     container.clone(container.elementAt(1,0));
     container.clone(container.elementAt(1,0))

@@ -59,26 +59,25 @@ export default class DElement
 		this.row = row;
 		this.col = col;
 	}
-	setCols(nCols:number)
+
+	setWidth(w:number){
+		this.width = w
+	}
+	
+	smaller(decr:number)
 	{
-		if(nCols == 1)
-		{
-			this.width=25;
-		}
-		else if(nCols == 2)
-		{
-			this.width=50;
-		}
-		else if(nCols == 3)
-		{
-			this.width=75;
-		}
-		else
-		{
-			this.width=100;
+		if(this.width - decr >= decr){
+			this.width -= decr;
 		}
 	}
-	smaller()
+	larger(incr:number)
+	{
+		if(this.width + incr <= 100){
+			this.width += incr;
+		}
+	}
+
+	/*smaller()
 	{
 		if(this.width == 100)
 		{
@@ -108,6 +107,7 @@ export default class DElement
 			this.width = 100;
 		}
 	}
+	*/
 	static update_id_tracker(max:number)
 	{
 		DElement.next_objid = max+1;

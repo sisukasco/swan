@@ -11,11 +11,9 @@ describe("DRow", () => {
     it("row001: returns an empty array if all elements fit within the row width", () => {
       const row = new DRow();
       const v1 = newVisualElement();
-      v1.smaller()
-      v1.smaller()
+      v1.setWidth(50)
       const v2 = newVisualElement();
-      v2.smaller()
-      v2.smaller()
+      v2.setWidth(50)
       row.push([v1, v2]);
 
       const result = row.getOverflowingItems();
@@ -26,10 +24,9 @@ describe("DRow", () => {
     it("row002: returns an array with elements that exceed the row width", () => {
       const row = new DRow();
       const v1 = newVisualElement();
-      v1.smaller()
-      v1.smaller()
+      v1.setWidth(50)
       const v2 = newVisualElement();
-      v1.smaller()
+      v2.setWidth(75)
       
       row.push([v1, v2]);
 
@@ -41,10 +38,9 @@ describe("DRow", () => {
     it("row003: removes overflowing elements from the row", () => {
       const row = new DRow();
       const v1 = newVisualElement();
-      v1.smaller()
-      v1.smaller()
+      v1.setWidth(50)
       const v2 =  newVisualElement();
-      v1.smaller()
+      v2.setWidth(75)
       row.push([v1, v2]);
 
       row.getOverflowingItems();
