@@ -1,3 +1,5 @@
+import { CodeGen } from './../src/coder/CodeGen';
+import {generateCode} from '@sisukas/coder'
 import DTextbox from "../src/modules/DTextbox";
 import {serialize, deserialize} from "class-transformer";
 
@@ -97,7 +99,7 @@ describe("DTextbox",()=>
         expect(html_code).toContain(`id="name"`);
         expect(html_code).toContain(`name="name"`);
     });
-*/
+
 
     test("Textbox valdation code generation",()=>
     {
@@ -114,6 +116,20 @@ describe("DTextbox",()=>
         expect(validation_code).toContain(`.isRequired()`);
         expect(validation_code).toContain(`.checkMaxLength(1024)`);
         expect(validation_code).toContain(`.checkMinLength(10)`);
+    })
+
+    */
+
+    test("TXTCODE001: Textbox codegen ",()=>{
+        let txtbox = new DTextbox();
+        txtbox.name = 'first_name';
+
+        const codegen = new CodeGen(txtbox)
+
+        const genCode = generateCode(codegen)
+
+        const code = genCode.getHTMLCode(true)
+        console.log("generated code ", code)
     })
     
 });

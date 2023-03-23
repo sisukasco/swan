@@ -1,3 +1,4 @@
+import { Sidekick } from '../coder/Sidekick';
 import { NodeItem} from "@sisukas/coder-interface";
 import {ExcludeDefault} from "../lib/TxUtils";
 import {Expose, Exclude} from "class-transformer";
@@ -122,7 +123,7 @@ export default class DElement
 	{
 		return '';
 	}
-	code(__coder:NodeItem)
+	code(__coder:NodeItem, _options: Sidekick)
 	{
 		
 	}

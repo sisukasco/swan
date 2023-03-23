@@ -141,7 +141,7 @@ describe("DRow", () => {
       const row = new DRow();
       const v1 = newVisualElement();
       row.push([v1]);
-      const genCode = generateCode(row,{framework:"bootstrap"})
+      const genCode = generateCode(row)
 
       const code = genCode.getHTMLCode(false)
 
@@ -155,7 +155,7 @@ describe("DRow", () => {
       row.condition = "enable_address";
       const v1 = newVisualElement();
       row.push([v1]);
-      const genCode = generateCode(row,{framework:"bootstrap"})
+      const genCode = generateCode(row)
 
       const code = genCode.getHTMLCode(false)
 
@@ -169,7 +169,7 @@ describe("DRow", () => {
     it("row3003: does not generate any HTML code when the row has no elements", () => {
       const row = new DRow();
       
-      const genCode = generateCode(row,{framework:"bootstrap"})
+      const genCode = generateCode(row)
     
       const code = genCode.getHTMLCode(false)
 
