@@ -1,5 +1,4 @@
-import { CodeGen } from './../src/coder/CodeGen';
-import {generateCode} from '@sisukas/coder'
+import { generateHTMLCode } from './../src/coder/CodeGen';
 import DTextbox from "../src/modules/DTextbox";
 import {serialize, deserialize} from "class-transformer";
 
@@ -124,11 +123,8 @@ describe("DTextbox",()=>
         let txtbox = new DTextbox();
         txtbox.name = 'first_name';
 
-        const codegen = new CodeGen(txtbox)
+        const code = generateHTMLCode(txtbox)
 
-        const genCode = generateCode(codegen)
-
-        const code = genCode.getHTMLCode(true)
         console.log("generated code ", code)
     })
     

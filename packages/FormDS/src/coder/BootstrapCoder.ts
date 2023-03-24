@@ -30,7 +30,7 @@ export class BootstrapCoder implements CSSFramework{
 
         if (width) {
             colx = 'col-'+this.breakPoint+'-12';
-            
+
             for(let w=1; w*widthPerc < 100; w++){
                 if(width <= w*widthPerc){
                     colx = 'col-'+this.breakPoint+'-'+( w * colSliceCount);
@@ -49,5 +49,8 @@ export class BootstrapCoder implements CSSFramework{
     }
     inputClasses():string[]{
         return ["w-full"]
+    }
+    rowClasses():string[]{
+        return ['row', 'mb-3']
     }
 }

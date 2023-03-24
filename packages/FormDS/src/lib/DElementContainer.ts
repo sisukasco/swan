@@ -4,9 +4,10 @@ import DPage from "./DPage";
 import DElement from '../elements/DElement';
 import "reflect-metadata";
 import {Exclude, Type} from "class-transformer";
-import { Codeable, NodeItem } from "@sisukas/coder-interface";
 import {classToClass} from "class-transformer";
 import DRow from "./DRow"
+import { Sidekick } from '../coder/Sidekick';
+import { NodeItem} from "@sisukas/coder-interface";
 
 export interface PageInfo
 {
@@ -16,7 +17,7 @@ export interface PageInfo
     sort_position:number;    
 }
 
-export class DElementContainer implements Codeable
+export class DElementContainer 
 {
     @Type(()=>DPage)
     private pages:DPage[]=[ new DPage() ];
@@ -319,11 +320,11 @@ export class DElementContainer implements Codeable
         }
     }
     
-    public code(node:NodeItem)
+    public code(node:NodeItem, sidekick: Sidekick)
     {
         for(let pg of this.pages)
         {
-            pg.code(node, this.pages.length)
+            pg.code(node, sidekick)
         }
     }
 }

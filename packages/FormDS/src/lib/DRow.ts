@@ -1,10 +1,10 @@
 import VisualElement from "./VisualElement";
-import { NodeItem} from "@sisukas/coder-interface";
+import { NodeItem, Attributes} from "@sisukas/coder-interface";
 import "reflect-metadata";
 import {Type} from "class-transformer";
 import { ExcludeDefault } from "./TxUtils"
 import DElement from '../elements/DElement';
-import {InputAttributes } from "../modules/attribs"
+import { Sidekick } from '../coder/Sidekick';
 
 export default class DRow
 {
@@ -82,14 +82,14 @@ export default class DRow
         this.elements.splice(idx,1)
     }
 
-    code(node:NodeItem){
-        let page = node;
+    code(parent: NodeItem, sidekick: Sidekick){
+        let page = parent;
 
         if(this.elements.length <= 0){
             //empty row sometimes added at the enc of the page
             return;
         }
-        const attrs:InputAttributes ={}
+        const attrs:Attributes ={}
 
         let condition = this.condition.trim()
         condition = condition.replace(/\r?\n|\r/g, ' ').replace(/\s+/g, ' ');
@@ -97,13 +97,15 @@ export default class DRow
         if(condition.length > 0){
             attrs["r-show"] = condition;
 
-            node.addDependency('nitti','https://unpkg.com/@sisukas/nitti@1.0.9/dist/nitti.js','script');
+            parent.addDependency('nitti','https://unpkg.com/@sisukas/nitti@1.0.9/dist/nitti.js','script');
         }
 
-        let rcode = page.section("layout.row", attrs)
+        attrs['class'] = sidekick.css.rowClasses()
+        let rowElment = page.startTag('div', attrs)
+        //let rcode = page.section("layout.row", attrs)
         for(let velmnt of this.elements)
         {
-            velmnt.code(rcode)
+            velmnt.elmnt.code(rowElment, sidekick)
         }
     }
 

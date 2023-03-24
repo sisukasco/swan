@@ -1,6 +1,6 @@
 import {DRow, VisualElement} from "../src/lib";
 import {factory} from "../src/lib";
-import {generateCode} from "@sisukas/coder"
+import { generateHTMLCode } from './../src/coder/CodeGen';
 
 function newVisualElement(){
     const newElemt = factory.makeObject("Textbox");
@@ -141,9 +141,8 @@ describe("DRow", () => {
       const row = new DRow();
       const v1 = newVisualElement();
       row.push([v1]);
-      const genCode = generateCode(row)
 
-      const code = genCode.getHTMLCode(false)
+      const code = generateHTMLCode(row)
 
       expect(code).toContain(v1.elmnt.name)
       expect(code).not.toContain("r-show")
@@ -155,9 +154,8 @@ describe("DRow", () => {
       row.condition = "enable_address";
       const v1 = newVisualElement();
       row.push([v1]);
-      const genCode = generateCode(row)
-
-      const code = genCode.getHTMLCode(false)
+      
+      const code = generateHTMLCode(row)
 
       expect(code).toContain('r-show="enable_address"')
       expect(code).toContain(v1.elmnt.name)
@@ -169,11 +167,9 @@ describe("DRow", () => {
     it("row3003: does not generate any HTML code when the row has no elements", () => {
       const row = new DRow();
       
-      const genCode = generateCode(row)
-    
-      const code = genCode.getHTMLCode(false)
+      const code = generateHTMLCode(row).trim()
 
-      console.log("generated code ", code)
+      console.log("generated code|%s| ", code)
 
       expect(code).toBe('')
       //expect(node.generate()).toEqual(undefined);

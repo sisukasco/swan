@@ -33,19 +33,7 @@ export class TailWindCoder implements CSSFramework{
                 colx = 'w-3/4'
             }
         }
-        /*let colx = ''
-        if (width <= 25) {
-            colx = 'w-1/4'
-        }
-        else if (width <= 50) {
-            colx = 'w-1/2'
-        }
-        else if (width <= 75) {
-            colx = 'w-3/4'
-        }
-        else {
-            colx = 'w-full'
-        }*/
+        
         const ret =["w-full"]
         if(colx){
             colx = this.breakPoint+':'+colx
@@ -60,6 +48,10 @@ export class TailWindCoder implements CSSFramework{
     }
     inputClasses():string[]{
         return ["w-full"]
+    }
+
+    rowClasses():string[]{
+        return ['flex', 'mb-4','space-x-4']
     }
 
 }

@@ -6,6 +6,7 @@ import "reflect-metadata";
 import {Type} from "class-transformer";
 import { ExcludeDefault } from "./TxUtils"
 import DElement from '../elements/DElement';
+import { Sidekick } from '../coder/Sidekick';
 
 export default class DPage
 {
@@ -202,16 +203,12 @@ export default class DPage
             this.rows = undefined;
         }
     }
-    code(node:NodeItem, nPages:Number)
+    code(base: NodeItem, sidekick: Sidekick)
     {
-        let page = node;
-        if(nPages > 1){
-            page = node.section('layout.page')
-        }
-        
+        sidekick.css.setNumColumns(this.col_count)
         for(let row of this.rowsx)
         {
-            row.code(page)
+            row.code(base, sidekick)
         }
     }
 }
