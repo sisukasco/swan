@@ -8,6 +8,10 @@ export class TailWindCoder implements CSSFramework{
         this.numColumns = n
     }
 
+    layoutContainerClasses():string[]{
+        return ['container mx-auto']
+    }
+
     inputContainerClasses(width:number){
 
         let colx="";

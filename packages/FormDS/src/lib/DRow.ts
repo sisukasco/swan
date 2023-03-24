@@ -43,11 +43,13 @@ export default class DRow
         {
             if(this.elements[e].id === v_elmnt.id)
             {
-                return true;
+                return e;
             }
         } 
-        return false       
+        return -1;       
     }
+
+    
 
     removeElement(v_elmnt:VisualElement){
 

@@ -8,6 +8,9 @@ export class BootstrapCoder implements CSSFramework{
         this.numColumns = n
     }
 
+    layoutContainerClasses():string[]{
+        return ['container']
+    }
     inputContainerClasses(width:number):string[]{
         let colx = ''
         
@@ -48,7 +51,7 @@ export class BootstrapCoder implements CSSFramework{
         return ["form-label"]
     }
     inputClasses():string[]{
-        return ["w-full"]
+        return ["form-control"]
     }
     rowClasses():string[]{
         return ['row', 'mb-3']

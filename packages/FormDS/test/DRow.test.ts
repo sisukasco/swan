@@ -80,7 +80,7 @@ describe("DRow", () => {
   });
 
   describe("findElement", () => {
-    it("row1001: returns true if an element with the given ID exists in the row", () => {
+    it("row1001: returns >= 0 if an element with the given ID exists in the row", () => {
       const row = new DRow();
       const v1 = newVisualElement();
       const v2 = newVisualElement();
@@ -88,22 +88,22 @@ describe("DRow", () => {
 
       const result = row.findElement(v2);
 
-      expect(result).toBe(true);
+      expect(result).toBeGreaterThanOrEqual(0)
     });
 
-    it("row1002: returns false if an element with the given ID does not exist in the row", () => {
+    it("row1002: returns -1 if an element with the given ID does not exist in the row", () => {
       const row = new DRow();
       const v1 = newVisualElement();
       const v2 = newVisualElement();
       row.push([v1]);
 
-      expect(row.findElement(v2)).toBe(false);
+      expect(row.findElement(v2)).toBe(-1);
 
-      expect(row.findElement(v1)).toBe(true);
+      expect(row.findElement(v1)).toBeGreaterThanOrEqual(0)
 
       row.push([v2]);
 
-      expect(row.findElement(v2)).toBe(true);      
+      expect(row.findElement(v2)).toBeGreaterThanOrEqual(0)
 
     });
   });
@@ -142,7 +142,7 @@ describe("DRow", () => {
       const v1 = newVisualElement();
       row.push([v1]);
 
-      const code = generateHTMLCode(row)
+      const code = generateHTMLCode(row, {cssFramework:"bootstrap"})
 
       expect(code).toContain(v1.elmnt.name)
       expect(code).not.toContain("r-show")
@@ -155,7 +155,7 @@ describe("DRow", () => {
       const v1 = newVisualElement();
       row.push([v1]);
       
-      const code = generateHTMLCode(row)
+      const code = generateHTMLCode(row, {cssFramework:"bootstrap"})
 
       expect(code).toContain('r-show="enable_address"')
       expect(code).toContain(v1.elmnt.name)
@@ -167,7 +167,7 @@ describe("DRow", () => {
     it("row3003: does not generate any HTML code when the row has no elements", () => {
       const row = new DRow();
       
-      const code = generateHTMLCode(row).trim()
+      const code = generateHTMLCode(row, {cssFramework:"bootstrap"}).trim()
 
       console.log("generated code|%s| ", code)
 

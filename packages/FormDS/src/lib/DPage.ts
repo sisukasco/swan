@@ -84,11 +84,22 @@ export default class DPage
     {
         for(let r=0;r<this.rowsx.length;r++)
         {
-            if(this.rowsx[r].findElement(v_elmnt)){
+            if(this.rowsx[r].findElement(v_elmnt) >= 0){
                 return r;
             }
         }
         return -1;
+    }
+
+    public find_row_col(v_elmnt:VisualElement){
+        for(let r=0;r<this.rowsx.length;r++)
+        {
+            const c = this.rowsx[r].findElement(v_elmnt);
+            if(c >= 0){
+                return {row:r, col:c};
+            }
+        }
+        return false;
     }
 
     public removeElementAt(row:number,idx:number){
@@ -132,11 +143,14 @@ export default class DPage
     }
 
     public makeElementLarger(row:number, col:number){
-        this.elementAt(row,col).elmnt.smaller(this.decrWidth)
+        this.elementAt(row,col).elmnt.larger(this.decrWidth)
     }
 
     public setColCount(c:number){
         this.col_count = c
+    }
+    public getColCount(){
+        return this.col_count;
     }
     
 
