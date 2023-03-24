@@ -2,9 +2,9 @@ import DFormElement from "./DFormElement";
 import {CalcFieldValidations} from "../containers";
 import "reflect-metadata"; 
 import {Type} from "class-transformer";
-import {NodeItem} from "@sisukas/coder-interface";
+import {NodeItem, Attributes} from "@sisukas/coder-interface";
 import { ExcludeDefault } from "../lib/TxUtils";
-import {InputAttributes } from "./attribs";
+import { Sidekick } from '../coder/Sidekick';
 
 class CalculationFieldSettings
 {
@@ -31,12 +31,21 @@ export default class DCalculationField extends DFormElement
         
     }
 
-    public code(coder:NodeItem)
+    public code(coder:NodeItem, sidekick: Sidekick)
     {
-        const container = coder.section('form.input.container', { width: this.width});
+        const container = coder.startTag('div', {class: sidekick.css.inputContainerClasses(this.width)})
+        //const container = coder.section('form.input.container', { width: this.width});
 
+        /*
         if(this.hasLabel()){
             container.section('form.input.label', {'for':this.name}).html(this.label);
+        }
+
+        */
+        if(this.hasLabel()){
+            container
+              .startTag('label', { for: this.name, class: sidekick.css.labelClasses() })
+              .html(this.label);
         }
         
 
@@ -50,8 +59,9 @@ export default class DCalculationField extends DFormElement
         }else if(this.settings.format == "number"){
             format = "number"
         }
-        const attrs:InputAttributes = {
+        const attrs:Attributes = {
             type:'text', 
+            class: sidekick.css.inputClasses(),
             name:this.name,
             id:this.name,
             readonly:"readonly",
@@ -62,7 +72,9 @@ export default class DCalculationField extends DFormElement
             attrs["r-format"] = format
         }
         
-        container.section('form.input.input',attrs);
+        container.startTag('input',attrs)
+        
+        //container.section('form.input.input',attrs);
 
         coder.addDependency('nitti','https://unpkg.com/@sisukas/nitti@1.0.9/dist/nitti.js','script');
     }

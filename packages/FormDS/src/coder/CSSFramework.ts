@@ -9,4 +9,10 @@ export interface CSSFramework{
     hintTextClasses():string[]
     headingClasses(type:string):string[]
     flexAlignmentClasses(alignment: string): string[]
+    buttonClasses():string[]
+    groupContainerClasses(arrangement:string):string[]
+    groupItemContainerClasses(arrangement:string):string[]
+    inputCheckboxClasses():string[]
+    labelCheckboxClasses():string[]
+    selectFieldClasses():string[]
 }

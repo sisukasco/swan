@@ -48,6 +48,7 @@ export class BootstrapCoder implements CSSFramework {
   labelClasses(): string[] {
     return ['form-label'];
   }
+
   inputClasses(): string[] {
     return ['form-control'];
   }
@@ -80,5 +81,37 @@ export class BootstrapCoder implements CSSFramework {
     
     return classes
 
+  }
+
+  buttonClasses():string[]{
+    return ['btn', 'btn-lg', 'px-4']
+  }
+
+  groupContainerClasses(arrangement:string):string[]{
+    if(arrangement == 'horizontal'){
+      return ["d-flex", "flex-wrap"]
+    }else{
+      return []
+    }
+  }
+
+  groupItemContainerClasses(arrangement:string):string[]{
+    let classes = ["form-check"]
+    if(arrangement == 'horizontal'){
+        classes.push("form-check-inline","me-3")
+    }
+    return classes
+  }
+
+  inputCheckboxClasses():string[]{
+    return ["form-check-input"]
+  }
+
+  labelCheckboxClasses():string[]{
+    return ["form-check-label"]
+  }
+
+  selectFieldClasses():string[]{
+    return ['form-select']
   }
 }

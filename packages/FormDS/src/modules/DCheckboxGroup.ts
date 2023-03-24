@@ -8,6 +8,7 @@ import { NodeItem } from "@sisukas/coder-interface";
 import DItem,{getTextFromItems, getItemsJSON, itemsFromText} from "./DItem";
 import { ExcludeDefault } from "../lib/TxUtils";
 import {IGroupItemSettings} from "./IGroupItemSettings";
+import { Sidekick } from '../coder/Sidekick';
 
 class CheckboxGroupSettings implements IGroupItemSettings
 {
@@ -60,10 +61,10 @@ class DCheckboxGroup extends DFormElement
     {
         return [];
     }
-    public code(node:NodeItem)
+    public code(node:NodeItem, sidekick: Sidekick)
     {
         let gc = new GroupChoice(this,"checkbox");
-        return gc.code(node);
+        return gc.code(node, sidekick);
     }
     public getConverterCode()
     {

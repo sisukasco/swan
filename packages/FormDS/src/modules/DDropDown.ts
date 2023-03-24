@@ -3,11 +3,11 @@ import DFormElement from "./DFormElement";
 import {DropdownValidations} from "../containers";
 import "reflect-metadata"; 
 import {Type} from "class-transformer";
-import { NodeItem } from "@sisukas/coder-interface";
+import { NodeItem, Attributes } from "@sisukas/coder-interface";
 import { ExcludeEmpty } from "../lib/TxUtils";
 import DItem,{getTextFromItems, getItemsJSON, itemsFromText} from "./DItem";
-import {InputAttributes } from "./attribs";
 import {IGroupItemSettings} from "./IGroupItemSettings"
+import { Sidekick } from '../coder/Sidekick';
 
 class DropDownSettings implements IGroupItemSettings
 {
@@ -58,14 +58,24 @@ class DDropDown extends DFormElement
         return('');
     }
     
-    public code(node:NodeItem)
+    public code(coder:NodeItem, sidekick: Sidekick)
     {
-        const container = node.section('form.input.container', {type: this.type, width: this.width});
-        if(this.hasLabel()){        
-            container.section('form.input.label', {'for':this.name}).html(this.label);
+        const container = coder.startTag('div', {class: sidekick.css.inputContainerClasses(this.width)})
+
+        if(this.hasLabel()){
+            container
+              .startTag('label', { for: this.name, class: sidekick.css.labelClasses() })
+              .html(this.label);
         }
 
-        const attrs:InputAttributes = {
+       // const container = node.section('form.input.container', {type: this.type, width: this.width});
+       /* if(this.hasLabel()){        
+            container.section('form.input.label', {'for':this.name}).html(this.label);
+        }
+        */
+
+        const attrs:Attributes = {
+            class: sidekick.css.selectFieldClasses(),
             name:this.name,
             id:this.name            
         }
@@ -73,8 +83,8 @@ class DDropDown extends DFormElement
         if(this.validations.required.enabled){
             attrs["required"]="required"
         }
-        const sel = container.section('form.input.select',attrs);
-
+        //const sel = container.section('form.input.select',attrs);
+        const sel = container.startTag('select', attrs)
         for(let i=0;i<this.items.length;i++)
         {
             const attrs:any={};
@@ -89,7 +99,6 @@ class DDropDown extends DFormElement
             
             sel.startTag('option', attrs).text(this.items[i].value);
         }
-        container.section('form.input.error',{name:this.name});
 
     }
     

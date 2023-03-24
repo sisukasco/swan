@@ -1,10 +1,10 @@
 import DFormElement from "./DFormElement";
-import {NodeItem} from "@sisukas/coder-interface";
+import {NodeItem, Attributes} from "@sisukas/coder-interface";
 import {SimpleFileUploadValidations} from "../containers";
 import "reflect-metadata"; 
 import {Type} from "class-transformer";
 import { ExcludeDefault } from "../lib/TxUtils";
-import {InputAttributes } from "./attribs";
+import { Sidekick } from '../coder/Sidekick';
 
 class FileUploadSettings
 {
@@ -29,16 +29,19 @@ export default class DSimpleFileUpload extends DFormElement
     public readonly  validations:SimpleFileUploadValidations = new SimpleFileUploadValidations;
 
 
-    public code(coder:NodeItem)
+    public code(coder:NodeItem, sidekick: Sidekick)
     {
-        const container = coder.section('form.input.container', { width: this.width});
+        const container = coder.startTag('div', {class: sidekick.css.inputContainerClasses(this.width)})
 
         if(this.hasLabel()){
-            container.section('form.input.label', {'for':this.name}).html(this.label);
+            container
+              .startTag('label', {class: sidekick.css.labelClasses(), for: this.name })
+              .html(this.label);
         }
         
-        const attrs:InputAttributes = {
+        const attrs:Attributes = {
             type:'file', 
+            class: sidekick.css.inputClasses(),
             name:this.name,
             id:this.name,
         }
@@ -47,9 +50,7 @@ export default class DSimpleFileUpload extends DFormElement
             attrs['required'] = 'required'
         }
        
-        container.section('form.input.input',attrs);
-
-        container.section('form.input.error',{name:this.name});
+        container.startTag('input',attrs)
 
     }
 }

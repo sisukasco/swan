@@ -100,4 +100,34 @@ export class TailWindCoder implements CSSFramework{
         }
         return classes
     }
+    buttonClasses():string[]{
+        return ['px-6', 'py-2', 'rounded', 'shadow'];
+    }
+
+    groupContainerClasses(arrangement:string):string[]{
+        if(arrangement == 'horizontal'){
+            return ["flex", "flex-wrap"]
+            
+        }else{
+            return ["space-y-1"]
+        }
+    }
+
+    groupItemContainerClasses(arrangement:string):string[]{
+        let classes:string[] = ["flex" ,"items-center"]
+        if(arrangement == 'horizontal'){
+            classes.push("mr-3")
+        }
+
+        return classes;
+    }
+    inputCheckboxClasses():string[]{
+        return []
+    }
+    labelCheckboxClasses():string[]{
+        return ['pl-1']
+    }
+    selectFieldClasses():string[]{
+        return ["w-full"]
+    }
 }

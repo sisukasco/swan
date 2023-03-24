@@ -8,7 +8,8 @@ import GroupChoice from "./GroupChoice";
 import { NodeItem } from "@sisukas/coder-interface";
 import DItem,{getTextFromItems, getItemsJSON, itemsFromText} from "./DItem";
 import { ExcludeDefault } from "../lib/TxUtils";
-import {IGroupItemSettings} from "./IGroupItemSettings"
+import {IGroupItemSettings} from "./IGroupItemSettings";
+import { Sidekick } from '../coder/Sidekick';
 
 class RadioButtonSettings implements IGroupItemSettings
 {
@@ -59,10 +60,10 @@ class DRadioButton extends DFormElement
     @Type(() => RadioButtonValidations) 
     public readonly validations =new RadioButtonValidations();
 
-    public code(node: NodeItem)
+    public code(node: NodeItem, sidekick: Sidekick)
     {
         let gc  = new GroupChoice(this,"radio");
-        return gc.code(node);
+        return gc.code(node, sidekick);
     }
 
 } 

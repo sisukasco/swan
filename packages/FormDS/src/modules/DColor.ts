@@ -2,7 +2,8 @@ import DFormElement from "./DFormElement";
 import {ColorValidations} from "../containers"
 import "reflect-metadata"; 
 import {Type} from "class-transformer";
-import {NodeItem} from "@sisukas/coder-interface";
+import {NodeItem, Attributes} from "@sisukas/coder-interface";
+import { Sidekick } from '../coder/Sidekick';
 
 class DColor extends DFormElement
 {
@@ -19,17 +20,30 @@ class DColor extends DFormElement
         return '';
     }
 
-    public code(coder:NodeItem)
+    public code(coder:NodeItem, sidekick: Sidekick )
     {
-        const container = coder.section('form.input.container');
+        const container = coder.startTag('div', {class: sidekick.css.inputContainerClasses(this.width)})
+        if(this.hasLabel()){
+            container
+              .startTag('label', { for: this.name, class: sidekick.css.labelClasses() })
+              .html(this.label);
+        }
+        //const container = coder.section('form.input.container');
 
+        /*
         if(this.hasLabel()){
             container.section('form.input.label', {'for':this.name}).html(this.label);
         }
-        container.section('form.input.input',{type:'color', 
-        name:this.name,
-        id:this.name});
-        container.section('form.input.error',{name:this.name});
+        */
+        const attrs:Attributes = {
+            type:'color', 
+            class: sidekick.css.inputClasses(),
+            name:this.name,
+            id:this.name
+        }
+
+
+        container.startTag('input',attrs)
     }
 }
  

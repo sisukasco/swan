@@ -1,5 +1,6 @@
 import DRadioButton from "./DRadioButton";
 import DCheckboxGroup from "./DCheckboxGroup";
+import { Sidekick } from '../coder/Sidekick';
 
 import { NodeItem } from "@sisukas/coder-interface";
 
@@ -16,35 +17,48 @@ export default class GroupChoice
     {
         
     }
-    code(node:NodeItem)
+    code(coder:NodeItem, sidekick: Sidekick)
     {
-        const container = node.section('form.input.container', { width: this.elmnt.width});
-        container.section('form.group.label').html(this.elmnt.label);
 
-        let gcontainer = container.section('form.group.container', 
-        { arrangement: this.elmnt.settings.arrangement});
+        const container = coder.startTag('div', {class: sidekick.css.inputContainerClasses(this.elmnt.width)})
+
+        //const container = node.section('form.input.container', { width: this.elmnt.width});
+        //container.section('form.group.label').html(this.elmnt.label);
+
+        if(this.elmnt.label && this.elmnt.label.trim().length > 0){
+            container
+              .startTag('label')
+              .html(this.elmnt.label);
+        }
+
+        let gcontainer = container.startTag('div', {class: sidekick.css.groupContainerClasses(this.elmnt.settings.arrangement)})
+
+        //let gcontainer = container.section('form.group.container', 
+        // { arrangement: this.elmnt.settings.arrangement});
 
         for(let i=0;i<this.elmnt.settings.items.length;i++)
         {
-            this.item_code(this.elmnt.settings.items[i],i, gcontainer);
+            this.item_code(this.elmnt.settings.items[i],i, gcontainer, sidekick);
         }
-        gcontainer.section('form.input.error',{name:this.elmnt.name});
 
-        node.style(this.style());
+        coder.style(this.style());
     }
 
-    private item_code(item:ChoiceItem,idx:number, container:NodeItem)
+    private item_code(item:ChoiceItem,idx:number, container:NodeItem, sidekick: Sidekick)
     {
         let id = this.elmnt.name+'_'+idx;
         let value = item.value?item.value:item.name;
 
-        let item_container = 
-        container.section('form.group.item.container',{ arrangement: this.elmnt.settings.arrangement });
+        let item_container =  container.startTag('div',{ class: sidekick.css.groupItemContainerClasses(this.elmnt.settings.arrangement) })
+        // let item_container = 
+        // container.section('form.group.item.container',{ arrangement: this.elmnt.settings.arrangement });
 
-        item_container
-            .section('form.input.input', {type:this.type, name:this.elmnt.name,value, id});
+        item_container.startTag('input', {type:this.type, name:this.elmnt.name,value, id, class: sidekick.css.inputCheckboxClasses()})
+        //item_container
+        //    .section('form.input.input', {type:this.type, name:this.elmnt.name,value, id});
         
-        item_container.section('form.input.label', {type:"checkbox", "for":id} ).html(item.name);
+        item_container.startTag('label',{ class: sidekick.css.labelCheckboxClasses(), "for":id} ).html(item.name)
+        //item_container.section('form.input.label', {type:"checkbox", "for":id} ).html(item.name);
     }
 
 

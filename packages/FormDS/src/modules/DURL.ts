@@ -3,8 +3,9 @@ import DFormElement from "./DFormElement";
 import {URLValidations} from "../containers"
 import "reflect-metadata"; 
 import {Type} from "class-transformer";
-import {NodeItem} from "@sisukas/coder-interface";
+import { NodeItem, Attributes } from "@sisukas/coder-interface";
 import { ExcludeDefault } from "../lib/TxUtils";
+import { Sidekick } from '../coder/Sidekick';
 
 class DURLSettings
 {
@@ -28,18 +29,45 @@ class DURL extends DFormElement
         return '';
     }
 
-    public code(coder:NodeItem)
+    public code(coder:NodeItem, sidekick: Sidekick)
     {
-        const container = coder.section('form.input.container');
+        const container = coder.startTag('div', {class: sidekick.css.inputContainerClasses(this.width)})
 
+        //const container = coder.section('form.input.container');
+
+        if(this.hasLabel()){
+            container
+              .startTag('label', { for: this.name, class: sidekick.css.labelClasses() })
+              .html(this.label);
+        }
+        /*
         if(this.hasLabel()){
             container.section('form.input.label', {'for':this.name}).html(this.label);
         }
-        container.section('form.input.input',{type:'url', 
-        placeholder:this.settings.placeholder, 
-        name:this.name,
-        id:this.name});
-        container.section('form.input.error',{name:this.name});
+        */
+        
+        const attrs:Attributes ={
+            type:'url', 
+            class: sidekick.css.inputClasses(),
+            name:this.name,
+            id:this.name
+        }
+
+        if(this.settings.placeholder){
+            attrs['placeholder'] = this.settings.placeholder
+        }
+
+        if(this.validations.required.enabled){
+            attrs['required'] = 'required'
+        }
+        if(this.validations.maxlength.size != null){
+            attrs['maxlength'] = String(this.validations.maxlength.size)
+        }
+        if(this.validations.minlength.size != null){
+            attrs['minlength'] = String(this.validations.minlength.size)
+        }
+
+        container.startTag('input',attrs)
     }
 }
  
