@@ -34,14 +34,6 @@ export default class DCalculationField extends DFormElement
     public code(coder:NodeItem, sidekick: Sidekick)
     {
         const container = coder.startTag('div', {class: sidekick.css.inputContainerClasses(this.width)})
-        //const container = coder.section('form.input.container', { width: this.width});
-
-        /*
-        if(this.hasLabel()){
-            container.section('form.input.label', {'for':this.name}).html(this.label);
-        }
-
-        */
         if(this.hasLabel()){
             container
               .startTag('label', { for: this.name, class: sidekick.css.labelClasses() })
@@ -74,8 +66,6 @@ export default class DCalculationField extends DFormElement
         
         container.startTag('input',attrs)
         
-        //container.section('form.input.input',attrs);
-
         coder.addDependency('nitti','https://unpkg.com/@sisukas/nitti@1.0.9/dist/nitti.js','script');
     }
 }

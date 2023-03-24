@@ -19,8 +19,6 @@ class DLabel extends DElement
         const container = coder.startTag('div', {class: [...sidekick.css.inputContainerClasses(this.width),
             ...sidekick.css.flexAlignmentClasses(this.settings.alignment)] })
 
-        //const container = coder.section('label.container', {width: this.width, alignment: this.settings.alignment});
-
         container.startTag("label").html(this.settings.content)
     }
 }

@@ -33,18 +33,11 @@ class DEmail extends DFormElement
     {
         const container = coder.startTag('div', {class: sidekick.css.inputContainerClasses(this.width)})
 
-        //const container = coder.section('form.input.container', { width: this.width});
-
         if(this.hasLabel()){
             container
               .startTag('label', { for: this.name, class: sidekick.css.labelClasses() })
               .html(this.label);
         }
-        /*
-        if(this.hasLabel()){
-            container.section('form.input.label', {'for':this.name}).html(this.label);
-        }
-        */
 
         const attrs:Attributes = {
             type:'email', 

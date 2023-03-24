@@ -65,36 +65,7 @@ class DTextbox extends DFormElement {
     container.startTag('input',attrs)
 
   }
-  /*public code(coder:NodeItem)
-    {
-        const container = coder.section('form.input.container', { width: this.width});
-
-        if(this.hasLabel()){
-            container.section('form.input.label', {'for':this.name}).html(this.label);
-        }
-
-        const attrs:InputAttributes = {
-            type:'text', 
-            name:this.name,
-            id:this.name
-        }
-
-        if(this.settings.placeholder){
-            attrs['placeholder'] = this.settings.placeholder
-        }
-        if(this.validations.required.enabled){
-            attrs['required'] = 'required'
-        }
-        if(this.validations.maxlength.size != null){
-            attrs['maxlength'] = String(this.validations.maxlength.size)
-        }
-        if(this.validations.minlength.size != null){
-            attrs['minlength'] = String(this.validations.minlength.size)
-        }
-        container.section('form.input.input',attrs);
-        container.section('form.input.error',{name:this.name});
-
-    }*/
+  
 }
 
 export default DTextbox;

@@ -68,12 +68,6 @@ class DDropDown extends DFormElement
               .html(this.label);
         }
 
-       // const container = node.section('form.input.container', {type: this.type, width: this.width});
-       /* if(this.hasLabel()){        
-            container.section('form.input.label', {'for':this.name}).html(this.label);
-        }
-        */
-
         const attrs:Attributes = {
             class: sidekick.css.selectFieldClasses(),
             name:this.name,
@@ -83,7 +77,6 @@ class DDropDown extends DFormElement
         if(this.validations.required.enabled){
             attrs["required"]="required"
         }
-        //const sel = container.section('form.input.select',attrs);
         const sel = container.startTag('select', attrs)
         for(let i=0;i<this.items.length;i++)
         {

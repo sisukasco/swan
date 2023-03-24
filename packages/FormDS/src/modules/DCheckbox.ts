@@ -32,8 +32,6 @@ class DCheckbox extends DFormElement
 
     public code(coder:NodeItem, sidekick: Sidekick)
     {
-       // const container = node.section('form.input.container', {type: this.type, width: this.width});
-
         const container = coder.startTag('div', {class: [...sidekick.css.inputContainerClasses(this.width),
             ...sidekick.css.flexAlignmentClasses("")] })
 
@@ -46,14 +44,7 @@ class DCheckbox extends DFormElement
         }
         inside.startTag('input', attrs)
 
-        // inside.section('form.input.input', {type:"checkbox", name:this.name, id:this.name});
-
         inside.startTag('label', {"for":this.name, class: sidekick.css.labelCheckboxClasses()}).html(this.label)
-        // inside.section('form.input.label', 
-        // {type:"checkbox","for":this.name} )
-        // .html(this.label);
-        // inside.section('form.input.error',{name:this.name});
-        
     }
     public getConverterCode()
     {

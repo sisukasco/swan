@@ -21,10 +21,6 @@ class DTextBlock extends DElement
 
         container.startTag('div').html(this.content);
 
-        //const container = coder.section('element.container', {width: this.width});
-
-        
-
        /* container.startTag('div', {class:['sim-textblock']}).html(this.content);
         container.style(`
         .sim-textblock p

@@ -42,14 +42,6 @@ class DSubmitButton  extends DFormElement
         }
         container.startTag("button", attribs).text(this.settings.label)
         
-       /* node.section('form.input.container',{alignment:this.settings.alignment, type: this.type, width: this.width})
-            .section('button.button', {
-                alignment:this.settings.alignment, 
-                size:this.settings.size,
-                style:this.styles(),
-                type:'submit'
-            }).text(this.settings.label);
-            */
     }
 
     

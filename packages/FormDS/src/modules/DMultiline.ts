@@ -40,19 +40,12 @@ export default class DMultiline extends DFormElement
     public code(coder:NodeItem, sidekick: Sidekick)
     {
         const container = coder.startTag('div', {class: sidekick.css.inputContainerClasses(this.width)})
-        //const container = node.section('form.input.container', {type: this.type, width: this.width});
 
         if(this.hasLabel()){
             container
               .startTag('label', { for: this.name, class: sidekick.css.labelClasses() })
               .html(this.label);
         }
-
-        /*
-        if(this.hasLabel()){
-            container.section('form.input.label', {'for':this.name}).html(this.label);
-        }
-        */
 
         const attrs:Attributes = {
             name:this.name,

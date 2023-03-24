@@ -32,13 +32,6 @@ class DDate extends DFormElement
               .html(this.label);
         }
 
-        // const container = coder.section('form.input.container', { width: this.width});
-
-        /*
-        if(this.hasLabel()){
-            container.section('form.input.label', {'for':this.name}).html(this.label);
-        }
-        */
         const attrs:Attributes = {
             type:'date', 
             class: sidekick.css.inputClasses(),
@@ -57,10 +50,6 @@ class DDate extends DFormElement
         }
 
         container.startTag('input',attrs)
-
-        //container.section('form.input.input',attrs);
-
-        //container.section('form.input.error',{name:this.name});
 
     }
 }

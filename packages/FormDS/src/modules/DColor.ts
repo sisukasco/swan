@@ -28,13 +28,6 @@ class DColor extends DFormElement
               .startTag('label', { for: this.name, class: sidekick.css.labelClasses() })
               .html(this.label);
         }
-        //const container = coder.section('form.input.container');
-
-        /*
-        if(this.hasLabel()){
-            container.section('form.input.label', {'for':this.name}).html(this.label);
-        }
-        */
         const attrs:Attributes = {
             type:'color', 
             class: sidekick.css.inputClasses(),

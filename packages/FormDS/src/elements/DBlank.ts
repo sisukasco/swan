@@ -14,12 +14,8 @@ class DBlank extends DElement
 
     public code(coder:NodeItem, sidekick: Sidekick)
     {
-       // coder.section('label.container', {width: this.width});
-
         const containerClasses = sidekick.css.inputContainerClasses(this.width);
         coder.startTag('div', { class: containerClasses });
-
-
     }
 }
 
