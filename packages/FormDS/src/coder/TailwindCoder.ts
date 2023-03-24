@@ -58,4 +58,46 @@ export class TailWindCoder implements CSSFramework{
         return ['flex', 'mb-4','space-x-4']
     }
 
+    textAlignmentClasses(alignment:string):string[]{
+        if (alignment == "center") {
+            return ["text-center"]
+        }
+        else if (alignment == "right") {
+            return ["text-right"]
+        }
+        return []
+    }
+
+    hintTextClasses():string[]{
+        return ['text-xs','text-gray-500']
+    }
+
+    headingClasses(type:string):string[]{
+        const classes=[]
+        switch(type){
+            case 'h1':
+                classes.push("text-3xl")
+                break;
+            case 'h2':
+                classes.push("text-2xl")
+                break;
+            case 'h3':
+                classes.push("text-xl")
+                break;
+            case 'h4':
+                classes.push("text-lg")
+                break;                       
+        }
+        return classes;
+    }
+    flexAlignmentClasses(alignment:string):string[]{
+        const classes=["flex", "items-center"]
+        if (alignment == "center") {
+            classes.push("justify-center")
+        }
+        else if (alignment == "right") {
+            classes.push("justify-end")
+        }
+        return classes
+    }
 }

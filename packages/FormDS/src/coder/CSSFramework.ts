@@ -5,4 +5,8 @@ export interface CSSFramework{
     labelClasses():string[]
     inputClasses():string[]
     rowClasses():string[]
+    textAlignmentClasses(alignment:string):string[]
+    hintTextClasses():string[]
+    headingClasses(type:string):string[]
+    flexAlignmentClasses(alignment: string): string[]
 }
