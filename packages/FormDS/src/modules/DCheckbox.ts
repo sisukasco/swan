@@ -46,10 +46,5 @@ class DCheckbox extends DFormElement
 
         inside.startTag('label', {"for":this.name, class: sidekick.css.labelCheckboxClasses()}).html(this.label)
     }
-    public getConverterCode()
-    {
-        return(".defaultTo(false)");
-    }
-
     
 }

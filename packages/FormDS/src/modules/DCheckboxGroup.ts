@@ -66,9 +66,6 @@ class DCheckboxGroup extends DFormElement
         let gc = new GroupChoice(this,"checkbox");
         return gc.code(node, sidekick);
     }
-    public getConverterCode()
-    {
-        return(".toArray()");
-    }
+    
     
 } 

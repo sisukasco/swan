@@ -1,6 +1,5 @@
 import "reflect-metadata";
 import { ExcludeDefault } from "../lib/TxUtils";
-import {escapeQuotes} from "../utils";
 
 export  default abstract class FormValidation
 {
@@ -50,17 +49,4 @@ export  default abstract class FormValidation
         return '';
     }
 
-    public getValidatorCode():string
-    {
-        let ret_code = this.getCode();
-        if(this.has_condition)
-        {
-            ret_code +=`.onlyWhen("${escapeQuotes(this.condition)}")`;
-        }
-        if(this.has_custom_message)
-        {
-            ret_code +=`.message("${escapeQuotes(this.message) }")`;
-        }
-        return ret_code;
-    }
 }
