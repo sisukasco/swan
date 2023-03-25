@@ -67,48 +67,35 @@ export default class DElement
 	
 	smaller(decr:number)
 	{
-		if(this.width - decr >= decr){
-			this.width -= decr;
+		if(decr == 33){
+			if(this.width == 100){
+				this.width = 66
+			}else if(this.width == 66){
+				this.width = 33
+			}
+		}else{
+			if(this.width - decr >= decr){
+				this.width -= decr;
+			}
 		}
 	}
 	larger(incr:number)
 	{
-		if(this.width + incr <= 100){
-			this.width += incr;
+
+		if(incr == 33){
+			if(this.width == 33){
+				this.width = 66;
+			}else if(this.width == 66){
+				this.width = 100
+			}
+		} else{
+			if(this.width + incr <= 100){
+				this.width += incr;
+			}
 		}
 	}
 
-	/*smaller()
-	{
-		if(this.width == 100)
-		{
-			this.width=75;
-		}
-		else if(this.width == 75)
-		{
-			this.width=50;
-		} 
-		else if(this.width == 50)
-		{
-			this.width=25;
-		}
-	}
-	larger()
-	{
-		if(this.width == 25)
-		{
-			this.width = 50;
-		}
-		else if(this.width == 50)
-		{
-			this.width = 75;
-		}
-		else if(this.width == 75)
-		{
-			this.width = 100;
-		}
-	}
-	*/
+	
 	static update_id_tracker(max:number)
 	{
 		DElement.next_objid = max+1;

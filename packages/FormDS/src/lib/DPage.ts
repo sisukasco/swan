@@ -102,6 +102,19 @@ export default class DPage
         return false;
     }
 
+    public find_selected_element_pos(){
+        for(let r=0;r<this.rowsx.length;r++)
+        {
+            for(let e=0;e<this.rowsx[r].elements.length;e++)
+            {
+                if(this.rowsx[r].elements[e].selected){
+                    return {row:r, col:e};
+                }
+            }
+        }
+        return false
+    }
+
     public removeElementAt(row:number,idx:number){
         this.rowsx[row].removeElementAt(idx)
     }
@@ -134,6 +147,8 @@ export default class DPage
             decr_width = 33
         }else if(this.col_count == 2){
             decr_width = 50
+        }else if(this.col_count == 1){
+            decr_width = 100
         }
         return decr_width
     }
@@ -154,6 +169,14 @@ export default class DPage
     }
     
 
+    private fix_minimum_width()
+    {
+        for (let r = 0; r < this.numRows(); r++) 
+        {
+            this.rowsx[r].fixMinimumWidth(this.decrWidth)
+        }
+    }
+
     private split_overflowing_rows()
     {
         //Split overflowing rowsx
@@ -163,7 +186,10 @@ export default class DPage
 
             if (new_items.length > 0) 
             {
-                this.pushToRow(r+1, new_items)
+                const row = new DRow();
+                row.push(new_items);
+                this.rowsx.splice(r+1,0,row);
+                //this.pushToRow(r+1, new_items)
             }
 
         }
@@ -198,7 +224,8 @@ export default class DPage
 
     public normalize_elements() 
     {
-        this.split_overflowing_rows()
+        this.fix_minimum_width();
+        this.split_overflowing_rows();
         this.remove_empty_rows();
         this.update_element_position();
     }

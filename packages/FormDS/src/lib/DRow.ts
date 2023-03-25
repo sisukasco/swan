@@ -19,13 +19,41 @@ export default class DRow
             this.elements.push(velmnt)
         }
     }
+
+    fixMinimumWidth(minWidth:number){
+        for (let e = 0; e < this.elements.length; e++) 
+        {
+            if(minWidth == 33){
+                if(this.elements[e].width == 25){
+                    this.elements[e].setWidth(33) 
+                }else if (this.elements[e].width == 50){
+                    this.elements[e].setWidth(66) 
+                }
+                continue;
+            }
+            if( this.elements[e].width == 33 ){
+                this.elements[e].setWidth(minWidth)
+                continue;
+            }
+            if(this.elements[e].width == 66){
+                if(minWidth != 100){
+                    this.elements[e].setWidth(50)
+                }
+            }
+
+            if (this.elements[e].width < minWidth) 
+            {
+                this.elements[e].setWidth(minWidth)
+            }
+        }
+    }
+
     getOverflowingItems():VisualElement[]{
         let width = 0;
 
         for (let e = 0; e < this.elements.length; e++) 
         {
             width += this.elements[e].width;
-            console.log("width now ", width)
             if (width > 100) 
             {
                 return this.elements.splice(e, this.elements.length - e);
