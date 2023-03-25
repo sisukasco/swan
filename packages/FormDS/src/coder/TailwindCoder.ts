@@ -1,8 +1,13 @@
 import {CSSFramework} from "./CSSFramework"
+import { BreakPoint } from './types';
 
 export class TailWindCoder implements CSSFramework{
     private numColumns:number=2;
-    private breakPoint:string="md";
+   // private breakPoint:string="md";
+
+    constructor(
+        private breakPoint: BreakPoint = 'md'
+        ){}
 
     setNumColumns(n:number){
         this.numColumns = n
@@ -38,13 +43,22 @@ export class TailWindCoder implements CSSFramework{
             }
         }
         
-        const ret =["w-full"]
-        if(colx){
-            colx = this.breakPoint+':'+colx
-            ret.push(colx)
+        if(this.breakPoint === ""){
+            if(colx){
+                return [colx]
+            }else{
+                return ["w-full"]
+            }
+        }else{
+            const ret =["w-full"]
+            if(colx){
+                colx = this.breakPoint+':'+colx
+                ret.push(colx)
+            }
+            
+            return ret;
         }
-        
-        return ret;
+
     }
 
     labelClasses():string[]{

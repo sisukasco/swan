@@ -1,8 +1,14 @@
+import { BreakPoint } from './types';
 import { CSSFramework } from './CSSFramework';
 
 export class BootstrapCoder implements CSSFramework {
-  private numColumns: number = 2;
-  private breakPoint: string = 'md';
+  //private numColumns: number = 2;
+  //private breakPoint: string = 'md';
+  private numColumns: number = 2
+
+  constructor(
+    private breakPoint: BreakPoint = 'md'
+    ){}
 
   setNumColumns(n: number) {
     this.numColumns = n;
@@ -32,11 +38,14 @@ export class BootstrapCoder implements CSSFramework {
     }
 
     if (width) {
-      colx = 'col-' + this.breakPoint + '-12';
+      
+      //colx = 'col-' + this.breakPoint + '-12';
+      colx = this.breakpointCol(12)
 
       for (let w = 1; w * widthPerc < 100; w++) {
         if (width <= w * widthPerc) {
-          colx = 'col-' + this.breakPoint + '-' + w * colSliceCount;
+          //colx = 'col-' + this.breakPoint + '-' + w * colSliceCount;
+          colx = this.breakpointCol(w * colSliceCount)
           break;
         }
       }
@@ -45,6 +54,15 @@ export class BootstrapCoder implements CSSFramework {
     }
     return [colx];
   }
+
+  breakpointCol(w:number){
+    if(this.breakPoint === ""){
+      return 'col-' + String(w)
+    }else{
+      return 'col-' + this.breakPoint + '-'+ String(w);
+    }
+  }
+
   labelClasses(): string[] {
     return ['form-label'];
   }

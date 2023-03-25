@@ -7,9 +7,9 @@ export class Sidekick{
     public css:CSSFramework;
     constructor(options: CoderOptions){
         if(options.cssFramework == "tailwind"){
-            this.css = new TailWindCoder();
+            this.css = new TailWindCoder(options.breakpoint);
         } else /*if(options.cssFramework == "bootstrap")*/{
-            this.css = new BootstrapCoder();
+            this.css = new BootstrapCoder(options.breakpoint);
         }
     }
 }
