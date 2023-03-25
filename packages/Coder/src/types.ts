@@ -1,21 +1,3 @@
-import {NodeItem, Attributes} from "@sisukas/coder-interface";
-
-export interface ICodingAssistant
-{
-    make?(section:string, attributes:Attributes):NodeItem|null;
-    modify?(section:string,node:NodeItem):void;
-}
-
-export interface INodeBuilder
-{
-    makeSection(section:string, attributes:Attributes):NodeItem;
-    makeNodeItem(tag:string,attributes?:Attributes, addnl_attributes?:Attributes):NodeItem;
-}
-
-export interface ICodingAssistantsHandler
-{
-    register(assistant:ICodingAssistant):void;
-}
 
 export interface ISupplementaryCode
 {
@@ -28,7 +10,6 @@ export interface ISupplementaryCode
 
 export interface INodeContext
 {
-    builder:INodeBuilder
     supp_code:ISupplementaryCode  
 }
 
@@ -45,20 +26,7 @@ export interface Dependency
     cdn_link: string
 }
 
-export interface CodingAssistant
-{
-    make?(section:string, attributes:Attributes):NodeItem|null;
-    modify?(section:string,node:NodeItem):void;
-}
-
 export type CSSFramework="bootstrap" | "tailwind" |"none"
-
-
-export interface ICodegenOptions
-{
-    assistants ?:CodingAssistant[]
-    framework ?:CSSFramework
-}
 
 
 

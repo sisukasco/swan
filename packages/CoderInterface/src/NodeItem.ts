@@ -28,7 +28,6 @@ export interface NodeItem
     attributes ?:Attributes
     children ?: ChildrenArray
 
-    section(section_name:string,attributes?:Attributes):NodeItem;
     startTag(tag_name:string,attributes?:Attributes):NodeItem;
     attribute(name:string, value:AttributeValue):NodeItem;
     getAttribute(name:string):AttributeValue|null;
