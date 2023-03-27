@@ -96,6 +96,10 @@ export default class DRow
         return this.elements.push(...velmnts)
     }
 
+    insertAt(idx:number, velmnts:VisualElement[]){
+        return this.elements.splice(idx,0,...velmnts)
+    }
+
     public getElements():DElement[]{
         let all=[]
         for(let e=0;e<this.elements.length;e++){

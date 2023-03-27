@@ -142,7 +142,7 @@ describe("DRow", () => {
       const v1 = newVisualElement();
       row.push([v1]);
 
-      const code = generateHTMLCode(row, {cssFramework:"bootstrap"})
+      const code = generateHTMLCode(row, {cssFramework:"bootstrap",breakpoint:"md"})
 
       expect(code).toContain(v1.elmnt.name)
       expect(code).not.toContain("r-show")
@@ -154,8 +154,9 @@ describe("DRow", () => {
       row.condition = "enable_address";
       const v1 = newVisualElement();
       row.push([v1]);
+
       
-      const code = generateHTMLCode(row, {cssFramework:"bootstrap"})
+      const code = generateHTMLCode(row, {cssFramework:"bootstrap", breakpoint:"md"})
 
       expect(code).toContain('r-show="enable_address"')
       expect(code).toContain(v1.elmnt.name)
@@ -167,13 +168,13 @@ describe("DRow", () => {
     it("row3003: does not generate any HTML code when the row has no elements", () => {
       const row = new DRow();
       
-      const code = generateHTMLCode(row, {cssFramework:"bootstrap"}).trim()
+      const code = generateHTMLCode(row, {cssFramework:"bootstrap", breakpoint:"md"}).trim()
 
       console.log("generated code|%s| ", code)
 
       expect(code).toBe('')
       //expect(node.generate()).toEqual(undefined);
     });
-    
+     
   });
 });

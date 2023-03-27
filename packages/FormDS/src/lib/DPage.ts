@@ -66,6 +66,15 @@ export default class DPage
         this.rowsx[row].push(velmnts)
     }
 
+    insertAt(row:number,col:number, velmnts:VisualElement[]){
+        if(row >= this.rowsx.length){
+            throw new Error("Attempt to insert beyond last row")
+        }
+
+        this.rowsx[row].insertAt(col, velmnts)
+    }
+    
+
     public elementAt(row:number, col:number){
         return this.rowsx[row].getElementAt(col)
     }
@@ -139,7 +148,7 @@ export default class DPage
         return all
     }
 
-    private get decrWidth(){
+    public get decrWidth(){
         let decr_width = 0;
         if(this.col_count == 4){
             decr_width = 25

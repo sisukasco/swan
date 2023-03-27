@@ -123,7 +123,7 @@ describe("DTextbox",()=>
         let txtbox = new DTextbox();
         txtbox.name = 'first_name';
 
-        const code = generateHTMLCode(txtbox, {cssFramework:"bootstrap"})
+        const code = generateHTMLCode(txtbox, {cssFramework:"bootstrap", breakpoint:"md"})
 
         console.log("generated code ", code)
     })
