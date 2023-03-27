@@ -6,6 +6,7 @@ import "reflect-metadata";
 import {Type} from "class-transformer";
 import { ExcludeDefault } from "./TxUtils"
 import DElement from '../elements/DElement';
+import { Sidekick } from '../coder/Sidekick';
 
 export default class DPage
 {
@@ -15,6 +16,11 @@ export default class DPage
     @ExcludeDefault("")
     public condition:string="";
 
+    /**
+     ** Initial versions had two dimensional array of VisualElement to represent the 
+     ** rows and columns of elements. It was later moved to DRow The old variable is retained so that 
+     ** Old version files can be automatically migrated to new version
+     */
     @Type(()=>VisualElement)
     private rows:undefined|VisualElement[][]=undefined;
 
@@ -23,6 +29,11 @@ export default class DPage
     
     @ExcludeDefault(0)
     public sort_position:number=0;
+
+    @ExcludeDefault(0)
+    private col_count=2;
+
+
 
     constructor(public readonly id:string=uniqid())
     {
@@ -73,11 +84,35 @@ export default class DPage
     {
         for(let r=0;r<this.rowsx.length;r++)
         {
-            if(this.rowsx[r].findElement(v_elmnt)){
+            if(this.rowsx[r].findElement(v_elmnt) >= 0){
                 return r;
             }
         }
         return -1;
+    }
+
+    public find_row_col(v_elmnt:VisualElement){
+        for(let r=0;r<this.rowsx.length;r++)
+        {
+            const c = this.rowsx[r].findElement(v_elmnt);
+            if(c >= 0){
+                return {row:r, col:c};
+            }
+        }
+        return false;
+    }
+
+    public find_selected_element_pos(){
+        for(let r=0;r<this.rowsx.length;r++)
+        {
+            for(let e=0;e<this.rowsx[r].elements.length;e++)
+            {
+                if(this.rowsx[r].elements[e].selected){
+                    return {row:r, col:e};
+                }
+            }
+        }
+        return false
     }
 
     public removeElementAt(row:number,idx:number){
@@ -104,7 +139,43 @@ export default class DPage
         return all
     }
 
+    private get decrWidth(){
+        let decr_width = 0;
+        if(this.col_count == 4){
+            decr_width = 25
+        }else if(this.col_count == 3){
+            decr_width = 33
+        }else if(this.col_count == 2){
+            decr_width = 50
+        }else if(this.col_count == 1){
+            decr_width = 100
+        }
+        return decr_width
+    }
+
+    public makeElementSmaller(row:number, col:number){
+        this.elementAt(row,col).elmnt.smaller(this.decrWidth)
+    }
+
+    public makeElementLarger(row:number, col:number){
+        this.elementAt(row,col).elmnt.larger(this.decrWidth)
+    }
+
+    public setColCount(c:number){
+        this.col_count = c
+    }
+    public getColCount(){
+        return this.col_count;
+    }
     
+
+    private fix_minimum_width()
+    {
+        for (let r = 0; r < this.numRows(); r++) 
+        {
+            this.rowsx[r].fixMinimumWidth(this.decrWidth)
+        }
+    }
 
     private split_overflowing_rows()
     {
@@ -115,7 +186,10 @@ export default class DPage
 
             if (new_items.length > 0) 
             {
-                this.pushToRow(r+1, new_items)
+                const row = new DRow();
+                row.push(new_items);
+                this.rowsx.splice(r+1,0,row);
+                //this.pushToRow(r+1, new_items)
             }
 
         }
@@ -150,7 +224,8 @@ export default class DPage
 
     public normalize_elements() 
     {
-        this.split_overflowing_rows()
+        this.fix_minimum_width();
+        this.split_overflowing_rows();
         this.remove_empty_rows();
         this.update_element_position();
     }
@@ -169,16 +244,12 @@ export default class DPage
             this.rows = undefined;
         }
     }
-    code(node:NodeItem, nPages:Number)
+    code(base: NodeItem, sidekick: Sidekick)
     {
-        let page = node;
-        if(nPages > 1){
-            page = node.section('layout.page')
-        }
-        
+        sidekick.css.setNumColumns(this.col_count)
         for(let row of this.rowsx)
         {
-            row.code(page)
+            row.code(base, sidekick)
         }
     }
 }

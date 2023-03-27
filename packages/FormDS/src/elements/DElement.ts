@@ -1,3 +1,4 @@
+import { Sidekick } from '../coder/Sidekick';
 import { NodeItem} from "@sisukas/coder-interface";
 import {ExcludeDefault} from "../lib/TxUtils";
 import {Expose, Exclude} from "class-transformer";
@@ -59,55 +60,42 @@ export default class DElement
 		this.row = row;
 		this.col = col;
 	}
-	setCols(nCols:number)
+
+	setWidth(w:number){
+		this.width = w
+	}
+	
+	smaller(decr:number)
 	{
-		if(nCols == 1)
-		{
-			this.width=25;
-		}
-		else if(nCols == 2)
-		{
-			this.width=50;
-		}
-		else if(nCols == 3)
-		{
-			this.width=75;
-		}
-		else
-		{
-			this.width=100;
+		if(decr == 33){
+			if(this.width == 100){
+				this.width = 66
+			}else if(this.width == 66){
+				this.width = 33
+			}
+		}else{
+			if(this.width - decr >= decr){
+				this.width -= decr;
+			}
 		}
 	}
-	smaller()
+	larger(incr:number)
 	{
-		if(this.width == 100)
-		{
-			this.width=75;
-		}
-		else if(this.width == 75)
-		{
-			this.width=50;
-		} 
-		else if(this.width == 50)
-		{
-			this.width=25;
+
+		if(incr == 33){
+			if(this.width == 33){
+				this.width = 66;
+			}else if(this.width == 66){
+				this.width = 100
+			}
+		} else{
+			if(this.width + incr <= 100){
+				this.width += incr;
+			}
 		}
 	}
-	larger()
-	{
-		if(this.width == 25)
-		{
-			this.width = 50;
-		}
-		else if(this.width == 50)
-		{
-			this.width = 75;
-		}
-		else if(this.width == 75)
-		{
-			this.width = 100;
-		}
-	}
+
+	
 	static update_id_tracker(max:number)
 	{
 		DElement.next_objid = max+1;
@@ -122,7 +110,7 @@ export default class DElement
 	{
 		return '';
 	}
-	code(__coder:NodeItem)
+	code(__coder:NodeItem, _options: Sidekick)
 	{
 		
 	}

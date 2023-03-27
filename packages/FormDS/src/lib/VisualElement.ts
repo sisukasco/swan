@@ -1,5 +1,4 @@
 import DElement from "../elements/DElement";
-import { NodeItem} from "@sisukas/coder-interface";
 import "reflect-metadata";
 import {Exclude} from "class-transformer";
 import ElementTX from "./ElementTX";
@@ -83,19 +82,6 @@ export default class VisualElement
 		});
 	}
 	
-	smaller()
-	{
-		this.elmnt.smaller();
-	}
-	larger()
-	{
-		this.elmnt.larger();
-	}
 	
-	code(node:NodeItem)
-	{
-		//const coder = node.section('layout.col', {width:this.elmnt.width});
-		this.elmnt.code(node);
-	}
 
 }

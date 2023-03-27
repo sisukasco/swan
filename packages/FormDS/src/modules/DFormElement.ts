@@ -39,42 +39,6 @@ abstract class DFormElement extends DElement
         return this.validations.enabled_validations();
     }
 
-    public getValidationType()
-    {
-        return("string()");
-    }
-    
-    public get validation_code():string
-    {
-        let validations=''
-        for(let validn of this.enabled_validations)
-        {
-            const v_code = validn.getValidatorCode();
-            if(v_code)
-            {
-                validations += '.'+v_code;
-            }
-        }
-        if(validations.length > 0)
-        {
-            return(`boel.field("${this.name}")`+validations)
-        }
-        return('');
-    }
-    public getConverterCode():string|null
-    {
-        return null;
-    }
-
-    public get converter_code():string
-    {
-        let code = this.getConverterCode();
-        if(code)
-        {
-            return(`urge.field("${this.name}")`+code);
-        }
-        return('');
-    }
 }
 
 export default DFormElement;

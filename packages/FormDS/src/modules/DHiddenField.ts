@@ -2,6 +2,7 @@
 import DFormElement from "./DFormElement";
 import {NodeItem} from "@sisukas/coder-interface";
 import { ExcludeDefault } from "../lib/TxUtils";
+import { Sidekick } from '../coder/Sidekick';
 
 class HiddenFieldSettings
 {
@@ -24,7 +25,7 @@ class DHiddenField extends DFormElement
 	{
 		return this.settings.value;
     }
-    public code(coder:NodeItem)
+    public code(coder:NodeItem, _sidekick: Sidekick )
     {
         coder.startTag('input',{type:'hidden', name:this.name, value:this.settings.value});
     }

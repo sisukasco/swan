@@ -17,7 +17,6 @@ class DDummy extends DElement
     public code(coder:NodeItem)
     {
         coder.startTag('div', {name:this.name, class:['dummy']});
-        
     }
 }
 

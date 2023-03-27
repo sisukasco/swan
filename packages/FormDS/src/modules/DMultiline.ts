@@ -5,8 +5,8 @@ import {MultilineValidations} from "../containers";
 import { ExcludeDefault } from "../lib/TxUtils";
 import "reflect-metadata"; 
 import {Type} from "class-transformer";
-import { NodeItem } from "@sisukas/coder-interface";
-import {InputAttributes } from "./attribs";
+import { NodeItem, Attributes } from "@sisukas/coder-interface";
+import { Sidekick } from '../coder/Sidekick';
 
 class MultilineSettings
 {
@@ -37,16 +37,19 @@ export default class DMultiline extends DFormElement
         return this.settings.default_value;
     }
 
-    public code(node:NodeItem)
+    public code(coder:NodeItem, sidekick: Sidekick)
     {
-        const container = node.section('form.input.container', {type: this.type, width: this.width});
+        const container = coder.startTag('div', {class: sidekick.css.inputContainerClasses(this.width)})
 
         if(this.hasLabel()){
-            container.section('form.input.label', {'for':this.name}).html(this.label);
+            container
+              .startTag('label', { for: this.name, class: sidekick.css.labelClasses() })
+              .html(this.label);
         }
 
-        const attrs:InputAttributes = {
+        const attrs:Attributes = {
             name:this.name,
+            class: sidekick.css.inputClasses(),
             id:this.name,
             rows: String(this.settings.num_rows)
         }
@@ -65,9 +68,7 @@ export default class DMultiline extends DFormElement
             attrs['minlength'] = String(this.validations.minlength.size)
         }
 
-        container.section('form.input.textarea',attrs);
-        
-        container.section('form.input.error',{name:this.name});
+        container.startTag('textarea',attrs)
         
     }
 }

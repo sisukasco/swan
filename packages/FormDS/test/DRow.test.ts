@@ -1,6 +1,6 @@
 import {DRow, VisualElement} from "../src/lib";
 import {factory} from "../src/lib";
-import {generateCode} from "@sisukas/coder"
+import { generateHTMLCode } from './../src/coder/CodeGen';
 
 function newVisualElement(){
     const newElemt = factory.makeObject("Textbox");
@@ -11,11 +11,9 @@ describe("DRow", () => {
     it("row001: returns an empty array if all elements fit within the row width", () => {
       const row = new DRow();
       const v1 = newVisualElement();
-      v1.smaller()
-      v1.smaller()
+      v1.setWidth(50)
       const v2 = newVisualElement();
-      v2.smaller()
-      v2.smaller()
+      v2.setWidth(50)
       row.push([v1, v2]);
 
       const result = row.getOverflowingItems();
@@ -26,10 +24,9 @@ describe("DRow", () => {
     it("row002: returns an array with elements that exceed the row width", () => {
       const row = new DRow();
       const v1 = newVisualElement();
-      v1.smaller()
-      v1.smaller()
+      v1.setWidth(50)
       const v2 = newVisualElement();
-      v1.smaller()
+      v2.setWidth(75)
       
       row.push([v1, v2]);
 
@@ -41,10 +38,9 @@ describe("DRow", () => {
     it("row003: removes overflowing elements from the row", () => {
       const row = new DRow();
       const v1 = newVisualElement();
-      v1.smaller()
-      v1.smaller()
+      v1.setWidth(50)
       const v2 =  newVisualElement();
-      v1.smaller()
+      v2.setWidth(75)
       row.push([v1, v2]);
 
       row.getOverflowingItems();
@@ -84,7 +80,7 @@ describe("DRow", () => {
   });
 
   describe("findElement", () => {
-    it("row1001: returns true if an element with the given ID exists in the row", () => {
+    it("row1001: returns >= 0 if an element with the given ID exists in the row", () => {
       const row = new DRow();
       const v1 = newVisualElement();
       const v2 = newVisualElement();
@@ -92,22 +88,22 @@ describe("DRow", () => {
 
       const result = row.findElement(v2);
 
-      expect(result).toBe(true);
+      expect(result).toBeGreaterThanOrEqual(0)
     });
 
-    it("row1002: returns false if an element with the given ID does not exist in the row", () => {
+    it("row1002: returns -1 if an element with the given ID does not exist in the row", () => {
       const row = new DRow();
       const v1 = newVisualElement();
       const v2 = newVisualElement();
       row.push([v1]);
 
-      expect(row.findElement(v2)).toBe(false);
+      expect(row.findElement(v2)).toBe(-1);
 
-      expect(row.findElement(v1)).toBe(true);
+      expect(row.findElement(v1)).toBeGreaterThanOrEqual(0)
 
       row.push([v2]);
 
-      expect(row.findElement(v2)).toBe(true);      
+      expect(row.findElement(v2)).toBeGreaterThanOrEqual(0)
 
     });
   });
@@ -145,9 +141,8 @@ describe("DRow", () => {
       const row = new DRow();
       const v1 = newVisualElement();
       row.push([v1]);
-      const genCode = generateCode(row,{framework:"bootstrap"})
 
-      const code = genCode.getHTMLCode(false)
+      const code = generateHTMLCode(row, {cssFramework:"bootstrap"})
 
       expect(code).toContain(v1.elmnt.name)
       expect(code).not.toContain("r-show")
@@ -159,9 +154,8 @@ describe("DRow", () => {
       row.condition = "enable_address";
       const v1 = newVisualElement();
       row.push([v1]);
-      const genCode = generateCode(row,{framework:"bootstrap"})
-
-      const code = genCode.getHTMLCode(false)
+      
+      const code = generateHTMLCode(row, {cssFramework:"bootstrap"})
 
       expect(code).toContain('r-show="enable_address"')
       expect(code).toContain(v1.elmnt.name)
@@ -173,11 +167,9 @@ describe("DRow", () => {
     it("row3003: does not generate any HTML code when the row has no elements", () => {
       const row = new DRow();
       
-      const genCode = generateCode(row,{framework:"bootstrap"})
-    
-      const code = genCode.getHTMLCode(false)
+      const code = generateHTMLCode(row, {cssFramework:"bootstrap"}).trim()
 
-      console.log("generated code ", code)
+      console.log("generated code|%s| ", code)
 
       expect(code).toBe('')
       //expect(node.generate()).toEqual(undefined);

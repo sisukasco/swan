@@ -3,9 +3,9 @@ import DFormElement from "./DFormElement";
 import {PhoneValidations} from "../containers"
 import "reflect-metadata"; 
 import {Type} from "class-transformer";
-import {NodeItem} from "@sisukas/coder-interface";
+import {NodeItem, Attributes} from "@sisukas/coder-interface";
 import { ExcludeDefault } from "../lib/TxUtils";
-import {InputAttributes } from "./attribs";
+import { Sidekick } from '../coder/Sidekick';
 
 class DPhoneSettings
 {
@@ -29,16 +29,19 @@ class DPhone extends DFormElement
         return '';
     }
 
-    public code(coder:NodeItem)
+    public code(coder:NodeItem, sidekick: Sidekick)
     {
-        const container = coder.section('form.input.container');
+        const container = coder.startTag('div', {class: sidekick.css.inputContainerClasses(this.width)})
 
         if(this.hasLabel()){
-            container.section('form.input.label', {'for':this.name}).html(this.label);
+            container
+              .startTag('label', { for: this.name, class: sidekick.css.labelClasses() })
+              .html(this.label);
         }
         
-        const attrs:InputAttributes ={
+        const attrs:Attributes ={
             type:'tel', 
+            class: sidekick.css.inputClasses(),
             name:this.name,
             id:this.name
         }
@@ -57,11 +60,7 @@ class DPhone extends DFormElement
             attrs['minlength'] = String(this.validations.minlength.size)
         }
 
-        container.section('form.input.input',attrs);
-
-        
-
-        container.section('form.input.error',{name:this.name});
+        container.startTag('input',attrs)
     }
 }
  

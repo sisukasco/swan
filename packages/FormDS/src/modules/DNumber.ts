@@ -4,9 +4,9 @@ import {NumberValidations} from "../containers";
 
 import "reflect-metadata"; 
 import {Type} from "class-transformer";
-import {NodeItem} from "@sisukas/coder-interface";
+import {NodeItem, Attributes} from "@sisukas/coder-interface";
 import { ExcludeDefault } from "../lib/TxUtils";
-import {InputAttributes } from "./attribs";
+import { Sidekick } from '../coder/Sidekick';
 
 class NumberSettings
 {
@@ -49,16 +49,19 @@ class DNumber extends DFormElement
     }
 
 
-    public code(coder:NodeItem)
+    public code(coder:NodeItem, sidekick: Sidekick)
     {
-        const container = coder.section('form.input.container', { width: this.width});
+        const container = coder.startTag('div', {class: sidekick.css.inputContainerClasses(this.width)})
 
         if(this.hasLabel()){
-            container.section('form.input.label', {'for':this.name}).html(this.label);
+            container
+              .startTag('label', { for: this.name, class: sidekick.css.labelClasses() })
+              .html(this.label);
         }
         
-        const attrs:InputAttributes = {
+        const attrs:Attributes = {
             type:'number', 
+            class: sidekick.css.inputClasses(),
             name:this.name,
             id:this.name,
         }
@@ -79,8 +82,7 @@ class DNumber extends DFormElement
             attrs['max'] = String(this.validations.max.num)
         }
 
-        container.section('form.input.input',attrs);
-        container.section('form.input.error',{name:this.name});
+        container.startTag('input',attrs)
     }
 }
  

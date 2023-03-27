@@ -1,2 +1,2 @@
 export {generateCode} from "./Coder"
-export {ICodegenOptions, IGeneratedCode, CSSFramework} from "./types"
+export {IGeneratedCode, CSSFramework} from "./types"

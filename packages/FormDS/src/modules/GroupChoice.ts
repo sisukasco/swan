@@ -1,57 +1,74 @@
-import DRadioButton from "./DRadioButton";
-import DCheckboxGroup from "./DCheckboxGroup";
+import DRadioButton from './DRadioButton';
+import DCheckboxGroup from './DCheckboxGroup';
+import { Sidekick } from '../coder/Sidekick';
 
-import { NodeItem } from "@sisukas/coder-interface";
+import { NodeItem } from '@sisukas/coder-interface';
 
-interface ChoiceItem
-{
-    name:string;
-    value?:string;
+interface ChoiceItem {
+  name: string;
+  value?: string;
 }
 
+export default class GroupChoice {
+  constructor(
+    private elmnt: DCheckboxGroup | DRadioButton,
+    private type: 'checkbox' | 'radio'
+  ) {}
+  code(coder: NodeItem, sidekick: Sidekick) {
+    const container = coder.startTag('div', {
+      class: sidekick.css.inputContainerClasses(this.elmnt.width),
+    });
 
-export default class GroupChoice
-{
-    constructor(private elmnt:DCheckboxGroup|DRadioButton, private type:"checkbox"|"radio") 
-    {
-        
-    }
-    code(node:NodeItem)
-    {
-        const container = node.section('form.input.container', { width: this.elmnt.width});
-        container.section('form.group.label').html(this.elmnt.label);
-
-        let gcontainer = container.section('form.group.container', 
-        { arrangement: this.elmnt.settings.arrangement});
-
-        for(let i=0;i<this.elmnt.settings.items.length;i++)
-        {
-            this.item_code(this.elmnt.settings.items[i],i, gcontainer);
-        }
-        gcontainer.section('form.input.error',{name:this.elmnt.name});
-
-        node.style(this.style());
+    if (this.elmnt.label && this.elmnt.label.trim().length > 0) {
+      container.startTag('label').html(this.elmnt.label);
     }
 
-    private item_code(item:ChoiceItem,idx:number, container:NodeItem)
-    {
-        let id = this.elmnt.name+'_'+idx;
-        let value = item.value?item.value:item.name;
+    let gcontainer = container.startTag('div', {
+      class: sidekick.css.groupContainerClasses(
+        this.elmnt.settings.arrangement
+      ),
+    });
 
-        let item_container = 
-        container.section('form.group.item.container',{ arrangement: this.elmnt.settings.arrangement });
-
-        item_container
-            .section('form.input.input', {type:this.type, name:this.elmnt.name,value, id});
-        
-        item_container.section('form.input.label', {type:"checkbox", "for":id} ).html(item.name);
+    for (let i = 0; i < this.elmnt.settings.items.length; i++) {
+      this.item_code(this.elmnt.settings.items[i], i, gcontainer, sidekick);
     }
 
+    coder.style(this.style());
+  }
 
-    public style()
-    {
-        return(
-            `.sim-group-label
+  private item_code(
+    item: ChoiceItem,
+    idx: number,
+    container: NodeItem,
+    sidekick: Sidekick
+  ) {
+    let id = this.elmnt.name + '_' + idx;
+    let value = item.value ? item.value : item.name;
+
+    let item_container = container.startTag('div', {
+      class: sidekick.css.groupItemContainerClasses(
+        this.elmnt.settings.arrangement
+      ),
+    });
+
+    item_container.startTag('input', {
+      type: this.type,
+      name: this.elmnt.name,
+      value,
+      id,
+      class: sidekick.css.inputCheckboxClasses(),
+    });
+
+    item_container
+      .startTag('label', {
+        class: sidekick.css.labelCheckboxClasses(),
+        for: id,
+      })
+      .html(item.name);
+  }
+
+  public style() {
+    return `.sim-group-label
             {
                 display:block;
             }
@@ -62,7 +79,6 @@ export default class GroupChoice
             .sim-group-item.form-check-inline
             {
                 margin-right:1rem;
-            }`       
-        );
-    }
+            }`;
+  }
 }

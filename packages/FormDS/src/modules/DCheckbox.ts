@@ -3,8 +3,9 @@ import DFormElement from "./DFormElement";
 import {CheckboxValidations} from "../containers";
 import "reflect-metadata"; 
 import {Type} from "class-transformer";
-import { NodeItem } from "@sisukas/coder-interface";
+import { NodeItem, Attributes } from "@sisukas/coder-interface";
 import { ExcludeDefault } from "../lib/TxUtils";
+import { Sidekick } from '../coder/Sidekick';
 
 class CheckboxSettings
 {
@@ -29,23 +30,21 @@ class DCheckbox extends DFormElement
         return null;
     }
 
-    public code(node:NodeItem)
+    public code(coder:NodeItem, sidekick: Sidekick)
     {
-        const container = node.section('form.input.container', {type: this.type, width: this.width});
+        const container = coder.startTag('div', {class: [...sidekick.css.inputContainerClasses(this.width),
+            ...sidekick.css.flexAlignmentClasses("")] })
 
         const inside = container.startTag("div")
-        inside.section('form.input.input', {type:"checkbox", name:this.name, id:this.name});
+        const attrs:Attributes= {
+            type:"checkbox", 
+            class: sidekick.css.inputCheckboxClasses(),
+            name:this.name, 
+            id:this.name
+        }
+        inside.startTag('input', attrs)
 
-        inside.section('form.input.label', 
-        {type:"checkbox","for":this.name} )
-        .html(this.label);
-        inside.section('form.input.error',{name:this.name});
-        
+        inside.startTag('label', {"for":this.name, class: sidekick.css.labelCheckboxClasses()}).html(this.label)
     }
-    public getConverterCode()
-    {
-        return(".defaultTo(false)");
-    }
-
     
 }

@@ -23,17 +23,10 @@ class HNode implements NodeItem
         this.children = children;
     }
 
-    public section(section_name:string,attributes:Attributes={})
-    {
-        let node = this.context.builder.makeSection(section_name, attributes);
-        
-        this.children.push(node);
-        return node;
-    }
-
     public startTag(tag_name:string,attributes:Attributes={})
     {
-        let node = this.context.builder.makeNodeItem(tag_name,attributes);
+        const node = new HNode(this.context,tag_name,attributes);
+
         this.children.push(node);
         return node;
     }

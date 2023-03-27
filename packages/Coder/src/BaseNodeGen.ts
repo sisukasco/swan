@@ -47,6 +47,9 @@ class BaseNodeGen
             let actual:any = '';
             if(name == 'class' && Array.isArray(value))
             {
+                if(value.length <= 0){
+                    continue; //skip if class array is empty
+                }
                 actual = value.join(' ');
             }
             else if(name=='style' && typeof value === 'object' && value !== null)
