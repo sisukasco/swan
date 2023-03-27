@@ -156,7 +156,7 @@ test("CONTAINER007: clone element eventually causing row overflow ", ()=>{
 
     let container = new DElementContainer();
 
-    container.setColCount(4)
+    container.setColCount(4); // meaning element is 25%
 
     for(let i=0;i<5;i++){
         const newElemt = factory.makeObject("Textbox");
@@ -165,11 +165,10 @@ test("CONTAINER007: clone element eventually causing row overflow ", ()=>{
 
     expect(container.numRows()).toBe(5)
 
-    container.makeElementSmaller(1,0)
-    container.makeElementSmaller(1,0) // width = 50%
-
     container.clone(container.elementAt(1,0));
-    container.clone(container.elementAt(1,0))
+    container.clone(container.elementAt(1,0));
+    container.clone(container.elementAt(1,0));
+    container.clone(container.elementAt(1,0));
     
 
     expect(container.numRows()).toBe(6)
@@ -185,12 +184,10 @@ test("CONTAINER008: serialization and deserialization ", ()=>{
         container.addElements([newElemt]);
     }
     
-    container.makeElementSmaller(1,0)
-    container.makeElementSmaller(1,0) // width = 50%
-
-
     container.clone(container.elementAt(1,0));
-    container.clone(container.elementAt(1,0))
+    container.clone(container.elementAt(1,0));
+    container.clone(container.elementAt(1,0));
+    container.clone(container.elementAt(1,0));
     
     const strContainer = serialize(container)
 

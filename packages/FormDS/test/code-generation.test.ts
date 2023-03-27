@@ -7,7 +7,7 @@ test("GENCODE101: generate element container code", ()=>{
     container.add("Textbox");
 
 
-    const code = generateHTMLCode(container, {cssFramework:"bootstrap"})
+    const code = generateHTMLCode(container, {cssFramework:"bootstrap", breakpoint:"md"})
 
     console.log("generated code ", code)
     //expect(code).toBe('<div class="container"><div class="row mb-3"><div class="col-12"><div class="sim-textblock">The contents of the text block</div></div></div><div class="row mb-3"><div class="col-12"><div class="sim-textblock">The contents of the text block</div></div></div></div>')

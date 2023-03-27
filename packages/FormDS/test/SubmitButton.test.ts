@@ -8,7 +8,7 @@ test('BUTTON001: code generation bootstrap',()=>
     button.settings.label = "Submit"
     button.settings.alignment = "right"
     
-    const code = generateHTMLCode(button, {cssFramework:"bootstrap"})
+    const code = generateHTMLCode(button, {cssFramework:"bootstrap", breakpoint:"md"})
 
     expect(code).toContain(`type="submit"`)
 
@@ -22,7 +22,7 @@ test('BUTTON002: code generation tailwind',()=>
     button.settings.label = "Submit"
     button.settings.alignment = "right"
     
-    const code = generateHTMLCode(button, {cssFramework:"tailwind"})
+    const code = generateHTMLCode(button, {cssFramework:"tailwind", breakpoint:"md"})
 
    // expect(code).toContain(`type="submit"`)
 

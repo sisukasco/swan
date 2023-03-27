@@ -8,7 +8,7 @@ test('LABEL001: code generation bootstrap',()=>
     label.settings.content = "My Label";
     label.settings.alignment = "left"
     
-    const code = generateHTMLCode(label, {cssFramework:"bootstrap"})
+    const code = generateHTMLCode(label, {cssFramework:"bootstrap", breakpoint:"md"})
 
     expect(code).toContain("<label>My Label</label>")
 
@@ -22,7 +22,7 @@ test('LABEL002: code generation tailwind',()=>
     label.settings.content = "My Label";
     label.settings.alignment = "left"
     
-    const code = generateHTMLCode(label, {cssFramework:"tailwind"})
+    const code = generateHTMLCode(label, {cssFramework:"tailwind", breakpoint:"md"})
 
     expect(code).toContain("<label>My Label</label>")
 

@@ -10,7 +10,7 @@ test('HEADING001: code generation bootstrap',()=>
     heading.settings.type = "h3";
 
 
-    const code = generateHTMLCode(heading, {cssFramework:"bootstrap"})
+    const code = generateHTMLCode(heading, {cssFramework:"bootstrap", breakpoint:"md"})
 
     expect(code).toContain("<h3>My Heading</h3>")
 
@@ -25,7 +25,7 @@ test('HEADING002: code generation tailwind',()=>
     heading.settings.type = "h3";
 
 
-    const code = generateHTMLCode(heading, {cssFramework:"tailwind"})
+    const code = generateHTMLCode(heading, {cssFramework:"tailwind", breakpoint:"md"})
 
     expect(code).toContain(`<h3 class="text-xl">My Heading</h3>`)
 
@@ -41,7 +41,7 @@ test('HEADING003: code generation text align bootstrap',()=>
     heading.settings.alignment = "right"
 
 
-    const code = generateHTMLCode(heading, {cssFramework:"bootstrap"})
+    const code = generateHTMLCode(heading, {cssFramework:"bootstrap", breakpoint:"md"})
 
     expect(code).toContain("text-end")
 

@@ -67,13 +67,8 @@ export class DElementContainer
     
     public addElements(elemnts:DElement[])
     {
-        for(const elmnt of elemnts)
-        {
-            this.baptise(elmnt);
-            let new_v_elmnt = new VisualElement(elmnt); 
-
-            this.current_page.push(new_v_elmnt)
-        }
+        const velements = this.make_visual_elements(elemnts)
+        this.current_page.pushToRow(this.current_page.numRows(),velements)
     }
     
     public add(type:string) 
@@ -83,34 +78,28 @@ export class DElementContainer
         this.current_page.push(new_v_elmnt)
         return new_v_elmnt;
     }
-    public insert(current_elmnt:VisualElement|null,type:string,packed:Boolean=false)
+
+    private make_visual_elements(elemnts: DElement[]):VisualElement[]{
+        let velmnts:VisualElement[] = [] 
+        for(let e=0;e<elemnts.length;e++)
+            {
+                elemnts[e].setWidth(this.current_page.decrWidth)
+                this.baptise(elemnts[e]);
+                let new_v_elmnt = new VisualElement(elemnts[e]); 
+                velmnts.push(new_v_elmnt)
+            } 
+        return velmnts;
+    }
+    public insert(elemnts: DElement[])
     {
-        let current_row =-1;
-        if(current_elmnt)
-        {
-            current_row = this.find_row(current_elmnt);
+        const pos = this.current_page.find_selected_element_pos()
+        if(pos){
+            this.current_page.insertAt(pos.row,pos.col+1, this.make_visual_elements(elemnts));
+        }else{
+            this.addElements(elemnts)
         }
-        if(current_row >= 0)
-        {
-            if(packed)
-            {
-                let new_v_elmnt =  this.make_new(type, current_row);
-                this.current_page.pushToRow(current_row,[new_v_elmnt] )
-                //need to normalize after completing the edits
-                return new_v_elmnt;
-            }
-            else
-            {
-                let new_v_elmnt =  this.make_new(type, current_row+1);
-                this.current_page.pushToRow(current_row+1, [new_v_elmnt])
-                return new_v_elmnt;
-            }
-            
-        }
-        else
-        {
-            return this.add(type);
-        }
+        this.normalize_elements();
+
     }
     public normalize_elements() 
     {
