@@ -1,13 +1,11 @@
+import { Attributes } from '@sisukas/coder-interface';
 import DRadioButton from './DRadioButton';
 import DCheckboxGroup from './DCheckboxGroup';
 import { Sidekick } from '../coder/Sidekick';
 
 import { NodeItem } from '@sisukas/coder-interface';
+import DItem from "./DItem";
 
-interface ChoiceItem {
-  name: string;
-  value?: string;
-}
 
 export default class GroupChoice {
   constructor(
@@ -37,7 +35,7 @@ export default class GroupChoice {
   }
 
   private item_code(
-    item: ChoiceItem,
+    item: DItem,
     idx: number,
     container: NodeItem,
     sidekick: Sidekick
@@ -51,13 +49,20 @@ export default class GroupChoice {
       ),
     });
 
-    item_container.startTag('input', {
+    const attrs:Attributes = {
       type: this.type,
       name: this.elmnt.name,
       value,
       id,
       class: sidekick.css.inputCheckboxClasses(),
-    });
+    }
+
+    if(item.rvalue){
+      attrs["r-value"] = item.rvalue
+    }
+    
+
+    item_container.startTag('input', attrs);
 
     item_container
       .startTag('label', {
