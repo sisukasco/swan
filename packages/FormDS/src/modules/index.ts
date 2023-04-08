@@ -18,6 +18,7 @@ import DDate from "./DDate";
 import DRange from "./DRange";
 import DDateTime from './DDateTime';
 import DColor from './DColor';
+import DPassword from "./DPassword";
 import {IGroupItemSettings} from "./IGroupItemSettings"
 
 export {
@@ -44,6 +45,7 @@ export {
     DRange,
     DDateTime,
     DColor,
+    DPassword,
 }
 
 type modulemap = 
@@ -71,6 +73,7 @@ let modules:modulemap =
     DRange,
     DDateTime,
     DColor,
+    DPassword,
 }
 
 export default modules;

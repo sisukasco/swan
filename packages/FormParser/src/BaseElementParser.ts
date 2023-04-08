@@ -39,6 +39,7 @@ export function parseElementType(e:HTMLElement)
             color: "Color",
             date: "Date",
             "datetime-local": "DateTime",
+            password: "Password",
         }
         //default type is text if none of the types match
         type = "Textbox";

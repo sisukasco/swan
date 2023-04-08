@@ -359,3 +359,39 @@ test("FORM109: parsing color field",()=>
   console.log("form settings ", serialize(fs))
   
 })
+
+
+test("FORM110: parsing password field",()=>
+{
+    document.body.innerHTML =`
+    <form id="myform">
+        <div >
+            <label for="password_field">Password</label>
+            <input type="password"  
+            id="password_field" name="password" >
+        </div>
+        <div >
+            <label for="weight_field">Weight</label>
+            <input type="range"  
+            id="weight_field" name="weight" >
+        </div> 
+        <div >
+            <label for="url_field">URL</label>
+            <input type="url"  
+                id="url_field" name="site_addr" >
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+  `
+  const form = <HTMLFormElement>$("#myform")[0]
+  const fp = new FormParser(form);
+  const fs = fp.parse()
+  expect(fs.fields[0].type).toBe("Password")
+  expect(fs.fields[0].name).toBe("password")
+  expect(fs.fields[0].label).toBe("Password")
+  
+
+  
+  console.log("form settings ", serialize(fs))
+  
+})

@@ -15,6 +15,7 @@ import DateValidations from './DateValidations';
 import DateTimeValidations from './DateTimeValidations';
 import RangeValidations from './RangeValidations';
 import ColorValidations from './ColorValidations';
+import PasswordValidations from "./PasswordValidations";
 
 export
 {
@@ -33,5 +34,6 @@ export
     DateValidations,
     DateTimeValidations,
     RangeValidations,
-    ColorValidations
+    ColorValidations,
+    PasswordValidations
 }
