@@ -13,6 +13,7 @@ import {RangeFieldParser} from "./RangeFieldParser";
 import {ColorFieldParser} from "./ColorFieldParser";
 import {DateFieldParser} from "./DateFieldParser";
 import {DateTimeParser} from "./DateTimeParser";
+import {PasswordFieldParser} from "./PasswordFieldParser";
 
 import {parseElementName, parseElementType} from "./BaseElementParser";
 import { serialize } from '@sisukas/form-ds';
@@ -155,6 +156,10 @@ export class FormParser{
                 
             case "URL":
                 parser = new URLFieldParser(e);
+                break;
+                
+            case "Password":
+                parser = new PasswordFieldParser(e);
                 break;
        }
        
