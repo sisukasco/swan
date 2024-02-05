@@ -4,7 +4,7 @@ import DPage from "./DPage";
 import DElement from '../elements/DElement';
 import "reflect-metadata";
 import {Exclude, Type} from "class-transformer";
-import {classToClass} from "class-transformer";
+import {instanceToInstance} from "class-transformer";
 import DRow from "./DRow"
 import { Sidekick } from '../coder/Sidekick';
 import { NodeItem} from "@sisukas/coder-interface";
@@ -160,7 +160,7 @@ export class DElementContainer
     {
         let r = this.find_row(v_elmnt);
 
-        let elmnt_clone = classToClass(v_elmnt.elmnt)
+        let elmnt_clone = instanceToInstance(v_elmnt.elmnt)
         if(!elmnt_clone)
         {
             throw new Error("Cloned element is null!")
