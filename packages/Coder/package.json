@@ -1,6 +1,6 @@
 {
   "name": "@sisukas/coder",
-  "version": "1.1.15",
+  "version": "1.2.0",
   "license": "LGPL-2.1-or-later",
   "main": "dist/coder.cjs",
   "module": "dist/coder.mjs",
@@ -27,7 +27,7 @@
   },
   "dependencies": {
     "@f/to-inline-style": "^0.1.4",
-    "@sisukas/coder-interface": "workspace:^",
+    "@sisukas/coder-interface": "^0.2.0",
     "lodash.mergewith": "^4.6.2",
     "xss": "^1.0.9"
   }

@@ -1,16 +1,17 @@
 {
   "name": "swan",
-  "version": "1.0.0",
+  "version": "1.2.0",
   "description": "",
   "main": "index.js",
   "scripts": {
     "build-ci": "pnpm --filter @sisukas/coder-interface build",
     "build-co": "pnpm --filter @sisukas/coder build",
     "build-ds": "pnpm --filter @sisukas/form-ds build",
-    "build-fp": "pnpm --filter @sisukas/form-parser build"
+    "build-fp": "pnpm --filter @sisukas/form-parser build",
+    "build-all": "pnpm run -r build"
   },
   "keywords": [],
-  "author": "prasanthmj",
+  "author": "Prasanth Janardhanan",
   "license": "ISC",
   "devDependencies": {
     "@types/lodash": "^4.14.202"
