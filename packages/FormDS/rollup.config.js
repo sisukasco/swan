@@ -4,6 +4,7 @@ import peerDepsExternal from 'rollup-plugin-peer-deps-external';
 import json from '@rollup/plugin-json';
 import { nodeResolve } from '@rollup/plugin-node-resolve';
 import commonjs from '@rollup/plugin-commonjs';
+import nodePolyfills from 'rollup-plugin-polyfill-node';
 
 import packageJson from './package.json' assert { type: 'json' };
 
@@ -31,6 +32,7 @@ export default [
         requireReturnsDefault: 'auto',
       }),
       typescript({ exclude: ['**/__tests__', '**/*.test.ts'] }),
+      nodePolyfills(),
     ],
   },
   {
