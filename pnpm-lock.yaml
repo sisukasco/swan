@@ -18,7 +18,7 @@ importers:
         specifier: ^0.1.4
         version: 0.1.4
       '@sisukas/coder-interface':
-        specifier: workspace:^
+        specifier: workspace:*
         version: link:../CoderInterface
       lodash.mergewith:
         specifier: ^4.6.2
@@ -88,10 +88,10 @@ importers:
   packages/FormDS:
     dependencies:
       '@sisukas/coder':
-        specifier: workspace:^
+        specifier: workspace:*
         version: link:../Coder
       '@sisukas/coder-interface':
-        specifier: workspace:^
+        specifier: workspace:*
         version: link:../CoderInterface
       class-transformer:
         specifier: ^0.5.1
@@ -99,6 +99,9 @@ importers:
       reflect-metadata:
         specifier: ^0.2.1
         version: 0.2.1
+      rollup-plugin-polyfill-node:
+        specifier: ^0.13.0
+        version: 0.13.0(rollup@4.9.6)
       uniqid:
         specifier: ^5.4.0
         version: 5.4.0
@@ -140,7 +143,7 @@ importers:
   packages/FormParser:
     dependencies:
       '@sisukas/form-ds':
-        specifier: workspace:^
+        specifier: workspace:*
         version: link:../FormDS
       '@sisukas/jquery':
         specifier: ^3.6.0
@@ -241,7 +244,6 @@ packages:
 
   /@jridgewell/sourcemap-codec@1.4.15:
     resolution: {integrity: sha512-eF2rxCRulEKXHTRiDrDy6erMYWqNw4LPdQ8UQA4huuxaQsVeRPFl2oM8oDGxMFhJUWZf9McpLtJasDDZb/Bpeg==}
-    dev: true
 
   /@rollup/plugin-commonjs@25.0.7(rollup@4.9.6):
     resolution: {integrity: sha512-nEvcR+LRjEjsaSsc4x3XZfCCvZIaSMenZu/OiwOKGN2UhQpAYI7ru7czFvyWbErlpoGjnSX3D5Ch5FcMA3kRWQ==}
@@ -260,6 +262,21 @@ packages:
       magic-string: 0.30.6
       rollup: 4.9.6
     dev: true
+
+  /@rollup/plugin-inject@5.0.5(rollup@4.9.6):
+    resolution: {integrity: sha512-2+DEJbNBoPROPkgTDNe8/1YXWcqxbN5DTjASVIOx8HS+pITXushyNiBV56RB08zuptzz8gT3YfkqriTBVycepg==}
+    engines: {node: '>=14.0.0'}
+    peerDependencies:
+      rollup: ^1.20.0||^2.0.0||^3.0.0||^4.0.0
+    peerDependenciesMeta:
+      rollup:
+        optional: true
+    dependencies:
+      '@rollup/pluginutils': 5.1.0(rollup@4.9.6)
+      estree-walker: 2.0.2
+      magic-string: 0.30.6
+      rollup: 4.9.6
+    dev: false
 
   /@rollup/plugin-json@6.1.0(rollup@4.9.6):
     resolution: {integrity: sha512-EGI2te5ENk1coGeADSIwZ7G2Q8CJS2sF120T7jLw4xFw9n7wIOXHo+kIYRAoVpJAN+kmqZSoO3Fp4JtoNF4ReA==}
@@ -325,14 +342,12 @@ packages:
       estree-walker: 2.0.2
       picomatch: 2.3.1
       rollup: 4.9.6
-    dev: true
 
   /@rollup/rollup-android-arm-eabi@4.9.6:
     resolution: {integrity: sha512-MVNXSSYN6QXOulbHpLMKYi60ppyO13W9my1qogeiAqtjb2yR4LSmfU2+POvDkLzhjYLXz9Rf9+9a3zFHW1Lecg==}
     cpu: [arm]
     os: [android]
     requiresBuild: true
-    dev: true
     optional: true
 
   /@rollup/rollup-android-arm64@4.9.6:
@@ -340,7 +355,6 @@ packages:
     cpu: [arm64]
     os: [android]
     requiresBuild: true
-    dev: true
     optional: true
 
   /@rollup/rollup-darwin-arm64@4.9.6:
@@ -348,7 +362,6 @@ packages:
     cpu: [arm64]
     os: [darwin]
     requiresBuild: true
-    dev: true
     optional: true
 
   /@rollup/rollup-darwin-x64@4.9.6:
@@ -356,7 +369,6 @@ packages:
     cpu: [x64]
     os: [darwin]
     requiresBuild: true
-    dev: true
     optional: true
 
   /@rollup/rollup-linux-arm-gnueabihf@4.9.6:
@@ -364,7 +376,6 @@ packages:
     cpu: [arm]
     os: [linux]
     requiresBuild: true
-    dev: true
     optional: true
 
   /@rollup/rollup-linux-arm64-gnu@4.9.6:
@@ -372,7 +383,6 @@ packages:
     cpu: [arm64]
     os: [linux]
     requiresBuild: true
-    dev: true
     optional: true
 
   /@rollup/rollup-linux-arm64-musl@4.9.6:
@@ -380,7 +390,6 @@ packages:
     cpu: [arm64]
     os: [linux]
     requiresBuild: true
-    dev: true
     optional: true
 
   /@rollup/rollup-linux-riscv64-gnu@4.9.6:
@@ -388,7 +397,6 @@ packages:
     cpu: [riscv64]
     os: [linux]
     requiresBuild: true
-    dev: true
     optional: true
 
   /@rollup/rollup-linux-x64-gnu@4.9.6:
@@ -396,7 +404,6 @@ packages:
     cpu: [x64]
     os: [linux]
     requiresBuild: true
-    dev: true
     optional: true
 
   /@rollup/rollup-linux-x64-musl@4.9.6:
@@ -404,7 +411,6 @@ packages:
     cpu: [x64]
     os: [linux]
     requiresBuild: true
-    dev: true
     optional: true
 
   /@rollup/rollup-win32-arm64-msvc@4.9.6:
@@ -412,7 +418,6 @@ packages:
     cpu: [arm64]
     os: [win32]
     requiresBuild: true
-    dev: true
     optional: true
 
   /@rollup/rollup-win32-ia32-msvc@4.9.6:
@@ -420,7 +425,6 @@ packages:
     cpu: [ia32]
     os: [win32]
     requiresBuild: true
-    dev: true
     optional: true
 
   /@rollup/rollup-win32-x64-msvc@4.9.6:
@@ -428,7 +432,6 @@ packages:
     cpu: [x64]
     os: [win32]
     requiresBuild: true
-    dev: true
     optional: true
 
   /@sisukas/jquery@3.6.0:
@@ -437,7 +440,6 @@ packages:
 
   /@types/estree@1.0.5:
     resolution: {integrity: sha512-/kYRxGDLWzHOB7q+wtSUQlFrtcdUccpfy+X+9iMBpHK8QLLhx2wIPYuS5DYtR9Wa/YlZAbIovy7qVdB1Aq6Lyw==}
-    dev: true
 
   /@types/faker@5.5.9:
     resolution: {integrity: sha512-uCx6mP3UY5SIO14XlspxsGjgaemrxpssJI0Ol+GfhxtcKpv9pgRZYsS4eeKeHVLje6Qtc8lGszuBI461+gVZBA==}
@@ -550,7 +552,6 @@ packages:
 
   /estree-walker@2.0.2:
     resolution: {integrity: sha512-Rfkk/Mp/DL7JVje3u18FxFujQlTNR2q6QfMSMB7AvCBx91NGj/ba3kCfza0f6dVDbw7YlRf/nDrn7pQrCCyQ/w==}
-    dev: true
 
   /faker@5.5.3:
     resolution: {integrity: sha512-wLTv2a28wjUyWkbnX7u/ABZBkUkIF2fCd73V6P2oFqEGEktDfzWx4UxrSqtPRw0xPRAcjeAOIiJWqZm3pP4u3g==}
@@ -565,7 +566,6 @@ packages:
     engines: {node: ^8.16.0 || ^10.6.0 || >=11.0.0}
     os: [darwin]
     requiresBuild: true
-    dev: true
     optional: true
 
   /function-bind@1.1.2:
@@ -651,7 +651,6 @@ packages:
     engines: {node: '>=12'}
     dependencies:
       '@jridgewell/sourcemap-codec': 1.4.15
-    dev: true
 
   /minimatch@5.1.6:
     resolution: {integrity: sha512-lKwV/1brpG6mBUFHtb7NUmtABCb2WZZmm2wNiOA5hAb8VdCS4B3dtMWyvcoViccwAW/COERjXLt0zP1zXUN26g==}
@@ -673,7 +672,6 @@ packages:
   /picomatch@2.3.1:
     resolution: {integrity: sha512-JU3teHTNjmE2VCGFzuY8EXzCDVwEqB2a8fsIvwaStHhAWJEeVd1o1QD80CU6+ZdEXXSLbSsuLwJjkCBWqRQUVA==}
     engines: {node: '>=8.6'}
-    dev: true
 
   /reflect-metadata@0.2.1:
     resolution: {integrity: sha512-i5lLI6iw9AU3Uu4szRNPPEkomnkjRTaVt9hy/bn5g/oSzekBSMeLZblcjP74AW0vBabqERLLIrz+gR8QYR54Tw==}
@@ -710,6 +708,15 @@ packages:
       rollup: 4.9.6
     dev: true
 
+  /rollup-plugin-polyfill-node@0.13.0(rollup@4.9.6):
+    resolution: {integrity: sha512-FYEvpCaD5jGtyBuBFcQImEGmTxDTPbiHjJdrYIp+mFIwgXiXabxvKUK7ZT9P31ozu2Tqm9llYQMRWsfvTMTAOw==}
+    peerDependencies:
+      rollup: ^1.20.0 || ^2.0.0 || ^3.0.0 || ^4.0.0
+    dependencies:
+      '@rollup/plugin-inject': 5.0.5(rollup@4.9.6)
+      rollup: 4.9.6
+    dev: false
+
   /rollup@4.9.6:
     resolution: {integrity: sha512-05lzkCS2uASX0CiLFybYfVkwNbKZG5NFQ6Go0VWyogFTXXbR039UVsegViTntkk4OglHBdF54ccApXRRuXRbsg==}
     engines: {node: '>=18.0.0', npm: '>=8.0.0'}
@@ -731,7 +738,6 @@ packages:
       '@rollup/rollup-win32-ia32-msvc': 4.9.6
       '@rollup/rollup-win32-x64-msvc': 4.9.6
       fsevents: 2.3.3
-    dev: true
 
   /supports-color@5.5.0:
     resolution: {integrity: sha512-QjVjwdXIt408MIiAqCX4oUKsgU2EqAGzs2Ppkm4aQYbjm+ZEWEcW4SfFNTr4uMNZma0ey4f5lgLrkB0aX0QMow==}

@@ -1,6 +1,6 @@
 {
   "name": "@sisukas/form-parser",
-  "version": "1.0.19",
+  "version": "1.2.1",
   "license": "LGPL-2.1-or-later",
   "main": "dist/form-parser.cjs",
   "module": "dist/form-parser.mjs",
@@ -10,7 +10,8 @@
     "dist"
   ],
   "scripts": {
-    "build": "rollup --c"
+    "build": "rollup --c",
+    "release": "pnpm publish --access public --no-git-checks"
   },
   "peerDependencies": {
     "@sisukas/jquery": "^3.6.2"
@@ -31,7 +32,7 @@
     "typescript": "^5.3.3"
   },
   "dependencies": {
-    "@sisukas/form-ds": "^1.2.0",
+    "@sisukas/form-ds": "workspace:*",
     "@sisukas/jquery": "^3.6.0",
     "reflect-metadata": "^0.2.1"
   }

@@ -1,6 +1,6 @@
 {
   "name": "@sisukas/coder",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "license": "LGPL-2.1-or-later",
   "main": "dist/coder.cjs",
   "module": "dist/coder.mjs",
@@ -10,7 +10,8 @@
     "dist"
   ],
   "scripts": {
-    "build": "rollup --c"
+    "build": "rollup --c",
+    "release": "pnpm publish --access public --no-git-checks"
   },
   "author": "Prasanth Janardanan",
   "devDependencies": {
@@ -27,7 +28,7 @@
   },
   "dependencies": {
     "@f/to-inline-style": "^0.1.4",
-    "@sisukas/coder-interface": "^0.2.0",
+    "@sisukas/coder-interface": "workspace:*",
     "lodash.mergewith": "^4.6.2",
     "xss": "^1.0.9"
   }

@@ -1,6 +1,6 @@
 {
   "name": "@sisukas/coder-interface",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "license": "LGPL-2.1-or-later",
   "main": "dist/coder-interface.cjs",
   "module": "dist/coder-interface.mjs",
@@ -10,7 +10,8 @@
     "dist"
   ],
   "scripts": {
-    "build": "rollup --c"
+    "build": "rollup --c",
+    "release": "pnpm publish --access public --no-git-checks"
   },
   "author": "Prasanth Janardanan",
   "devDependencies": {

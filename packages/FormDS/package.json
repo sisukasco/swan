@@ -1,6 +1,6 @@
 {
   "name": "@sisukas/form-ds",
-  "version": "1.2.0",
+  "version": "1.4.1",
   "license": "LGPL-2.1-or-later",
   "main": "dist/form-ds.cjs",
   "module": "dist/form-ds.mjs",
@@ -10,7 +10,8 @@
     "dist"
   ],
   "scripts": {
-    "build": "rollup --c"
+    "build": "rollup --c",
+    "release": "pnpm publish --access public --no-git-checks"
   },
   "author": "Prasanth Janardanan",
   "devDependencies": {
@@ -27,8 +28,8 @@
     "typescript": "^5.3.3"
   },
   "dependencies": {
-    "@sisukas/coder": "^1.2.0",
-    "@sisukas/coder-interface": "^0.2.0",
+    "@sisukas/coder": "workspace:*",
+    "@sisukas/coder-interface": "workspace:*",
     "class-transformer": "^0.5.1",
     "reflect-metadata": "^0.2.1",
     "rollup-plugin-polyfill-node": "^0.13.0",
