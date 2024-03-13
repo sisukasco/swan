@@ -1,66 +1,39 @@
 {
   "name": "@sisukas/form-parser",
-  "version": "1.0.19",
+  "version": "1.2.1",
   "license": "LGPL-2.1-or-later",
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
+  "main": "dist/form-parser.cjs",
+  "module": "dist/form-parser.mjs",
+  "types": "dist/form-parser.d.ts",
+  "type": "module",
   "files": [
-    "dist",
-    "src"
+    "dist"
   ],
-  "engines": {
-    "node": ">=10"
-  },
   "scripts": {
-    "start": "tsdx watch",
-    "build": "tsdx build",
-    "test": "tsdx test",
-    "lint": "tsdx lint",
-    "prepare": "tsdx build",
-    "size": "size-limit",
-    "analyze": "size-limit --why",
-    "release": "yarn publish  --access public"
+    "build": "rollup --c",
+    "release": "pnpm publish --access public --no-git-checks"
   },
   "peerDependencies": {
     "@sisukas/jquery": "^3.6.2"
   },
-  "husky": {
-    "hooks": {
-      "pre-commit": "tsdx lint"
-    }
-  },
-  "prettier": {
-    "printWidth": 80,
-    "semi": true,
-    "singleQuote": true,
-    "trailingComma": "es5"
-  },
   "author": "Prasanth Janardanan",
-  "module": "dist/form-parser.esm.js",
-  "size-limit": [
-    {
-      "path": "dist/form-parser.cjs.production.min.js",
-      "limit": "10 KB"
-    },
-    {
-      "path": "dist/form-parser.esm.js",
-      "limit": "10 KB"
-    }
-  ],
   "devDependencies": {
-    "@size-limit/preset-small-lib": "^5.0.1",
+    "@rollup/plugin-commonjs": "^25.0.7",
+    "@rollup/plugin-node-resolve": "^15.2.3",
+    "@rollup/plugin-typescript": "^11.1.6",
+    "rollup-plugin-dts": "^6.1.0",
+    "rollup-plugin-peer-deps-external": "^2.2.4",
+    "@types/node": "^20.11.16",
     "@types/faker": "^5.5.6",
     "@types/sisukas__jquery": "ssh://git@github.com:sisukasco/jQueryTypes.git",
     "faker": "^5.5.3",
     "husky": "^6.0.0",
-    "size-limit": "^5.0.1",
-    "tsdx": "^0.14.1",
-    "tslib": "^2.3.0",
-    "typescript": "^4.3.4"
+    "tslib": "^2.6.2",
+    "typescript": "^5.3.3"
   },
   "dependencies": {
-    "@sisukas/form-ds": "1.3.33",
+    "@sisukas/form-ds": "workspace:*",
     "@sisukas/jquery": "^3.6.0",
-    "reflect-metadata": "^0.1.13"
+    "reflect-metadata": "^0.2.1"
   }
 }
